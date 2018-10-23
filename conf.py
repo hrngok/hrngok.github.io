@@ -103,7 +103,7 @@ NAVIGATION_LINKS = {
         ('/pages/about-me/index.html', 'About me', 'fa fa-user'),
         ('/rss.xml', 'RSS', 'fa fa-rss'),
         #('https://twitter.com/getnikola', 'My Twitter', 'fab fa-twitter'),
-        ('https://github.com/getnikola', 'My Github', 'fab fa-github'),
+        #('https://github.com/getnikola', 'My Github', 'fab fa-github'),
     )
 }
 
