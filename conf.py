@@ -98,9 +98,9 @@ TRANSLATIONS_PATTERN = '{path}.{lang}.{ext}'
 NAVIGATION_LINKS = {
     DEFAULT_LANG: (
         ('/index.html', 'Home', 'fa fa-home'),
+        ('/pages/about-me/index.html', 'About me', 'fa fa-user'),
         ('/archive.html', 'Archives', 'fa fa-folder-open'),
         ('/categories/index.html', 'Tags', 'fa fa-tags'),
-        ('/pages/about-me/index.html', 'About me', 'fa fa-user'),
         ('/rss.xml', 'RSS', 'fa fa-rss'),
         #('https://twitter.com/getnikola', 'My Twitter', 'fab fa-twitter'),
         #('https://github.com/getnikola', 'My Github', 'fab fa-github'),
