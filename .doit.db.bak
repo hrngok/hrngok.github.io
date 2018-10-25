@@ -5,7 +5,7 @@
 'copy_assets:output\\assets\\css\\html4css1.css', (6144, 459)
 'render_site', (6656, 56)
 'copy_assets:output\\assets\\js\\jquery.min.js', (7168, 471)
-'sitemap:output\\sitemapindex.xml', (7680, 257)
+'sitemap:output\\sitemapindex.xml', (7680, 256)
 'render_taxonomies:output\\rss.xml', (145920, 1439)
 'copy_assets:output\\assets\\css\\code.css', (8704, 141)
 'copy_assets:output\\assets\\css\\baguetteBox.min.css', (9216, 472)
