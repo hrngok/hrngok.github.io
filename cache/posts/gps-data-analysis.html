@@ -1209,7 +1209,7 @@ We start from the largest time frame and afterwards analyze the shorter ones. <b
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Splitting-the-data">Splitting the data<a class="anchor-link" href="#Splitting-the-data">&#182;</a></h2><p>Before going deeper in grouping, it would be a good practice to split the data into two part as <strong>weekdays</strong> and <strong>weekend</strong>.</p>
 <p>We know that in general for many people the habits, schedules etc are quite different in these two periods. <br>
-For instance, assume that we wake up around 6am during weekdays and around 9am at weekends, without splitting the data we can calculate the average wakeup time as aproximately 7am. However this is not a good interpretation because we never wake up at 7am during all the period.</p>
+For instance, assume that we wake up around 6am during weekdays and around 9am at weekends (bimodal), without splitting the data we can calculate the average wakeup time as aproximately 7am. However this is not a good interpretation because we never wake up at 7am during all the period.</p>
 <p>If data contains different patterns in different time frames observing data in separatly give us more robust results.</p>
 <p>So let's first split our data as <code>weekdays</code> and <code>weekend</code></p>
 

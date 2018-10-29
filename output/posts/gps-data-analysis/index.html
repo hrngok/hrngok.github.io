@@ -14,6 +14,7 @@
 <link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../rss.xml">
 <link rel="canonical" href="https://example.com/posts/gps-data-analysis/">
 <!--[if lt IE 9]><script src="../../assets/js/html5shiv-printshiv.min.js"></script><![endif]--><meta name="author" content="Harun">
+<link rel="next" href="../yellowbrick/" title="Feature selection by visualization" type="text/html">
 <meta property="og:site_name" content="Data to Wisdom">
 <meta property="og:title" content="GPS Data Analysis">
 <meta property="og:url" content="https://example.com/posts/gps-data-analysis/">
@@ -1325,7 +1326,7 @@ We start from the largest time frame and afterwards analyze the shorter ones. <b
 </h3>
 <p>Before going deeper in grouping, it would be a good practice to split the data into two part as <strong>weekdays</strong> and <strong>weekend</strong>.</p>
 <p>We know that in general for many people the habits, schedules etc are quite different in these two periods. <br>
-For instance, assume that we wake up around 6am during weekdays and around 9am at weekends, without splitting the data we can calculate the average wakeup time as aproximately 7am. However this is not a good interpretation because we never wake up at 7am during all the period.</p>
+For instance, assume that we wake up around 6am during weekdays and around 9am at weekends (bimodal), without splitting the data we can calculate the average wakeup time as aproximately 7am. However this is not a good interpretation because we never wake up at 7am during all the period.</p>
 <p>If data contains different patterns in different time frames observing data in separatly give us more robust results.</p>
 <p>So let's first split our data as <code>weekdays</code> and <code>weekend</code></p>
 
@@ -2650,7 +2651,11 @@ We can also think that it is an off day but the coordinates are not dispersed so
 </div>
 </div>
     </div>
-    <aside class="postpromonav"><nav></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="next">
+                <a href="../yellowbrick/" rel="next" title="Feature selection by visualization">Next post</a>
+            </li>
+        </ul></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
         
         
 

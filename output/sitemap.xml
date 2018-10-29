@@ -15,7 +15,7 @@
  </url>
  <url>
   <loc>https://example.com/archive.html</loc>
-  <lastmod>2018-10-24T10:25:00Z</lastmod>
+  <lastmod>2018-10-29T23:42:00Z</lastmod>
  </url>
  <url>
   <loc>https://example.com/categories/</loc>
@@ -34,7 +34,15 @@
   <lastmod>2018-10-20T16:04:00Z</lastmod>
  </url>
  <url>
+  <loc>https://example.com/posts/feature-selection-by-visualization/</loc>
+  <lastmod>2018-10-29T23:43:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://example.com/posts/gps-data-analysis/</loc>
   <lastmod>2018-10-12T20:33:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://example.com/posts/yellowbrick/</loc>
+  <lastmod>2018-10-29T23:43:00Z</lastmod>
  </url>
 </urlset>
