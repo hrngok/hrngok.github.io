@@ -101,7 +101,7 @@ NAVIGATION_LINKS = {
         ('/pages/about-me/index.html', 'About me', 'fa fa-user'),
         ('/archive.html', 'Archives', 'fa fa-folder-open'),
         ('/categories/index.html', 'Tags', 'fa fa-tags'),
-        ('/rss.xml', 'RSS', 'fa fa-rss'),
+       # ('/rss.xml', 'RSS', 'fa fa-rss'),
         #('https://twitter.com/getnikola', 'My Twitter', 'fab fa-twitter'),
         #('https://github.com/getnikola', 'My Github', 'fab fa-github'),
     )
@@ -849,7 +849,7 @@ IMAGE_FOLDERS = {'images': 'images'}
 # )
 
 # Show teasers (instead of full posts) in indexes? Defaults to False.
-# INDEX_TEASERS = False
+INDEX_TEASERS = True
 
 # HTML fragments with the Read more... links.
 # The following tags exist and are replaced for you:
