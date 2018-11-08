@@ -85,13 +85,12 @@
 <li>Hence, it is expected that most of important events in the city could be detected via monitoring these data.</li>
 </ul>
 <h2 id="Kaggle-terms-for-the-dataset:">Kaggle terms for the dataset:<a class="anchor-link" href="#Kaggle-terms-for-the-dataset:">&#182;</a></h2><ul>
-<li><p>For this competition, the training set is comprised of the first 19 days of each month, while the test set is the 20th to the end of the month.</p>
+<li><p>The training set is comprised of the first <code>19 days</code> of each month, while the test set is the <code>20th</code> to the end of the month.</p>
 </li>
-<li><p>You must predict the total count of bikes rented during each hour covered by the test set, using only information available prior to the rental period.</p>
+<li><p>Predict the <code>total count of bikes rented during each hour</code> covered by the test set, using only <code>information available prior to the rental period</code>.</p>
 </li>
 </ul>
-<p>Data Fields
-Here is the <a href="https://www.kaggle.com/viveksrinivasan/eda-ensemble-model-top-10-percentile/data">Kaggle link for the dataset</a></p>
+<p>Here is the <a href="https://www.kaggle.com/c/bike-sharing-demand/data">Kaggle link for the dataset</a></p>
 
 </div>
 </div>
@@ -302,7 +301,7 @@ memory usage: 1020.6 KB
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Descriptions-of-Some-Data-Fields">Descriptions of Some Data Fields<a class="anchor-link" href="#Descriptions-of-Some-Data-Fields">&#182;</a></h3><ul>
 <li><code>datetime</code> - hourly date + timestamp  </li>
-<li><code>season</code> -  1 = spring, 2 = summer, 3 = fall, 4 = winter </li>
+<li><code>season</code> -  1 = winter, 2 = spring, 3 = summer, 4 = automn </li>
 <li><code>holiday</code> - whether the day is considered a holiday</li>
 <li><code>workingday</code> - whether the day is neither a weekend nor holiday</li>
 <li><code>weather:</code><ul>
@@ -2503,7 +2502,7 @@ Name: atemp, dtype: float64</pre>
 Since it is intiutive that bike usage is related with weather and time we expect to see these relations on the charts.</p>
 <p>Here is our steps:</p>
 <ul>
-<li>Since we are working with data created by humans with time it is a good practice to observe it by splitting into "weekdays" and "weekends". <br> 
+<li>Since we are working with data created by humans with time it is a good practice to observe it by splitting into <code>"weekdays"</code> and <code>"weekends"</code>. <br> 
 If it was a dataset created by butterflies ofcourse we would not have done it this way!</li>
 </ul>
 <ul>
