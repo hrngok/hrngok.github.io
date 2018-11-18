@@ -3,8 +3,8 @@
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li>We continue our analysis of <code>bikeshare</code> dataset.</li>
-<li>In this part we will do machine learning steps in order to predict the bike rentals for the given Kaggle testset and submit it.</li>
+<li>With this notebook we continue our analysis of <code>bikeshare</code> dataset.</li>
+<li>In this part we will do machine learning steps in order to predict the bike rentals for the given Kaggle testset and submit it to the Kaggle</li>
 </ul>
 <p><img src="/images/timecycle.jpg" alt="time"></p>
 
@@ -15,6 +15,18 @@
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <!-- TEASER_END -->
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>In the previous post, we prepared the dataset partially </li>
+<li>We created new columns and dropped the outliers regarding to the <code>"count"</code> column </li>
+<li>Now we start by loading the dataset and continue to prepare it before applying machine learning algorithms</li>
+</ul>
+
 </div>
 </div>
 </div>
@@ -61,18 +73,6 @@
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>In previous post, we prepared the dataset partially </li>
-<li>We created new columns and dropped the outliers regarding the <code>"count"</code> column </li>
-<li>Now we start by loading the dataset and continue to prepare it before applying machine learning algorithms</li>
-</ul>
-
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -240,7 +240,7 @@
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Filter out the casual and registered columns and </span>
-<span class="c1">## high correlated columns &quot;season&quot; and &quot;atemp&quot;  should be omitted</span>
+<span class="c1">## high correlated columns &quot;season&quot; (correlated with &quot;month&quot;) and &quot;atemp&quot; (correlated with &quot;temp&quot;) should be omitted</span>
 <span class="c1">## Also in the previous post we noticed that the data record in the &quot;weather&quot; column is not relaible</span>
 <span class="c1">## We will also drop it</span>
 <span class="n">bike_data</span><span class="o">=</span> <span class="n">bike_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;casual&quot;</span><span class="p">,</span> <span class="s2">&quot;registered&quot;</span><span class="p">,</span> <span class="s2">&quot;season&quot;</span><span class="p">,</span> <span class="s2">&quot;atemp&quot;</span><span class="p">,</span> <span class="s2">&quot;weather&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -358,7 +358,7 @@
 <li>Since our data is a timeseries, i.e data recorded with a time dimension, we need to take into account the timeseries practices.</li>
 </ul>
 <ul>
-<li>Firstly, we need to be aware of the <code>cyclic</code> nature of our timeseries dataset</li>
+<li>Firstly, we need to be aware of the <code>cyclic</code> nature of our time data</li>
 </ul>
 <ul>
 <li>As we walked through the time frame charts in the previous post, we saw that <code>month</code>  and <code>hour</code> variables are very predictive over the number of bike rentals. </li>
@@ -377,7 +377,7 @@
 <li>Which one would you expect is more similar to the bike rentals in <code>January</code>: rentals in <code>December</code> or rentals in <code>May</code>? </li>
 </ul>
 <ul>
-<li><p>Regarding the seasonal affects we can tell that number of bike rentals <code>December</code> is more similar to rentals in <code>January</code>, however we represent <code>December</code> with number <code>12</code> and <code>May</code> with number <code>5</code>.</p>
+<li><p>Regarding the seasonal affects we can tell that number of bike rentals in <code>December</code> is more similar to rentals in <code>January</code>, however we represent <code>December</code> with number <code>12</code> and <code>May</code> with number <code>5</code>.</p>
 </li>
 <li><p>This is a wrong representation of the time features especially for the algorithms that use distance or the algorithms like linear regression.</p>
 </li>
@@ -1237,7 +1237,7 @@ When defining a custom scorer via <code>sklearn.metrics.make_scorer</code>, the 
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Hold-out-Data-Prediction-Scores">Hold-out Data Prediction Scores<a class="anchor-link" href="#Hold-out-Data-Prediction-Scores">&#182;</a></h1>
+<h2 id="Hold-out-Data-Prediction-Scores">Hold-out Data Prediction Scores<a class="anchor-link" href="#Hold-out-Data-Prediction-Scores">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -1772,7 +1772,7 @@ First it would be better if we combine our <code>X</code> and <code>X_hold</code
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Wrap-Up">Wrap Up<a class="anchor-link" href="#Wrap-Up">&#182;</a></h1><p>This was the second part of our analysis on bikeshare dataset <br></p>
+<h2 id="Wrap-Up">Wrap Up<a class="anchor-link" href="#Wrap-Up">&#182;</a></h2><p>This was the second part of our analysis on bikeshare dataset <br></p>
 <p>In this notebook we</p>
 <ul>
 <li>continued to prepare our dataset for machine learning</li>

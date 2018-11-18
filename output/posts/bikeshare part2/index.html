@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
-<title>Cyclic Nature of Time- Kaggle | Data to Wisdom</title>
+<title>Cyclic Nature of Time- Kaggle Submission | Data to Wisdom</title>
 <link href="https://fonts.googleapis.com/css?family=Bitter:400,400i,700" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 <link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
@@ -16,28 +16,10 @@
 <!--[if lt IE 9]><script src="../../assets/js/html5shiv-printshiv.min.js"></script><![endif]--><meta name="author" content="Harun">
 <link rel="prev" href="../bikeshare/" title="Feature Selection by Visualization" type="text/html">
 <meta property="og:site_name" content="Data to Wisdom">
-<meta property="og:title" content="Cyclic Nature of Time- Kaggle">
+<meta property="og:title" content="Cyclic Nature of Time- Kaggle Submission">
 <meta property="og:url" content="https://example.com/posts/bikeshare%20part2/">
-<meta property="og:description" content="We continue our analysis of bikeshare dataset.
-In this part we will do machine learning steps in order to predict the bike rentals for the given Kaggle testset and submit it.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-In [23]:
-
-">
+<meta property="og:description" content="With this notebook we continue our analysis of bikeshare dataset.
+In this part we will do machine learning steps in order to predict the bike rentals for the given Kaggle testset and submit it to the ">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2018-11-16T22:08:04+02:00">
 </head>
@@ -53,7 +35,7 @@ In [23]:
 
         </ul></section><section class="page-content"><div class="content" rel="main">
             
-<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="../bikeshare%20part2/" class="u-url">Cyclic Nature of Time- Kaggle</a></h1>
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="../bikeshare%20part2/" class="u-url">Cyclic Nature of Time- Kaggle Submission</a></h1>
 
         <div class="metadata">
             <p class="dateline"><a href="../bikeshare%20part2/" rel="bookmark"><i class="fa fa-clock"></i> <time class="published dt-published" datetime="2018-11-16T22:08:04+02:00" itemprop="datePublished" title="2018-11-16 22:08">2018-11-16 22:08</time></a></p>
@@ -81,8 +63,8 @@ In [23]:
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li>We continue our analysis of <code>bikeshare</code> dataset.</li>
-<li>In this part we will do machine learning steps in order to predict the bike rentals for the given Kaggle testset and submit it.</li>
+<li>With this notebook we continue our analysis of <code>bikeshare</code> dataset.</li>
+<li>In this part we will do machine learning steps in order to predict the bike rentals for the given Kaggle testset and submit it to the Kaggle</li>
 </ul>
 <p><img src="../../images/timecycle.jpg" alt="time"></p>
 
@@ -95,6 +77,19 @@ In [23]:
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <!-- TEASER_END -->
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>In the previous post, we prepared the dataset partially </li>
+<li>We created new columns and dropped the outliers regarding to the <code>"count"</code> column </li>
+<li>Now we start by loading the dataset and continue to prepare it before applying machine learning algorithms</li>
+</ul>
 </div>
 </div>
 </div>
@@ -141,19 +136,6 @@ In [23]:
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>In previous post, we prepared the dataset partially </li>
-<li>We created new columns and dropped the outliers regarding the <code>"count"</code> column </li>
-<li>Now we start by loading the dataset and continue to prepare it before applying machine learning algorithms</li>
-</ul>
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -330,7 +312,7 @@ In [23]:
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Filter out the casual and registered columns and </span>
-<span class="c1">## high correlated columns "season" and "atemp"  should be omitted</span>
+<span class="c1">## high correlated columns "season" (correlated with "month") and "atemp" (correlated with "temp") should be omitted</span>
 <span class="c1">## Also in the previous post we noticed that the data record in the "weather" column is not relaible</span>
 <span class="c1">## We will also drop it</span>
 <span class="n">bike_data</span><span class="o">=</span> <span class="n">bike_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">"casual"</span><span class="p">,</span> <span class="s2">"registered"</span><span class="p">,</span> <span class="s2">"season"</span><span class="p">,</span> <span class="s2">"atemp"</span><span class="p">,</span> <span class="s2">"weather"</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -452,7 +434,7 @@ In [23]:
 <li>Since our data is a timeseries, i.e data recorded with a time dimension, we need to take into account the timeseries practices.</li>
 </ul>
 <ul>
-<li>Firstly, we need to be aware of the <code>cyclic</code> nature of our timeseries dataset</li>
+<li>Firstly, we need to be aware of the <code>cyclic</code> nature of our time data</li>
 </ul>
 <ul>
 <li>As we walked through the time frame charts in the previous post, we saw that <code>month</code>  and <code>hour</code> variables are very predictive over the number of bike rentals. </li>
@@ -474,7 +456,7 @@ In [23]:
 </ul>
 <ul>
 <li>
-<p>Regarding the seasonal affects we can tell that number of bike rentals <code>December</code> is more similar to rentals in <code>January</code>, however we represent <code>December</code> with number <code>12</code> and <code>May</code> with number <code>5</code>.</p>
+<p>Regarding the seasonal affects we can tell that number of bike rentals in <code>December</code> is more similar to rentals in <code>January</code>, however we represent <code>December</code> with number <code>12</code> and <code>May</code> with number <code>5</code>.</p>
 </li>
 <li>
 <p>This is a wrong representation of the time features especially for the algorithms that use distance or the algorithms like linear regression.</p>
@@ -1401,8 +1383,8 @@ When defining a custom scorer via <code>sklearn.metrics.make_scorer</code>, the 
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Hold-out-Data-Prediction-Scores">Hold-out Data Prediction Scores<a class="anchor-link" href="../bikeshare%20part2/#Hold-out-Data-Prediction-Scores">¶</a>
-</h2>
+<h3 id="Hold-out-Data-Prediction-Scores">Hold-out Data Prediction Scores<a class="anchor-link" href="../bikeshare%20part2/#Hold-out-Data-Prediction-Scores">¶</a>
+</h3>
 </div>
 </div>
 </div>
@@ -1955,8 +1937,8 @@ First it would be better if we combine our <code>X</code> and <code>X_hold</code
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Wrap-Up">Wrap Up<a class="anchor-link" href="../bikeshare%20part2/#Wrap-Up">¶</a>
-</h2>
+<h3 id="Wrap-Up">Wrap Up<a class="anchor-link" href="../bikeshare%20part2/#Wrap-Up">¶</a>
+</h3>
 <p>This was the second part of our analysis on bikeshare dataset <br></p>
 <p>In this notebook we</p>
 <ul>
