@@ -5,7 +5,7 @@ STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1542542385.2220218
+_modified_time = 1542542883.0666432
 _enable_loop = True
 _template_filename = 'c:/users/smartforfreedom/anaconda3/envs/blog/lib/site-packages/nikola/data/themes/base/templates/tags.tmpl'
 _template_uri = 'tags.tmpl'
@@ -32,20 +32,20 @@ def render_body(context,**pageargs):
         __M_locals = __M_dict_builtin(pageargs=pageargs)
         _import_ns = {}
         _mako_get_namespace(context, 'feeds_translations')._populate(_import_ns, ['*'])
-        cat_items = _import_ns.get('cat_items', context.get('cat_items', UNDEFINED))
-        cat_hierarchy = _import_ns.get('cat_hierarchy', context.get('cat_hierarchy', UNDEFINED))
         title = _import_ns.get('title', context.get('title', UNDEFINED))
-        messages = _import_ns.get('messages', context.get('messages', UNDEFINED))
-        len = _import_ns.get('len', context.get('len', UNDEFINED))
+        cat_hierarchy = _import_ns.get('cat_hierarchy', context.get('cat_hierarchy', UNDEFINED))
         kind = _import_ns.get('kind', context.get('kind', UNDEFINED))
         feeds_translations = _mako_get_namespace(context, 'feeds_translations')
+        len = _import_ns.get('len', context.get('len', UNDEFINED))
         def extra_head():
             return render_extra_head(context._locals(__M_locals))
-        hidden_tags = _import_ns.get('hidden_tags', context.get('hidden_tags', UNDEFINED))
+        items = _import_ns.get('items', context.get('items', UNDEFINED))
+        range = _import_ns.get('range', context.get('range', UNDEFINED))
         def content():
             return render_content(context._locals(__M_locals))
-        range = _import_ns.get('range', context.get('range', UNDEFINED))
-        items = _import_ns.get('items', context.get('items', UNDEFINED))
+        messages = _import_ns.get('messages', context.get('messages', UNDEFINED))
+        hidden_tags = _import_ns.get('hidden_tags', context.get('hidden_tags', UNDEFINED))
+        cat_items = _import_ns.get('cat_items', context.get('cat_items', UNDEFINED))
         __M_writer = context.writer()
         __M_writer('\n')
         __M_writer('\n\n')
@@ -89,16 +89,16 @@ def render_content(context,**pageargs):
         _mako_get_namespace(context, 'feeds_translations')._populate(_import_ns, ['*'])
         title = _import_ns.get('title', context.get('title', UNDEFINED))
         cat_hierarchy = _import_ns.get('cat_hierarchy', context.get('cat_hierarchy', UNDEFINED))
-        cat_items = _import_ns.get('cat_items', context.get('cat_items', UNDEFINED))
-        messages = _import_ns.get('messages', context.get('messages', UNDEFINED))
-        len = _import_ns.get('len', context.get('len', UNDEFINED))
         kind = _import_ns.get('kind', context.get('kind', UNDEFINED))
         feeds_translations = _mako_get_namespace(context, 'feeds_translations')
-        hidden_tags = _import_ns.get('hidden_tags', context.get('hidden_tags', UNDEFINED))
+        len = _import_ns.get('len', context.get('len', UNDEFINED))
+        items = _import_ns.get('items', context.get('items', UNDEFINED))
+        range = _import_ns.get('range', context.get('range', UNDEFINED))
         def content():
             return render_content(context)
-        range = _import_ns.get('range', context.get('range', UNDEFINED))
-        items = _import_ns.get('items', context.get('items', UNDEFINED))
+        messages = _import_ns.get('messages', context.get('messages', UNDEFINED))
+        hidden_tags = _import_ns.get('hidden_tags', context.get('hidden_tags', UNDEFINED))
+        cat_items = _import_ns.get('cat_items', context.get('cat_items', UNDEFINED))
         __M_writer = context.writer()
         __M_writer('\n<article class="tagindex">\n    <header>\n        <h1>')
         __M_writer(filters.html_escape(str(title)))
