@@ -111,3 +111,4 @@
 'scale_images:output\\images\\scoring.jpg', (227328, 218)
 'scale_images:output\\images\\cost.jpg', (227840, 212)
 'scale_images:output\\images\\gps.PNG', (228352, 210)
+'scale_images:output\\images\\gps.jpg', (228864, 210)
