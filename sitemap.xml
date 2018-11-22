@@ -19,11 +19,27 @@
  </url>
  <url>
   <loc>https://example.com/categories/</loc>
-  <lastmod>2018-11-22T13:50:00Z</lastmod>
+  <lastmod>2018-11-22T14:04:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://example.com/categories/kaggle/</loc>
+  <lastmod>2018-11-22T14:04:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://example.com/categories/rmsle/</loc>
+  <lastmod>2018-11-22T14:04:00Z</lastmod>
  </url>
  <url>
   <loc>https://example.com/categories/time-data/</loc>
   <lastmod>2018-11-22T13:50:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://example.com/categories/timeseries-data/</loc>
+  <lastmod>2018-11-22T14:04:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://example.com/categories/timeseriessplit/</loc>
+  <lastmod>2018-11-22T14:04:00Z</lastmod>
  </url>
  <url>
   <loc>https://example.com/galleries/</loc>
