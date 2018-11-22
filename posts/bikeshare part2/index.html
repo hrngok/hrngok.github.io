@@ -22,6 +22,7 @@
 In this part we will do machine learning steps in order to predict the bike rentals for the given Kaggle testset and submit it to the ">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2018-11-16T22:08:04+02:00">
+<meta property="article:tag" content="time data">
 </head>
 <body>
     <a href="#page-content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -53,6 +54,13 @@ In this part we will do machine learning steps in order to predict the bike rent
             
 
             
+    <div class="tags">
+<h3 class="metadata-title">
+<i class="fa fa-tags"></i> Tags:</h3>
+        <ul itemprop="keywords" class="tags-ul">
+<li><a class="tag p-category" href="../../categories/time-data/" rel="tag">time data</a></li>
+        </ul>
+</div>
 
         </div>
     </header><div class="e-content entry-content" itemprop="articleBody text">
@@ -93,9 +101,30 @@ In this part we will do machine learning steps in order to predict the bike rent
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Outline:">Outline:<a class="anchor-link" href="../bikeshare%20part2/#Outline:">¶</a>
+</h3>
+<ul>
+<li>About Time Data</li>
+<li>Trigonometric functions for time data transformation</li>
+<li>Data Split</li>
+<li>
+<code>TimeSeriesSplit</code> for the cross validation </li>
+<li>Sklearn Pipeline</li>
+<li>Interpratation of RSMLE metric</li>
+<li>Creating a custom scoring function </li>
+<li>Kaggle submission </li>
+</ul>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [23]:</div>
+<div class="prompt input_prompt">In [1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Import the necessary modules</span>
@@ -158,7 +187,7 @@ In this part we will do machine learning steps in order to predict the bike rent
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [24]:</div>
+<div class="prompt input_prompt">In [2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Read the bike_data_inliers</span>
@@ -176,7 +205,7 @@ In this part we will do machine learning steps in order to predict the bike rent
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[24]:</div>
+    <div class="prompt output_prompt">Out[2]:</div>
 
 
 
@@ -297,7 +326,7 @@ In this part we will do machine learning steps in order to predict the bike rent
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [25]:</div>
+<div class="prompt input_prompt">In [3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Filter out the casual and registered columns and </span>
@@ -318,7 +347,7 @@ In this part we will do machine learning steps in order to predict the bike rent
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[25]:</div>
+    <div class="prompt output_prompt">Out[3]:</div>
 
 
 
@@ -429,14 +458,14 @@ In this part we will do machine learning steps in order to predict the bike rent
 <li>As we walked through the time frame charts in the previous post, we saw that <code>month</code>  and <code>hour</code> variables are very predictive over the number of bike rentals. </li>
 </ul>
 <ul>
-<li>This is very resaonable as we might expect that the bike usage and rentals during <code>January</code> is less than <code>May</code> and rentals at <code>3am</code> in the morning is less than at <code>14h</code>, during the day. </li>
+<li>This is very resaonable as we might expect that the bike usage and rentals during <code>January</code> is less than <code>May</code> due to the weather conditions and rentals at <code>3am</code> in the morning is less than at <code>14h</code>, during the day. </li>
 </ul>
 <ul>
 <li>
 <p>So we should use the <code>"month"</code> and <code>"hour"</code> data as features for our models. However, we have a problem of how to utilize these features.</p>
 </li>
 <li>
-<p>We need to keep them <code>numeric</code> for the machine learning algorithms but if we use them without any transformation, it would not be so smart practice.</p>
+<p>We need to keep them <strong>numeric</strong> for the machine learning algorithms but if we use them without any transformation, it would not be so smart practice.</p>
 </li>
 </ul>
 <p>To make it clearer here is a question:</p>
@@ -473,14 +502,17 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Representation-of-the-cyclic-time-features">Representation of the <code>cyclic time features</code><a class="anchor-link" href="../bikeshare%20part2/#Representation-of-the-cyclic-time-features">¶</a>
+<h3 id="Representation-of--Cyclic-Time-Features">Representation of  Cyclic Time Features<a class="anchor-link" href="../bikeshare%20part2/#Representation-of--Cyclic-Time-Features">¶</a>
 </h3>
 <ul>
 <li>
 <p>We map each cyclical variable onto a circle such that the <code>lowest value</code> for that variable appears right next to the <code>largest value</code>.</p>
 </li>
 <li>
-<p>We compute the <code>x</code> and <code>y</code> component of that point using <code>sin</code> and <code>cos</code> functions.</p>
+<p>We represent each variable with two components: x axis value and y axis value</p>
+</li>
+<li>
+<p>We compute the <code>x</code> and <code>y</code> components of that point using <code>sin</code> and <code>cos</code> functions.</p>
 </li>
 </ul>
 <p><img src="../../images/hours.jpg" alt="hours"></p>
@@ -491,7 +523,7 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [26]:</div>
+<div class="prompt input_prompt">In [4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create the sin and cos components of hour, month and weekday columns</span>
@@ -502,7 +534,7 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 <span class="n">bike_data</span><span class="p">[</span><span class="s2">"weekday_cos"</span><span class="p">]</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">((</span><span class="n">bike_data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">weekday</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">7</span><span class="p">))</span>
 <span class="n">bike_data</span><span class="p">[</span><span class="s1">'weekday_sin'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">((</span><span class="n">bike_data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">weekday</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">7</span><span class="p">))</span>
 
-<span class="c1"># We can drop the columns "month", "weekday" and "hour"</span>
+<span class="c1"># Now we can drop the columns "month", "weekday" and "hour"</span>
 <span class="n">bike_data</span><span class="o">=</span><span class="n">bike_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">"month"</span><span class="p">,</span> <span class="s2">"weekday"</span><span class="p">,</span> <span class="s2">"hour"</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
@@ -518,11 +550,25 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Split-the-data">Split the data<a class="anchor-link" href="../bikeshare%20part2/#Split-the-data">¶</a>
 </h3>
-<p>Even though there is a given test set (without target variable) for Kaggle submission we will analyse the data as an independent project.</p>
-<p>So, after fitting a model we will use <strong>cross validation</strong> for evaluating model performance and hyperparameter tuning but we still we need to keep an <code>hold-out set</code> for our final evaluation.</p>
-<p>Since this is a timeseries dataset we must to respect the temporal order of the data. Thus, we must use only the past data to predict the future data. So we can take the <code>last %5</code> as our hold-out data. (In the Kaggle competition the test set is the last 10 days of the months)</p>
 <ul>
-<li>We need to split the data before doing transformation (incase we do) because test data points represent real-world data. </li>
+<li>
+<p>Even though there is a given test set (without target variable) for Kaggle submission we will analyse the data as an independent project and follow our data splitting principles</p>
+</li>
+<li>
+<p>At the end we will use the Kaggle test set for submission</p>
+</li>
+<li>
+<p>So, after fitting a model we will use <strong>cross validation</strong> for evaluating model performance and hyperparameter tuning but we still we need to keep an <strong>hold-out set</strong> for our final evaluation.</p>
+</li>
+<li>
+<p>Since this is a timeseries dataset we must respect to the temporal order of the data. Thus, we must use only the past data to predict the future data.</p>
+</li>
+<li>
+<p>So we can take the <strong>last %5</strong> as our hold-out data. (In the Kaggle competition the test set is the last 10 days of the months)</p>
+</li>
+<li>
+<p>We need to split the data before doing transformation (incase we do) because test data points represent real-world data.</p>
+</li>
 <li>Transformation of the variables use information from the dataset like <strong>mean</strong> and <strong>standard deviation</strong>
 </li>
 <li>
@@ -537,14 +583,15 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [27]:</div>
+<div class="prompt input_prompt">In [26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Find the starting indice of the last five percent</span>
 <span class="n">last_five_percent_ind</span><span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bike_data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">())</span><span class="o">*</span> <span class="mf">0.95</span><span class="p">)</span>
+<span class="n">last_five_percent_ind</span>
 
 <span class="c1"># Create the hold-out dataset</span>
-<span class="n">hold_out_df</span><span class="o">=</span><span class="n">bike_data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">last_five_percent_ind</span><span class="p">:</span> <span class="p">,:]</span>
+<span class="n">hold_out_df</span><span class="o">=</span><span class="n">bike_data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">last_five_percent_ind</span><span class="p">:</span> <span class="p">,:]</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">"The shape of the hold-out dataset:"</span><span class="p">,</span> <span class="n">hold_out_df</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="n">hold_out_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
@@ -571,7 +618,7 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[27]:</div>
+    <div class="prompt output_prompt">Out[26]:</div>
 
 
 
@@ -679,10 +726,10 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [28]:</div>
+<div class="prompt input_prompt">In [25]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="o">=</span> <span class="n">bike_data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="n">last_five_percent_ind</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="o">=</span> <span class="n">bike_data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="n">last_five_percent_ind</span><span class="p">,</span> <span class="p">:]</span>
 <span class="n">data</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 
@@ -696,7 +743,7 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[28]:</div>
+    <div class="prompt output_prompt">Out[25]:</div>
 
 
 
@@ -799,14 +846,14 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Features-and-Target-Variable">Features and Target Variable<a class="anchor-link" href="../bikeshare%20part2/#Features-and-Target-Variable">¶</a>
 </h4>
-<p>Having splitted the hold-out dataset now time to create the features (X) and the target (y) datasets and fit a Linear Regression model</p>
+<p>Having splitted the hold-out dataset, now time to create the features (X) and the target (y) datasets and fit a Linear Regression model</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [29]:</div>
+<div class="prompt input_prompt">In [7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Target data</span>
@@ -823,7 +870,7 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [30]:</div>
+<div class="prompt input_prompt">In [8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">X</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
@@ -839,7 +886,7 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[30]:</div>
+    <div class="prompt output_prompt">Out[8]:</div>
 
 
 
@@ -932,18 +979,17 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Notes-about-Cross-Validation-of-Timeseries-data">Notes about Cross Validation of <code>Timeseries</code> data<a class="anchor-link" href="../bikeshare%20part2/#Notes-about-Cross-Validation-of-Timeseries-data">¶</a>
+<h3 id="Notes-about-Cross-Validation-of-Timeseries-Data">Notes about Cross Validation of Timeseries Data<a class="anchor-link" href="../bikeshare%20part2/#Notes-about-Cross-Validation-of-Timeseries-Data">¶</a>
 </h3>
 <p>Here is the the notes from <a href="https://scikit-learn.org/stable/modules/cross_validation.html#cross-validation">sklearn official page</a> :</p>
-<p>Time series data is characterised by the <code>correlation between observations that are near in time (autocorrelation)</code>.</p>
+<p>Time series data is characterised by the <strong>correlation between observations that are near in time (autocorrelation)</strong>.</p>
 <p>However, classical cross-validation techniques such as <code>KFold</code> and <code>ShuffleSplit</code></p>
 <ul>
-<li>assume the samples are <code>independent and identically distributed</code>, and </li>
+<li>assume the samples are <strong>independent</strong> and <strong>identically distributed</strong>, and </li>
 <li>would result in unreasonable correlation between training and testing instances (yielding poor estimates of generalisation error) on time series data. </li>
 </ul>
-<p>Therefore, it is very important to evaluate our model for time series data on the <code>“future” observations</code> least like those that are used to train the model.</p>
-<h4 id="Time-Series-Split">
-<strong><code>Time Series Split</code></strong><a class="anchor-link" href="../bikeshare%20part2/#Time-Series-Split">¶</a>
+<p>Therefore, it is very important to evaluate our model for time series data on the “future” observations least like those that are used to train the model.</p>
+<h4 id="Time-Series-Split">Time Series Split<a class="anchor-link" href="../bikeshare%20part2/#Time-Series-Split">¶</a>
 </h4>
 <p><code>TimeSeriesSplit</code> is a variation of k-fold which</p>
 <ul>
@@ -952,8 +998,8 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 </ul>
 <ul>
 <li>We should <strong>not shuffle</strong> our data when making predictions with timeseries.</li>
-<li>Unlike standard cross-validation methods, successive training sets are <code>supersets</code> of those that come before them. </li>
-<li>Also, it adds all <code>surplus data</code> to the <code>first training partition</code>, which is always used to train the model.</li>
+<li>Unlike standard cross-validation methods, successive training sets are <strong>supersets</strong> of those that come before them. </li>
+<li>Also, it adds all <strong>surplus data</strong> to the <strong>first training partition</strong>, which is always used to train the model.</li>
 </ul>
 </div>
 </div>
@@ -965,7 +1011,7 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Sklearn-Pipeline">Sklearn Pipeline<a class="anchor-link" href="../bikeshare%20part2/#Sklearn-Pipeline">¶</a>
 </h3>
-<p>Whenever possible, using sklearn Pipeline object is always a smart practice because they</p>
+<p>Whenever possible, using Sklearn Pipeline object is always a smart practice because they</p>
 <ul>
 <li>are powerfull tools to standardise our operations,</li>
 <li>create an easy-to-understand workflow with clear order of steps,</li>
@@ -978,7 +1024,7 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [31]:</div>
+<div class="prompt input_prompt">In [9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Instantiate the pipeline with the StandardScaler and  LinearRegression</span>
@@ -1005,7 +1051,7 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [32]:</div>
+<div class="prompt input_prompt">In [10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Split the timeseries data</span>
@@ -1013,6 +1059,7 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 
 <span class="c1"># Fit and score the model with cross-validation</span>
 <span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">pipeline</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">split</span><span class="p">)</span>
+
 <span class="nb">print</span><span class="p">(</span><span class="s2">"R^2 scores of each split:"</span><span class="p">,</span> <span class="n">scores</span><span class="p">)</span>
 </pre></div>
 
@@ -1044,7 +1091,7 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Visualizing-CV-Splits-for-Timeseries:-TimeSeriesSplit">Visualizing CV Splits for Timeseries: <code>TimeSeriesSplit</code><a class="anchor-link" href="../bikeshare%20part2/#Visualizing-CV-Splits-for-Timeseries:-TimeSeriesSplit">¶</a>
+<h3 id='Visualizing-CV-Splits-for-Timeseries:-"TimeSeriesSplit"'>Visualizing CV Splits for Timeseries: "TimeSeriesSplit"<a class="anchor-link" href="../bikeshare%20part2/#Visualizing-CV-Splits-for-Timeseries:-%22TimeSeriesSplit%22">¶</a>
 </h3>
 <p>Visualize the splits of cross validation with <code>TimeSeriesSplit</code> object</p>
 
@@ -1053,7 +1100,7 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [33]:</div>
+<div class="prompt input_prompt">In [27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Initialize the cross-validation iterator with 10 splits</span>
@@ -1062,15 +1109,15 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span> 
 
 <span class="c1"># Loop over the cross validation splits</span>
-<span class="c1"># cv.split() method creates train and test array for each split</span>
+<span class="c1"># cv.split() method creates train and test arrays for each split</span>
 <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cv</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)):</span>
 
     <span class="c1"># Plot training and test indices</span>
-    <span class="n">l1</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">train</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">coolwarm</span><span class="p">(</span><span class="o">.</span><span class="mi">1</span><span class="p">)],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">'_'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
-    <span class="n">l2</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">test</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">coolwarm</span><span class="p">(</span><span class="o">.</span><span class="mi">9</span><span class="p">)],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">'_'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">indeces1</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">train</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">coolwarm</span><span class="p">(</span><span class="o">.</span><span class="mi">1</span><span class="p">)],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">'_'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">indeces2</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">test</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">coolwarm</span><span class="p">(</span><span class="o">.</span><span class="mi">9</span><span class="p">)],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">'_'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
     
-    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s1">'TimeSeriesSplit behavior'</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">'Data index'</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">'CV iteration'</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="p">],</span> <span class="p">[</span><span class="s1">'Training'</span><span class="p">,</span> <span class="s1">'Validation'</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s1">'TimeSeriesSplit behavior'</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">'Data index'</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">'CV iterates'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="n">indeces1</span><span class="p">,</span> <span class="n">indeces2</span><span class="p">],</span> <span class="p">[</span><span class="s1">'Training'</span><span class="p">,</span> <span class="s1">'Validation'</span><span class="p">])</span>
 </pre></div>
 
     </div>
@@ -1089,7 +1136,7 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 
 
 <div class="output_png output_subarea ">
-<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAmkAAAFRCAYAAAAvsDqPAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAADl0RVh0U29mdHdhcmUAbWF0cGxvdGxpYiB2ZXJzaW9uIDIuMi4yLCBodHRwOi8vbWF0cGxvdGxpYi5vcmcvhp/UCwAAIABJREFUeJzt3X98zvX+x/Hntc1IG2M2Sh1Ofhy/VhFqEVpKbENajqhEiBSl4/dw8ptDwvop5ZQ4KcOXI+FoFXOoTifqJOowimyG2ez3db2/f3TOdYgZs+u63rPH/a99Ptfn83m/rs+rj5639+e6PpfDGGMEAAAAq/j5ugAAAACci5AGAABgIUIaAACAhQhpAAAAFiKkAQAAWIiQBgAAYCFCGgBJ0tSpU9WtWzd169ZNzZo1U6dOndzLubm56tatm06dOlVq4y1atEjdunVT165dFRMTo1mzZik/P/+SjzNw4EB9//33Ja4jMTFRPXr0UNeuXRUdHa3x48crMzOz2P2ioqK0e/du7d69W8OGDZMk7dq1SxMnTrzg9pdi4cKFmjx58iXtU5Qz6wRQNgT4ugAAdoiPj3f/HRUVpTlz5igiIsK9bs2aNaU21gcffKDNmzfr3XffVaVKlZSXl6dhw4YpISFBI0aMuKRjLVq0qMR17Nq1Sy+++KJWrlypkJAQOZ1OPffcc/rjH/+ouXPnXtQxIiIitGDBAknS999/r6NHj5a4Hk86s04AZQMhDcBF+d3vfqft27crKSlJGzdulMvl0uHDh1WzZk317NlTS5cu1YEDB9SvXz/1799fkvTee+9p+fLlcrlcCgkJ0YQJE1SvXj2lpaXJ6XQqNzdXlSpVUsWKFTVhwgQdP35ckpSfn685c+bos88+k9PpVJMmTRQfH6+goCBFRUXpxhtv1HfffacRI0ZoxowZmj9/viIiIrRlyxa9/PLLKigoUKVKlTR69Gg1b95cP/zwg8aPH6/8/HwZYxQXF6c+ffooLS1Nxhjl5uZKkvz9/TV8+HDt27dP0i8zWSkpKfr555+VlpamRo0aadq0aQoKCnKflx07dmjKlClatGiRFixYoMzMTI0dO1YzZsw45xwuW7ZMe/bsUX5+vvr166e4uDhJKrJuSfr3v/+thx9+WGlpaapRo4aef/55hYeH66OPPtKrr76q/Px8HT9+XN27d9fTTz+tZ599Vk2bNnX3YNmyZdq5c6cefPBBTZkyRevWrVNmZqaee+457dmzRw6HQ3fccYdGjBihgIAANWvWTHfddZf27NlzTlAH4GUGAH7lzjvvNLt27TprXcOGDU16erpZuXKlueWWW8zhw4eN0+k0Xbp0MU899ZRxOp3m22+/NREREcbpdJodO3aY3r17m+zsbGOMMZ9++qm59957jTHGnDp1yvTr1880bdrU9OzZ08yYMcPs3LnTPdbChQvNzJkzjcvlMsYYM3fuXDNp0iR3bQkJCefUun//fhMTE2OOHz9ujDFm7969pk2bNub06dNm7Nix5tVXXzXGGJOammqefvpp43Q6TX5+vhkxYoRp3Lix6d69u3nuuefMRx995B53wYIFpl27diYtLc04nU4zYsQIM3PmzLPG/fvf/26io6ONMcasXLnSDBo0qMhz+t/38PPPP5vIyEizd+/eC9a9YMECExUVZdLT040xxgwZMsQkJCQYl8tlHnroIbN//3738Ro3bmzS09PN9u3bTUxMjHvcuLg4s23btrPqHDVqlJkyZYpxuVwmLy/P9O/f331+GjZsaFatWlXMfyEAvIGZNACXLCIiQtdcc40k6brrrlPbtm3l5+en66+/Xnl5ecrJyVFSUpJSUlLUq1cv936nTp3SyZMnFRISojfeeEOHDh3S3//+d+3cuVODBg1S7969NXLkSCUlJSkzM1PJycmSpIKCAoWGhrqP07Jly3Nq2rZtm1JTU/Xoo4+61zkcDh08eFB33323Ro8erV27dikyMlLx8fHy8/OTn5+f5s6dq1GjRmnHjh367LPPNHr0aEVGRuqFF16QJN17772qUaOGJCkuLk7Tp0/X6NGjS3Te/nsuatasqTZt2mj79u3y9/cvsm5JatOmjapXry5JatSokY4fPy6Hw6FXXnlFSUlJWrdunX744QcZY5STk6Nbb71VeXl52r17t6666iodP35ckZGR2rlzp/v4n3zyiZYvXy6Hw6HAwED16tVLf/7znzVo0KAizy8A7yOkAbhkgYGBZy0HBJz7T4nL5VK3bt00cuRI93JqaqqqVq2qRYsW6ZZbblGLFi10/fXX64EHHtDnn3+ugQMHauTIkXK5XBo3bpzat28vSTp9+rTy8vLcx65cufJ5xzszXEnSkSNHFB4erkaNGunDDz9UcnKytm/frhdffFGJiYnaunWrqlWrprvuuktdu3ZV165dNWTIEEVFRblvvfr7+581hp9fyb9vdea+LpdLAQEBcjqdRda9adOms86tw+GQMUbZ2dm677771LFjR7Vs2VL333+/Nm/eLGOMHA6H4uLitGbNGlWoUEFxcXFyOBznnKsz17lcLhUWFrqXz3d+AXgf3+4E4BFt27bVX//6V6WmpkqSli9frr59+0qScnNzNXfuXJ08edK9/d69e9WkSRP3vu+8847y8/Plcrk0YcIEPf/88xccLzIyUtu2bdMPP/wgSfr444/VtWtX5ebm6tlnn9X69esVHR2tSZMmKSgoSAcPHpSfn5/mzJmjn3/+2X2cffv26dprr1XVqlUlSX/729+UmZkpl8ulFStW6M477yyyBn9//7PCzq+tWrVKknT48GFt375dkZGRF6y7KCkpKcrKytLTTz+tqKgo7dixw32uJOm+++7Tli1b9OGHH6pHjx7n7N+2bVstXbpUxhjl5+drxYoVuv3224scD4BvMJMGwCPatm2rgQMHqn///nI4HAoKClJCQoIcDoeeeOIJORwO9erVSw6HQy6XS82aNXPPJj3xxBOaNWuW7rvvPjmdTjVu3Fhjxoy54Hj169fX5MmTNWLECBljFBAQoJdffllXX321nnjiCY0fP17vvvuu/P391bFjR7Vq1UqtW7dWTk6OBg4cqPz8fDkcDtWtW1eLFy92z6DVqFFDAwcO1IkTJ9SqVSsNHjy4yBpuvvlmvfjii3ryySeVkJBwzut5eXm67777VFBQoPj4eP32t7+VpCLrLsrvfvc7dejQQZ07d1ZgYKAaNmyo+vXrKyUlRb/5zW8UFhamJk2aqLCwUDVr1jxn//j4eE2dOlWxsbEqKCjQHXfcccH3BcA3HMYY4+siAMBGCxcu1IkTJ4p89hkAeBK3OwEAACzETBoAAICFmEkDAACwECENAADAQoQ0AAAACxHSAAAALFSmn5N24sRpuVze+95DaGiQ0tOzvDYeikdP7ENP7ENP7ERf7OOpnvj5OVStWtHPPixKmQ5pLpfxakj775iwCz2xDz2xDz2xE32xj0094XYnAACAhQhpAAAAFiKkAQAAWIiQBgAAYCFCGgAAgIUIaQAAABYipAEAAFioTD8nDQAAlG1z587S7t1fqbCwQD/+eEh1694gSXrggV6Kju5a7P6v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/vvvdfvttys5OVm33HJLiYp888033X8nJiZq586dJQ5oAAAAV7Jifxbq8OHDeu2119SuXTs99NBDWr58uf797397ozYAAIByq9iZtBo1akiS6tatq71796pr164qLCy87IF79OihHj16XPZxPG3+s//7nVKmpu1DT+zj2Z7wbDEA5UexIS00NFSvv/66br75Zi1cuFBBQUHKzc31Rm0AAADlVrG3OydPnqzAwEC1bNlSzZo104IFC/SHP/zBG7UBAACUW8XOpM2aNUuzZ8+WJI0cOVIjR470eFEAAADlXbEzad9++62M4TEXAAAA3lTsTFp4eLiio6N100036eqrr3avj4+P92hhAAAA5VmxIa158+Zq3ry5N2oBAADAfxQb0p588knl5uYqJSVFDRo0UF5enq666ipv1AYAAFBuFfuZtK+++kodO3bU448/rtTUVHXo0EH/+Mc/vFEbAABAuVVsSJs1a5aWLFmikJAQ1apVS7Nnz9a0adO8URsAAEC5VWxIy83NVf369d3L7du3l9Pp9GhRAAAA5V2xIS0gIEAZGRlyOBySxO92AgAAeEGxXxwYPHiwHnroIR07dkwjRozQtm3bNHnyZG/UBgAAUG4VG9KioqJUr149bdu2TS6XS0OHDlW9evW8URsAAEC5VeztznHjxqlOnTrq3bu3HnroIdWrV0/Dhg3zRm0AAADlVpEzaZMmTdLRo0f1xRdf6Pjx4+71hYWFOnTokFeKAwAAKK+KDGlxcXHat2+fvvvuO3Xq1Mm93t/fXzfffLNXirPB8LkZZyxlFLkdfIWe2IeenGnCvn6+LkHHSvFYNV5JLMWjAbiQIkNaRESEIiIi1KZNG9WsWdObNQEAAJR7RYa04cOHa/78+RowYMB5X1+7dq3HigIAACjvigxpAwcOlCRNmDDBa8UAAADgF0WGtGbNmkmSWrdu7bViAAAA8ItiH8EBAAAA7yOkAQAAWKjIkLZ582YZY7xZCwAAAP7DYYpIYrGxsTp9+rR69eqluLg4Va9e3du1FSs9PUsul/eCZFhYsNLSMr02HopHT+xDT+xDT+xEX+zjqZ74+TkUGhp06fsV9cLatWs1d+5c7d+/X507d9bo0aO1a9euyyoSAAAAF+eCP7DevHlzNW/eXFlZWVqzZo0mTpwof39/Pfzww+revbu3agQAACh3LuqLA0FBQerT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CFBsbKw2bNign376Sbm5ubr55pslST169NCGDRtUUFCgzz77TJ06dTprPUru5MmTmjdvngYPHixJJTr3SUlJio2NlSTFxMTok08+UUFBgQ/eTdm3adMmdenSRbVq1VKFChU0b948XXXVVVwnPuZ0OuVyuZSTk6PCwkIVFhYqICCAa8UHVqxYoUmTJik8PFyStGvXrlK7PrzZH0JaMVJTUxUWFuZeDg8P19GjR31Y0ZWtQYMG7ovlwIED+uCDD+RwOM7bg1/3JiwsTEePHtWJEycUFBSkgICAs9aj5CZOnKhnnnlGVapUkXTudXEx5/7MfQICAhQUFKTjx497+Z1cGVJSUuR0OjV48GB169ZNy5YtK/LfKq4T7wkKCtLw4cPVuXNntW/fXrVr11aFChW4Vnxg2rRpatmypXu5NK8Pb/aHkFYMl8slh8PhXjbGnLUMz9i3b5/69++vUaNG6frrrz9vD4rqzfl6RM9K7r333tM111yjyMhI97rSOPfGGPn58U9QSTidTm3fvl3Tp0/Xu+++q127dunQoUNcJz62Z88erVy5Uh999JE+/fRT+fn5adu2bVwrFijqOrD937IAjxz1ClKrVi19/vnn7uW0tDT39Ck844svvtCwYcM0btw4RUdHa+fOnWd9MPO/PahVq9ZZ648dO6bw8HBVr15dmZmZcjqd8vf3p2eXaf369UpLS1O3bt2UkZGh7OxsORyOSz734eHhOnbsmGrVqqXCwkKdPn1aISEhvnpbZVqNGjUUGRmp6tWrS5I6duyoDRs2yN/f370N14n3bd26VZGRkQoNDZX0yy2yxYsXc61Y4NfXweVcH97sD9G8GLfffru2b9+u48ePKycnRxs3blS7du18XdYV68iRIxo6dKjmzJmj6OhoSdJNN92k/fv3u2/xrFu3Tu3atVPt2rVVsWJFffHFF5J++VZVu3btVKFCBbVs2VLr16+XJK1evZqeXYY333xT69at05o1azRs2DBFRUVpxowZl3zu27dvr9WrV0v6Jfi1bNlSFSpU8M2bKuPuvPNObd26VadOnZLT6dSnn36qe++9l+vExxo1aqTk5GRlZ2fLGKMtW7aodevWXCsWKM3/j3izPw5jjPHIka8ga9eu1auvvqqCggLFxcVp4MCBvi7pijV16lStXLlSv/nNb9zrevXqpbp162rGjBnKy8tT+/btNXbsWDkcDu3Zs0fx8fHKyspS06ZNNWPGDAUGBuqnn37SmDFjlJ6ermuuuUbPP/+8qlat6sN3dmVITEzUzp07NXPmzEs+9ydPntSYMWN06NAhBQcHa86cObruuut8/ZbKrPfff19LlixRQUGB2rRpo/j4eO3YsYPrxMdee+01JSYmqkKFCoqIiNCkSZO0f/9+rhUfiYqK0ltvvaXrrrtO27dvL5Xrw5v9IaQBAABYiNudAAAAFiKkAQAAWIiQBgAAYCFCGgAAgIUIaQAAABbiYbYArPbjjz/q7rvvVsOGDSX98uTwq6++Wo888oi6dOlS7P4JCQlq1KiROnbseNFjzp8/X3Xq1FH37t0vep/Fixdr3759mjlz5kXvAwAXQkgDYL1KlSppzZo17uWffvpJjz76qPz9/d0/gFyUHTt2qH79+pc03vDhw0tUJwCUJkIagDKndu3aGjZsmBYvXqxOnTpp//79mjx5sk6fPq20tDQ1atRIL7zwgt5//319/fXXmj17tvz9/VW/fv3zblexYsWzjj9mzBg1aNBAjz32mCIiIjRo0CBt27ZNqampGjBggHr37q2CggJNnTpVycnJCg0NVWhoqIKDgyVJmZmZmjZtmvbu3auCggJFRkZq1KhRSklJUa9evfTWW2+pcePGGjVqlAICAjR9+nRfnEYAluMzaQDKpEaNGmnv3r2SpBUrVqh79+5asWKFNm7cqB9//FFJSUnq06ePmjVrplGjRunuu+8ucrsLyc/PV7Vq1fSXv/xFCxYscD+xfNmyZTpw4ID++te/6o033tCRI0fc+0yfPl1NmzZVYmKiVq9erRMnTujNN99UvXr1NHLkSI0ePVrvvfee9uzZo4kTJ3ryNAEow5hJA1AmORwOVapUSZI0cuRIbdu2TYsWLdKBAweUmpqq7Ozsc/a52O1+7a677pIkNW3aVPn5+crOztb27dsVExOjwMBABQYGKjY2Vt99950kKSkpSbt379b7778vScrNzXUfq2fPntq6daumTp2qNWvWuN8DAPwaIQ1AmbR79273lwlGjBghp9Opzp07q0OHDjpy5IjO94t3F7vdr/33dqjD4ZCk8+7j7+/v/tvlcmn+/PmqV6+eJOnUqVPuffPz85WSkqLg4GB9++23qlu37qW9cQDlBrc7AZQ5+/fv10svvaT+/ftLkrZu3aqhQ4e6v+351Vdfyel0SvolPBUWFha73aW64447tHr1auXl5SkvL0/r1693v9a2bVstWbJExhjl5+dryJAhWrp0qSRp9uzZatCggRYvXqypU6fqp59+KtlJAHDFYyYNgPVyc3PVrVs3SZKfn58qVqyoESNGqEOHDpKkZ555RkOHDlXlypUVFBSkVq1a6eDBg5KkqKgoPf/88yooKLjgdpeqV69eOnjwoGJiYhQSEqI6deq4Xxs/frymTZum2NhYFRQU6Pbbb9eAAQOUlJSkTZs2ae3atapSpYr69u2rZ599VkuXLlVAAP8cAzibw1zMXD8AAAC8itudAAAAFiKkAQAAWIiQBgAAYCFCGgAAgIUIaQAAABYipAEAAFiIkAYAAGAhQhoAAICF/h9yHV2iONp52AAAAABJRU5ErkJggg==">
+<img src="data:image/png;base64,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YPYIwOzZz9Dd3ZoHFiZOXJNZsxwQuyS2SZlsl/LYJuWxTcrTzDbp7Oxg7bXHQp1fGrUyBbNFAN3dPS0LZov3p7LYJmWyXcpjm5THNilPC9pkQK91W5lu/pckSRrWDGaSJEmFWJkuZUqSpEFYtGghs2fPZOHCBe0upSiPP95Jd3f3Cm1j9OgxrL12F6NGDU2kMphJkjTMzZ49k9VWW4OxY9elo6Oj3eUUY/ToThYuHHww6+np4Zln5jJ79kwmTZq8/BUa4KVMSZKGuYULFzB27HhD2RDr6Ohg7NjxQ9oTaTCTJGkEMJQ1x1AfV4OZJElSIbzHTJIktdRZZ53BH/94BwsXvsBDDz3IlCkbAPC+9/0Te+31zuWuP336NDbeeBN23HHnfpc55JADueii7w9Zza1iMJMkSS9z7Flz+px/9nETVnjbxx33SQAeeeRhPvKRDw04QB1++FHLXWZlDGVgMJMkSYWYMeN87rzzTzz++KO8970HMGXKa/nmN8/l+eef4+mn5/HRj36cnXbahc997jS22mobttpqGz71qePZYIPX8ec/J+usM5HPfOaLjB8/gR133JYbbriFGTPO54knZvLgg3/nscceZe+99+Xggw9j4cKFnHHGF7j99t/T1fUKOjo6OPjgw9h6623begwMZpIkqRgLFjzPd7/7nwCcfPInOPHEqay//hRuvfVmzj77y+y00y4vWf4vf7mXk046hY022phPf/oErrzycvbb759etsy5505n3ryn2X//d/Ge9+zPFVdcxvz58/n+9y/hscce5aCDXrpOuxjMJElSMTbd9A1LPk+d+hluvPF6fv3rq7nzzj8yf/78ly2/9trrsNFGGwOwwQYbMnfu3Jcts/XW27LKKquw9trrMH78eJ55Zh433/w73vWu99DR0cG6605mm222a96PGgCfypQkScVYddVVl3z+8IeP4O677yRiYw466IP09Lz8heNjxox5yfTyluno6KCnp4fOzlF9LttuBjNJklScuXPn8OCDD3DYYUexww5v4frrr1vh1yf1tu2223PVVVfQ09PDE0/M5Pe/v7WIsd68lClJkoozfvwE9t57Xz7wgf0ZPXo0W2+9Hc8991yflzMHY99938Pf/nYvBx10ABMnTmLddSe/pLeuXTpK7MbrxxTgvlmz5tHd3Zqau7rGMXPm0y3Zlxpjm5TJdimPbVKedrbJo48+wLrrrj+gdZo5XEYJbrzxBjo7YYcddmTevHkceuj7mTHj24wfP/Df19fx7ezsYOLENQFeC9zf6LbsMZMkSS8zXAJYf6ZMeS2f/eypTJt2LgCHH/6hQYWyoWYwW8pL/4XQ978WSjT13kPbXcKQmTTt0naXIEka5tZb75V885sXsnDh0N23NhTaEswi4kDgZGAV4GuZeU476pAkSSpJy5/KjIhXAp8DdgS2BI6MiE1bXYckSVJp2jFcxq7AtZn5ZGY+A/wXsF8b6pAkSSpKOy5lrgc80mv6EWD7Rleun3BoopXnvrLhqqtr3Ap9r/awXcpjm5SnXW3y+OOdjB7t0KV9GYrj0tnZOWRt245g1gn0Hu+iA2j4zrtWDpeh9ljW4+QOAVAm26U8tkl52tkm3d3dxd3kXoLRozuH5Lh0d3e/rG17DZcxIO2Izw8Bk3tNrws83IY6JElSP5446j19/llRRx99GFdffcVL5s2fP58993w7Tz31VJ/rHHPMkdx22y3cc89dfPGLn3nZ94888jD77bfPMvd7111/4txzvw7ADTdcx/Tp0wb5C5qrHT1mVwOnRUQX8AzwXuDINtQhSZJabK+93smVV/6KXXfdfcm86667lq233pa11lprmetuvPGmnHji4J4XvP/++5g9+0kAdtxxZ3bccedBbafZWh7MMvMfEfFp4NfAGGB6Zt7U6jr603tAvZXrUoBjf0mSyve2t+3GOeeczdy5c5YM6HrFFb9k//0P5Nprr+aHP/wuzz//PC+8sICTTjqFzTffYsm6t912Cxde+E2+8Y1v8uc/37Ok92zDDTdasszf/vYXvvrVLzF//nxmz36SD3zgEN7+9t2ZPn0a8+fP5+KLZ9DV9Qp+//tbOfXU0/nTn/7I2Wd/mQULFrDWWmtxwgmf4lWvejXHHHMkm266GXfccTtPPTWbj33sBN785rc0/fi05U7AzPx+Zr4hMzfKzDPbUYMkSWq9NdZYg5122plrr70agCeemMnf//4A22+/Az/96SWceebXuPjiH3DggQfxne9c1O92PvvZUzn66I9w4YXfY731Xrlk/s9//lMOPvgwpk//Nl//+jTOOefrjBs3jsMPP4odd3wrBx982JJlX3jhBU477VP8679+gosv/gH77vteTjvt072+X8j553+Lj3zkX7nggvOG/mD0wUc0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">
 </div>
 
 </div>
@@ -1103,11 +1150,11 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Scoring-Metric:-RMSLE">Scoring Metric: <code>RMSLE</code><a class="anchor-link" href="../bikeshare%20part2/#Scoring-Metric:-RMSLE">¶</a>
+<h3 id='Scoring-Metric:-"RMSLE"'>Scoring Metric: "RMSLE"<a class="anchor-link" href="../bikeshare%20part2/#Scoring-Metric:-%22RMSLE%22">¶</a>
 </h3>
-<p>Lets try to understand the metric which will be used for the Kaggle evaluation. Here is the screen shot from the Kaggle evaluation page.</p>
+<p>Lets try to understand the metric which we will use for the Kaggle evaluation. Here is the screen shot from the Kaggle evaluation page.</p>
 <p><img src="../../images/scoring.png" alt="scoring"></p>
-<p>Obviously it is of great importance to understand and use the metrics properly also in machine learning. Deriving insights without making clear sense of metrics is like to choosing between 1 litre milk and 0.6 galon milk. If we dont know the metrics litre and galon we can't make a healty decision.</p>
+<p>Obviously it is of great importance to understand and use the metrics properly also in machine learning. Deriving insights without making clear sense of metrics is like to choosing between 1 litre of milk and 0.6 galon of milk. If we dont know the metrics litre and galon we can't make an healty decision.</p>
 <p>So we need to take into account the metric <code>Root Mean Squared Log Error(RMSLE)</code> for this project but how can we interpret this metric?</p>
 
 </div>
@@ -1123,7 +1170,7 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 <ul>
 <li>It is the Root Mean Squared Error of the <strong>log-transformed predicted</strong> and <strong>log-transformed actual values</strong>. </li>
 <li>
-<p><code>RMSLE</code> adds <code>1</code> to both actual and predicted values before taking the natural logarithm to avoid taking the natural log of <code>0 (zero)</code>.</p>
+<p><code>RMSLE</code> adds <code>1</code> to both actual and predicted values before taking the natural logarithm to avoid taking the natural log of possible <code>0 (zero)</code> values.</p>
 </li>
 <li>
 <p>As a result, the function can be used if actual or predicted have <strong>zero-valued</strong> elements. But this function is not appropriate if either is <strong>negative valued</strong></p>
@@ -1135,7 +1182,7 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 <p>The expression $$ log(p_i +1) − log(a_i+1)$$ can be written as $$ log((p_i+1) / (a_i+1)) $$</p>
 </li>
 <li>
-<p>RMSLE measures the ratio between predicted and actual.</p>
+<p>RMSLE measures the ratio of predicted and actual.</p>
 </li>
 </ul>
 <blockquote>
@@ -1144,7 +1191,7 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 <li>we care about <strong>percentage errors</strong> rather than the <strong>absolute value of errors</strong>.</li>
 <li>there is a wide range in the target variables and</li>
 <li>we <strong>don’t want to penalize big differences</strong> when <strong>both the predicted and the actual are big numbers</strong>.</li>
-<li>we want to <strong>penalize under estimates more than over estimates</strong>.</li>
+<li>we want to penalize <strong>under estimates</strong> more than <strong>over estimates</strong>.</li>
 </ul>
 </blockquote>
 <p>Let's imagine two cases of predictions,</p>
@@ -1154,20 +1201,20 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 <p>Case-2: our model predicts the number of rentals as <code>300</code> when the actual number is <code>400</code></p>
 </li>
 <li>
-<p>For RMSLogE two results are scored the same</p>
+<p>With RMSE the second result is scored as <code>10 times</code> more than the first result</p>
 </li>
-<li>
-<p>Conversely, with RMSE the second result is scored as <code>10 times</code> more than the first result</p>
-</li>
+<li>Conversely, with RMSLogE two results are scored the same. </li>
+<li>RMSLogE takes into account just the ratio of change</li>
 </ul>
-<p>The decisions always depends on the domains or business cases and for the bike rentals business and the ranges this feature of RMSLE looks like a suitable.</p>
+<p>The decisions always depends on the domains or business cases and for the bike rentals business and the ranges of bike rentals this <strong>"ratio of change"</strong> feature of RMSLE looks like suitable.
+<br></p>
 <p>Lets have a look at the below example</p>
 <ul>
 <li>
 <p>Case-3 :</p>
 <ul>
 <li>
-<p>Prediction = <code>600</code>, Actual = <code>1000</code></p>
+<p>Prediction = <code>600</code>, Actual = <code>1000</code> (the absolute difference is 400)</p>
 </li>
 <li>
 <p>RMSE = <code>400</code>,</p>
@@ -1182,7 +1229,7 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 <p>Case-4 :</p>
 <ul>
 <li>
-<p>Prediction = <code>1400</code>, Actual = <code>1000</code></p>
+<p>Prediction = <code>1400</code>, Actual = <code>1000</code> (the absolute difference is 400)</p>
 </li>
 <li>
 <p>RMSE = <code>400</code>,</p>
@@ -1193,13 +1240,13 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 </li>
 </ul>
 <ul>
-<li>When the differences are same between <strong>actual</strong> and <strong>predicted</strong> in both the cases. <ul>
+<li>When the differences are the same between <strong>actual</strong> and <strong>predicted</strong> in both cases. <ul>
 <li>RMSE treated them equally, however </li>
 <li>RMSLogE penalized the under estimate more than over estimate (under estimated prediction score is higher than over estimated prediction score)</li>
 </ul>
 </li>
 </ul>
-<p>This second feature of RSMLE is also plausible for bike business in my opinion. Having extra bikes is preferable to not being able to supply as many bikes as the demand</p>
+<p>This second feature (<strong>penalizing the under estimate more than over estimate</strong>) of RSMLE also looks plausible for bike business. Having extra bikes might be preferable to not being able to supply as many bikes as the demand.</p>
 
 </div>
 </div>
@@ -1216,14 +1263,16 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [34]:</div>
+<div class="prompt input_prompt">In [29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Define the RSMLE function for error calculation: rsmsle_calculator</span>
 <span class="c1"># Using the vectorized numpy functions instead of loops always better for computation</span>
 <span class="k">def</span> <span class="nf">rmsle_calculator</span><span class="p">(</span><span class="n">predicted</span><span class="p">,</span> <span class="n">actual</span><span class="p">):</span>
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">predicted</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">actual</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">predicted</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">actual</span><span class="p">),</span> <span class="mi">2</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">predicted</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">actual</span><span class="p">),</span> <span class="mi">2</span><span class="p">)))</span>
 </pre></div>
 
     </div>
@@ -1254,7 +1303,7 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 <p>We need this parameter for model-evaluation tools which rely on a scoring strategy when using cross-validation internally (such as <code>model_selection.cross_val_score</code> and <code>model_selection.GridSearchCV</code>)</p>
 </li>
 </ul>
-<p>We will use <code>make_scorer</code> function of sklearn to generate a callable object (our <code>rsmle_calculator</code> function) for scoring. <br>
+<p>We will use <code>make_scorer</code> function of Sklearn to generate a callable object (from our <code>rsmle_calculator</code> function) for scoring. <br>
 When defining a custom scorer via <code>sklearn.metrics.make_scorer</code>, the convention is that</p>
 <ul>
 <li>custom functions ending in <code>_score</code> return a value to maximize and</li>
@@ -1270,15 +1319,15 @@ When defining a custom scorer via <code>sklearn.metrics.make_scorer</code>, the 
 </ul>
 <p><strong>NOTE:</strong></p>
 <ul>
-<li>If a loss, the output of the python function is negated by the scorer object, conforming to the cross validation convention that scorers return higher values for better models.</li>
-<li>When <code>greater_is_better</code> is <code>False</code>, the scorer object will sign-flip the outcome of the <code>score_func</code>.</li>
+<li>If a loss, the output of the python function, is negated by the scorer object, conforming to the cross validation convention; that scorers return higher values for better models i.e</li>
+<li>when <code>greater_is_better</code> is <code>False</code>, the scorer object will sign-flip the outcome of the <code>score_func</code>.</li>
 </ul>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [35]:</div>
+<div class="prompt input_prompt">In [13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Make a custom scorer </span>
@@ -1293,7 +1342,7 @@ When defining a custom scorer via <code>sklearn.metrics.make_scorer</code>, the 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [36]:</div>
+<div class="prompt input_prompt">In [14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Fit and score the model with cross-validation</span>
@@ -1311,7 +1360,7 @@ When defining a custom scorer via <code>sklearn.metrics.make_scorer</code>, the 
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[36]:</div>
+    <div class="prompt output_prompt">Out[14]:</div>
 
 
 
@@ -1331,14 +1380,14 @@ When defining a custom scorer via <code>sklearn.metrics.make_scorer</code>, the 
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>As explained the scores are negative due to the sklearn customs. We can multiply the results by <code>-1</code> for interpretation</p>
+<p>As explained the scores are negative due to the Sklearn customs. We can multiply the results by <code>-1</code> for our interpretation</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [37]:</div>
+<div class="prompt input_prompt">In [15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"The cross validation scores:"</span><span class="p">,</span> <span class="n">scores</span><span class="o">*-</span><span class="mi">1</span><span class="p">)</span>
@@ -1379,7 +1428,7 @@ When defining a custom scorer via <code>sklearn.metrics.make_scorer</code>, the 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [38]:</div>
+<div class="prompt input_prompt">In [16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Hold-out target data </span>
@@ -1435,14 +1484,14 @@ RMSLE value for linear regression of hold-out:  0.715555147546642
 <h3 id="Kaggle-submission">Kaggle submission<a class="anchor-link" href="../bikeshare%20part2/#Kaggle-submission">¶</a>
 </h3>
 <p>Lets predict the given Kaggle test set and submit the predictions to Kaggle to get our score. <br>
-First it would be better if we combine our <code>X</code> and <code>X_hold</code> and <code>y</code> and <code>y_hold</code> datasets then train our model with more data in order to let our model learn better before predicting on a new test data i.e Kaggle test data which we have not yet uploaded.</p>
+First it would be better if we combine our <code>X</code> and <code>X_hold</code> and <code>y</code> and <code>y_hold</code> datasets then train our model with more data in order to let our model learn better before predicting on a new test data i.e Kaggle test dataset which we have not yet uploaded.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [39]:</div>
+<div class="prompt input_prompt">In [17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Combine X and X hold: combined_train</span>
@@ -1465,7 +1514,7 @@ First it would be better if we combine our <code>X</code> and <code>X_hold</code
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[39]:</div>
+    <div class="prompt output_prompt">Out[17]:</div>
 
 
 
@@ -1483,7 +1532,7 @@ First it would be better if we combine our <code>X</code> and <code>X_hold</code
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [40]:</div>
+<div class="prompt input_prompt">In [18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Read the Kaggle test data</span>
@@ -1501,7 +1550,7 @@ First it would be better if we combine our <code>X</code> and <code>X_hold</code
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[40]:</div>
+    <div class="prompt output_prompt">Out[18]:</div>
 
 
 
@@ -1595,14 +1644,14 @@ First it would be better if we combine our <code>X</code> and <code>X_hold</code
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Lets also apply all the steps that we followed for train data to the test data</p>
+<p>Lets also apply all the steps that we followed for train data to the test data in order to conform the train and test datasets</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [41]:</div>
+<div class="prompt input_prompt">In [30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">kaggle_test</span><span class="p">[</span><span class="s2">"month"</span><span class="p">]</span><span class="o">=</span><span class="n">kaggle_test</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span>
@@ -1621,7 +1670,7 @@ First it would be better if we combine our <code>X</code> and <code>X_hold</code
 <span class="c1"># Drop the correlated features: atemp, season</span>
 <span class="c1"># Drop the weather column (not relaible data records)</span>
 <span class="n">X_kaggle_test</span><span class="o">=</span> <span class="n">kaggle_test</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">"season"</span><span class="p">,</span> <span class="s2">"month"</span><span class="p">,</span> <span class="s2">"weekday"</span><span class="p">,</span> <span class="s2">"hour"</span><span class="p">,</span> <span class="s2">"atemp"</span><span class="p">,</span> <span class="s2">"weather"</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">X_kaggle_test</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">X_kaggle_test</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1634,7 +1683,7 @@ First it would be better if we combine our <code>X</code> and <code>X_hold</code
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[41]:</div>
+    <div class="prompt output_prompt">Out[30]:</div>
 
 
 
@@ -1727,34 +1776,6 @@ First it would be better if we combine our <code>X</code> and <code>X_hold</code
       <td>-0.900969</td>
       <td>0.433884</td>
     </tr>
-<tr>
-<th>2011-01-20 03:00:00</th>
-      <td>0</td>
-      <td>1</td>
-      <td>10.66</td>
-      <td>56</td>
-      <td>11.0014</td>
-      <td>0.707107</td>
-      <td>0.707107</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>-0.900969</td>
-      <td>0.433884</td>
-    </tr>
-<tr>
-<th>2011-01-20 04:00:00</th>
-      <td>0</td>
-      <td>1</td>
-      <td>10.66</td>
-      <td>56</td>
-      <td>11.0014</td>
-      <td>0.866025</td>
-      <td>0.500000</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>-0.900969</td>
-      <td>0.433884</td>
-    </tr>
 </tbody>
 </table>
 </div>
@@ -1778,7 +1799,7 @@ First it would be better if we combine our <code>X</code> and <code>X_hold</code
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [42]:</div>
+<div class="prompt input_prompt">In [20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">final_predictions</span><span class="o">=</span><span class="n">pipeline</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_kaggle_test</span><span class="p">)</span>
@@ -1794,7 +1815,7 @@ First it would be better if we combine our <code>X</code> and <code>X_hold</code
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We need to create a dataframe complying with Kaggle submission format like shown in the screenshot
+<p>Having predicted the test targets now we need to create a dataframe complying with Kaggle submission format like shown in the screenshot
 <img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAApgAAADxCAIAAADgN1AlAAActUlEQVR4nO3d7Wsb2aHH8f2P+ncMmEFggV44aUhCWEGUEFoE6V0S0/qCKMZsMJu7t7i7vYQrGu7V1ku99d2ycbVJllgsTkyrOm6eupGLBKaG2S2zL5fcF3o6Z87DnJE0ts/u9/PK0mjO0zz8NA8evfUGAAB4662TbgAAAJgcQQ4AgMcIcgAAPEaQAwDgMYIcAACPEeQAAHiMIAcAwGMEOQAAHiPIAQDwGEEOAIDHCHIAADxGkAMA4LGMQf7XX/7oLdnZjyep9uOz08z9faaO8NSDDQD4HssQ5MPwVf3ol3/NWG3eQT4sP3vLjqc8M4IcAJCFc5CPYlzIsnG0Zw04gtxkFOR+hvZgoPxsPAD4yDHIR/GSSLJJY4dT6yYEOQAgi6xBPqM9NEFu4neQD1vvZeMBwEtZgzz15PLwk9LnlNwW3xCvCsulC5+SLh2PPiVetpeyQ/tFIXH5OdkT22TDFw97icJQyB+0jaFzkLvVLQxw/xOTj2lyYuIDulso8r8SAQA/eK7XyJP3YBl30RmD/Ky6+x+Hw+jK9I+UG8DOfqy5K0ydU33H0AvHyUJwGe5KE/o9Ggq1+eaYdgpy97rP/jLxFWzyMU2plCAHgBMxi7vWtYe9bkGufU9zcDh6S0wTdU7tEb+2VfIHUiZrOqDeNGB5x9rUBMtd68OCM9Ytzz7xmCr3++m+cmiXPgAgR1kfCJN6LJgxyLUnxJMHeWJZ2iNW66l74bUpX1ImO3wx0DXN2lRTXelBnq1u0+WK7GNqbKruJARBDgDHZKonu+kup2a/Rj6WDBTdpyYrX4lHQ8X6yUp5hvPfiZC0Jm5qkKcesjvVndYTc5v0iyjlBDpBDgDHbdpHtCondacJ8uTbswty05GueqpcP9nbIFeqmX5MFQQ5AJwgtyC3nA9OTjqdR+SaOvQ9MkwmyMcxrnz5IcgB4AS5Bfk43pLxosSKbleuZo/9GrnxFjND+VmCPFmO4ROJyaaWWTM6nyCfom5dT4wfTrkdUN8QghwAjpvrqXX901g1h2lqRltv3s5077lYWqYgVyNHKiZlsq6CLHeOzzjIJ697mjFVxki7Rvj9OBsA8JH7NXLzb6YY7osWpp89mzj8dSssx5vd3pKmp0ye9v/IZxzkE9c91ZhqFtn4f9FN9xqQ5wCQt4w3u6l7c92uWnlkmHIeW0gJqUj9dd/ZnFpPeaaNdbLbk90MU2cf5BPWnTYyaV1WF5WuNOuj4QAAMzbtXesAAOAEEeQAAHiMIAcAwGMEOQAAHiPIAQDwGEEOAIDHCHIAADxGkAMA4DGCHAAAjxHkAAB4jCAHAMBjBDkAAB4jyAEA8BhBDgCAxwhyAAA8RpADAOAxghwAAI8R5AAAeIwgBwDAYwQ5AAAeI8gBAPAYQQ4AgMcIcgAAPEaQAwDgMYIcAACPOQR5a2Vubu5KoyO92WlcUd88Vp3GlbmV1pQFZO/BZHNptVbm5jRD++ZNa+Vkh9Zu6oGfnXyacrIdzLDwZ9hQc1GG9pzudTR/5mGZapFMN6yDPYq1BeKSns1CnLbPok7jimGnCCunI/JO44q8qGaYZhM7RXkyEXkMpVenYidpbMQpGniC/PsU5DMuMt/FOKvGJlo5VbFOiTr7IJ+hEwmWU7RDm5zjqXU5ymf5FWxivg+/ZZ09FdsXQX4yCPIZ+UEGefrMpz7Ij33TO0U7tMk5XyMf544c48NzIdLpEHlolFWn1biiPf8zPDM0J39pENY14VW/1HH140+1VuauNBorUrNGRZsPgpWqtX1L5K92Pl0DjD0dj6rhiLxlKyhbd/XLRO2E2DxlOSUHXpwuzDioOXk2R1h70jomjr9+S7M1RZjZ3sLE+/3VM9Fi/WBqLzqZmt1pXJlbaegbJfbAtHPVrGmO3ddvP280W1OG9vTfHjdKWj6pS9ZhjUsOsWX9VUdcfEOzgWm6Li1LQ/vdhmXYLtsCV5sttVKz+aaNqm6TNe7U9EGuflzeeBOXU1srws5GKtGw6xNWloYmOzWjYVuLhRBx3AMad0+J91or2qV1umW42a2/vOQgSyxDaR02rTqmUdLPb93+5qRX0maY2CaFVVszi7bqRJHCktdVam2AbpNXvxHogtxURWLcHLurXSaG5WY9ItfndKKk8eAmvmR1nDqWHFHNSuPUlOR3B7WFyjjJWalpprzyOTVbKldsq9Ju00LWrqGZuu8U5E7tSWzIyY7al6zTGpccYvs+RfxbGBDjsa5xR2Jf5E7DIo6jPhIFaitT91bGk3lSF207Ks2IGz6e2C3N6fYnyfHXblbJv11Gw7IWS/M77gENG79yRP59D/LkklRWqPFLt41OlhzOTkeNAdOaJ0+S61BeqQXoq04k2aA9+viXX9oaIPU3NcjVfZt1t5jWXd0yMYy7Pci168BwzmR1QkmjPx06JhWnb42pKZq9Y/9ATd9C44I0NtO0K7U029bW1GWsX0jZi3QIcqf2KGMmDWbK7G5rXHJO2/pr/EblGuSGDVGYmH1YjNtJSiu1G7PLjkBJXW25+iC37cvGH1lptVbUYkx5a94lGmNAbJx1LVaSN30PaNo9Keujl7L9+5l1rUscbrmczFEKV04EOR1DJF4bZ1ELkA6wNFWrp2fMO3NLAyYNcqFd2pNV9g7axit5BKZ03h7kckHy7mpMWejZOiYuAf0HTE2R5pPbommheUEam2nf9rXNtrU1fdy1Cyl7kQ5rh1t7lLeHr12WrNMaZ96+7e01zJBlw9C1331YdCcbsgS5btfhtr1YDnP0X9yl7THl4/3PJl4m+2xrv/lbmX40XNdi5z2gafdEkBu/GU0U5GIp4xX1WIJcX7VQ8Hi524Ncd7g5ZZCnDdfUQW7ofPYgb62Yto5BWcK34/SOdRpX5jRD4tQU085d30L7XszlaM+l2dMFudQD/dcJa5Fpm8ZMgzx1ldV15hQFeUpCa4rTfWzWQZ4+qilBrq401iAXNtWV1ptO48po+a60jAf/+Qa5di123QMad08Euebkh/qtz7agHSpSvlGZVlWHw4431nVd38fkfOYzPJYGTBrk5r2Urmnp3TWdf9J1PnOQyx2SK2itzF1pNAwbv7Fb4084LSvzdyxtKdKOwfD91NRM87ZvbLZjWx2/4hi+LxuL1C1Ufesc25MYGYdgTelMtiAf1+L6Zcuh67qOvdHMYak1pyB3G1VTukqT9IdVxo8PZmgMcvxNP9HFTdklyC2bmHE0HNdiXaW6V+bdE0HeP/zQfIMS3+8f0KYHeXJohTVM+MqevClJnKT/Zu8Q5NqqpQWv32+IlSben1GQS1XIL97o5kzprm6ZGMbd9UhHjg8xAJU9w5UriVGxdkx4T17UDk2RV8zRC2MLlZVMWqk1zbQHubbZTm019VS/kNy6n9jPmrcm48ZrSizt9u62ZNPXONu+Rtqn6Je1bgNL7bqt/e7DkjnIbZuvbhU17AjkmU07J32QGz8+HC15+SZvIk8NcssmlhwN6WuwaS2eLMj1uyfNIWGm76KnwnRB/ma4TivXu8S3G/pVR1u65grQYD2am5MP6oZfFNXaJzgi11c9rtm41MXGpW+Nyd6mB7ncCu3a5dhd8zIxjPvw7eTyMu+gxgVd6V9NS2yUiZIcOjaerN132faVQq90byZaKE4w/vuZ3B3Tpm5otq2t4iyGLUS3kBy7LzXUtjW11A/Z//3M9C+WaUvWZY1Th9i0/srlaZactPtO6bqt/W7Dki3IE6207TrSRlUXcPpBNseubmkmky0ZdE5BLi6k/v8+pQb5G9NaPFGQ23ZP8oryAwhyAACm8r04m32qEOQAgDzJJ9SMl+0wKYIcAJAz8UKl8fIqJkSQAwDgMYIcAACPEeQAAHiMIAcAwGMEOQAAHiPIAQDwGEEOAIDHCHIAADxGkAMA4DGCHAAAjxHkAAB4jCAHAMBjBDkAAB4jyAEA8BhBDgCAxwhyAAA8RpADAOAxghwAAI8R5AAAeIwgBwDAY65B/t1333377bfffPPN1wAA4NRwCvLvvvvum2+++de//hUDAIDTxCnIv/32W1IcAIBTyCnISXEAAE4npyD/+uuvT7qdAABAgyAHAMBjBDkAAB4jyAEA8BhBDgCAxwhyAAA8RpADAOAxghwAAI8R5AAAeIwgBwDAYwQ5AAAeI8gBAPAYQQ4AgMcIcgAAPEaQAwDgMYIcAACPEeQAAHiMIAcAwGPHFOT79XJQa86kxVkc3vtFGP7i3uGxVwwAwPE4bUG+Xy8H5fp+lrKbteAkviQcowkGBQDwA0GQe4AgBwCY5Bjk0d76zXOFIAjnL797Z+XSOGy7O/Wb5wpBEASFczfrO93B281akDCO5+jF1ruX58MgCOcv3Fzfi/rv7tfLiTmGcSdOEUJ+v14OytffWQiDwrl3P7j9diEI53/6v/vWSqxd7Dy8fbVUCIKgcK76wcPOaBapqEb7SOjiuDnCt5v9ejmofdZuDAfs9qNu+qAAAJBfkB8+WC6FlbXtl73eweM7lXCUQK/Wq2FpcaPdOzw8eHy3WgwX/yhcw9YefHabtVJpcaN90Ou93F6rhKXlB8IstiPyxLT9ejko/2b34OXHN8L+Hx/9LDiztpteiU60u3Y+OH/r82e9Xq+9sVgaNbzbrA37/nJ7rRKG1fVXmuYkgjyc/+mHo+GSRoUjcgCASV5Bfrh5IyjeejQ8RN27MzoiP+q9ft0bHqLGzVoQLj8Yz6fLrL98eD64sTnKtd21M8HS1vh4OWOQ15riH6MPpFSiETVrodDFw63lH//b757HcdxZrwbnP/zL8HOvGteGL61BfunO3rDkraWguNqyDgoAAHGcX5Dv18tiLorXyKPOl43a1YX5UHeyWJdZ6ull6SOzCfKUSgxd1H4k2aDxtxhrkAtl6U4kEOQAAI3jD/L9ejkoXa9vP3v9+vXr15/83CnIL/xn67Xo4HDWR+QplRi6SJADAE5WbqfW/7gYak+tP79bEUIp2lqSQ6+zXlUya3ftjPReFEkB21otziDIUyrRSJxaj3Z/t/Jf9zux7dT63p1Lwgl74XqDPch1gwIAQBzneLNb1Fod3+x2t1ocJVNrtRiU399+2esdtDeWFsLE4XRrtRiUf/O4d3h48Pplp39I/2q9GoYXlz9r93q9Z9v166W3//vpeI7OejUoLv3fy8PD3utnX3VjkXuQp1SiO+zv3+xW+6zd6/Xany1fLFTuam52u1Mtjm52ix7dKobV/+lXsSbcAWgPcu2gAAAQn8i/nw3/+yycv3Cz/tF/XP3xv3/6D2G27qPbl+fDIAgKpZ999Gzw5tGzz94dvnv13a0Xka6iIJy/8N4Xh3Gs+8e0oNa0B7m9Ev35e/Hfz4R/pDP++9m4d+H85duN9x1PrRsGBQAAnrXuhpPbAIDTiSB38Y9Pb55L/bdyAACOH0EOAIDHCHIAADxGkAMA4DGCHAAAjxHkAAB4jCAHAMBjBDkAAB4jyAEA8Fh+Qd7dqd+8MHgaae0Pe8LzTqXnl67vKT9OcvTVk43mnzVFGidopFQSHT69v9nquJY0fA5r9YNH3cQkW0+yNGv45NqgULp6+1HXXER6WdmbZa59hs0CAOQgryB/tV4NS4sb7YNe7+X2WiUsjR6Mlvw1lfGU+OirJxu3f7IQBsnnmhsnmJgriQ6f3q/X3i6k/964XNKzXq/X3lgshcNfRrH2JHOzhuPV6/WefX7rvFBL5rKyN8tc+wybBQDIRU5B/vxuJbjWeDV4FW0tBeHyg/6LB8vij3/urp0Z/W75fr0yf7lWv//bxG+UmycYmStp1grnqrc3Pn3vkluQyyXt3bkUVO4+T6skc7Pk8TrcvBGcWdudsIvZm2WsfZbNAgDkIqcg7+z+6d7jv49eNmujIJd/56u78355FA7DnwBXfvvLOMEkvZLEz40Z/fNv2/e+2Bsl0X69PApySyWZmyX1LHqxcaOYyL/O76+HQWm1FaWWld6sL2+XgtEvq1prT21Whi4CAHJxHDe7dbeWiqOjtPGePnqxubQwXygo4WzM6wmC3FSJa5BLor075fERqkNPnJs17ll358Nr84VCmGhd55N3CuHCbV2QJ8pKb9aXv1oIC9d/rwvyRO2pzcrQRQBALvIP8m6zVhKO//p7+r3Ow9WLhYurDztbajjPKshtlUwQ5NFevRIKB8UOPXFuVr9nR+3G9VLpeqPdTm+dsazszTLXPsNmAQDykXOQ98Ov1hzf7bxfLwfFhYVCaXHzRRRrwzlDkDdrgWiYMumVqEG+Xy9LZSVa0G3WSmGlLtyE7dCTBPMczVoQlBYWCpW1na62de5lZW+WufYZNgsAkI9cg1wNv/6ePhwEQxzHcbOmXETNEORHvdeig8Px+Xt7JWomRYcHUlm9I2Ga8n3ErScJ5jmatSAYZt/ggw4Xo7VlZW+WufYZNgsAkI/8glwbfnEct1aLxdXW8JUuG6Y/tZ5eSZZT67rvI06VuDers14NquvDf2uPmrUwNf6MZWVvlrH2WTYLAJCLvILcFH5xHO2unR/+o3F7Y7FUrDUTO/oZBHlqJc5Bbvo+4tQT9zm6mzdG/7C9vVYJk21T7lo3l5XaLOWudXPt9mbpBjH7oAAAppFXkCcuXosXsOVHfzXaR7p5pwzy1Eqcgzx56Vy6fJ7WkyzNkh6h9rCT+Aak3LVuKyulWcpd67babc3SD2L2QQEATI5nrWNirdViWGvyDFYAOEkEOSb15NcXrqU+shUAkC+CHAAAjxHkAAB4jCAHAMBjBDkAAB4jyAEA8BhBDgCAxwhyAAA8RpADAOCx/IK8u1O/eaH/pM7LtT+ID12XnuG5rj6O/eirJxvNP2uKNE7QSKkkOnx6f7PV0c6qKelqqRAEQeFc9YNH3cQkW08yN2s2XczeLPlJrGIfjROyNwsAkIO8gvzVejUsLW60D3q9l9trlbC0/GDw2xlRa7U0/FWNx3erxfGU+OirJxu3f7IQKr8GbpxgYq4kOnx6v157uyA+/N2lpGe9Xq+9sVgKK6OHmVl6krlZM+xi9maNllav13v2+a3z4z4aJ0zSRQBADnIK8ud3K8G1xvBnOaKtpSBcftB/8WA5LN56NDxO2107M/qdy/16Zf5yrX7/tz9PhJlxgpG5kmatcK56e+PT9y65Bblc0t6dS0Hl7vO0SrI3a4ZdzN4seWkdbt4Y/oa4ccIkXQQA5CGnIO/s/une47+PXjZroyCXfzGru/N+eRQOURQNPy2HmXGCSXolrr9+9s+/bd/7Ym+URPv18ijILZVM3CxjF5WfMTWWld4s5WdMpUqjFxs3ioP0NU6YpIsAgDwcx81u3a2l4ugobbynj15sLi3MFwpKck3/M6bplTj/jKko2rtTHh+hOvQkc7PMQZ78GVNjWemVKD9jOq60u/PhtflCIRyUYJwwTRcBALOUf5B3m7WScPzX39PvdR6uXixcXH3Y2VKTa1ZBbqtkgiCP9uqVUDgoduhJ5mbNoIvZmzWo9KjduF4qXW+026OxMU6YposAgFnKOcj74Vdrju923q+Xg+LCQqG0uPkiirXJlSHIm7VANEyZ9ErUIN+vl6WyEi3oNmulsFIXbsJ26EnCNH13Lit7s+JmLQhKCwuFytpONxbHxjhhmi4CAGYp1yBXw6+/pw8HwRDHcdysKRdRMwT5Ue+16OBwfP7eXomaSdHhgVRW70iYpnwfcetJwjR9dy4re7P6eT1I3kEJ42vk2gnTdBEAMEv5Bbk2/OI4bq0Wi6ut4StdNkx/aj29kiyn1nXfR5wqyd6sWXQxe7M669Wguj78p/qoWQsH4WucMEGzAAC5yCvITeEXx9Hu2vnhPxq3NxZLxVozsaOfQZCnVuIc5KbvI049yT6H813r5rJSK1HuWo+7mzdG/y6+vVYJRyNjnBDHsX4Qsw8KAGAaeQV54uK1eAFbfvRXo32km3fKIE+txDnIk5fOpcvnaT3J3Cz3u9ZtZaVUoty1Hice4PawE6VPiE2DmH1QAACT41nrmFhrtRjWmjyDFQBOEkGOST359YVrqY9sBQDkiyAHAMBjBDkAAB4jyAEA8BhBDgCAxwhyAAA8RpADAOAxghwAAI8R5AAAeCy/IO/u1G9e6D+p83LtD+JD16VneK6rj2M/+urJRvPPmiKNEzRSKokOn97fbHW0s2pKuloqBEFQOFf94FE3McnWE/dmWSrJ3sXszZKfxCpWb5yQvVkAgBzkFeSv1qthaXGjfdDrvdxeq4Sl5QeD386IWqul4a9qPL5bLY6nxEdfPdm4/ZOFUPk1cOMEE3Ml0eHT+/Xa2wXx4e8uJT3r9XrtjcVSWBk9zMzSk4zNslSSvYvZmzVaWr1e79nnt86PqzdOyN4sAEAucgry53crwbXG8Gc5oq2lIFx+0H/xYDks3no0PE7bXTsz+p3L/Xpl/nKtfv+3P0/ktXGCkbmSZq1wrnp749P3LrkFuVzS3p1LQeXu87RKsjbLUkn2LmZvlry0DjdvDH9D3DhhgmYBAHKRU5B3dv907/HfRy+btVGQy7+Y1d15vzwKhyiKhp+W89o4wSS9EtdfP/vn37bvfbE3SqL9enmUsZZKMjbLUsmQ8jOmxtrTm6X8jKk0rtGLjRvFQfoaJ2TuIgAgJ8dxs1t3a6k4Okob7+mjF5tLC/OFghLO0/+MaXolzj9jKor27pTHR6gOPcncLKWSIeVnTI1lpVei/IzpeFy7Ox9emy8UwkEJxgnTdREAMDv5B3m3WSsJx3/9Pf1e5+HqxcLF1YedLTWcZxXktkomCPJor14JhYNih55kbpZSSfaysjdrMK5H7cb1Uul6o90ejY1xwjRdBADMUs5B3s+lWnN8t/N+vRwUFxYKpcXNF1GsDecMQd6sBaJhyqRXogb5fr0slZVoQbdZK4WVunATtkNPElLnUCvJXlb2ZsXNWhCUFhYKlbWdrjQ2xgmTdxEAMFu5Brkul/br5SAcBEMcx3GzplxEzRDkR73XooPD8fl7eyVqJkWHB1JZvSNhmvJ9xK0nCfY5tJVkLyt7s/p5PUjeQQnja+TaCRN2EQAwc/kFuSmXWqvF4mpr+EqXDdOfWk+vJMupddNxcnpPMjQrw8F4SlnZm9VZrwbV9eE/1UfNWjgIX+OECZoFAMhFXkFuzqVod+388B+N2xuLpWKtmdjRzyDIUytxDnLLcXJ6T1znSD8YV+5aN9ee2izlrvW4u3lj9O/i22uVcDQyxglxHOsHMfugAACmkVeQJy5eixew5Ud/NdpHunmnDPLUSpyDPHnpXLp8ntYT12ZZK4njWHPXuq32lGYpd63HiQe4PexE6RNi0yBmHxQAwOR41jom1lothrUmz2AFgJNEkGNST3594Vr6o2QBALkiyAEA8BhBDgCAxwhyAAA8RpADAOAxghwAAI8R5AAAeIwgBwDAYwQ5AAAeI8gBAPAYQQ4AgMcIcgAAPEaQAwDgMYIcAACPEeQAAHiMIAcAwGMEOQAAHiPIAQDwWM5BHrVWS0HhnU86zhPiV+vVMFz41ZcT1ggAwA8JQQ4AgMc4tQ4AgMcIcgAAPEaQAwDgMYIcAACPEeQAAHiMIAcAwGMEOQAAHiPIAQDwGEEOAIDHCHIAADxGkAMA4DGCHAAAjxHkAAB4jCAHAMBjBDkAAB4jyAEA8BhBDgCAxwhyAAA8RpADAOCxnIM8aq2WgsI7n3ScJ8Sv1qthuPCrLyesEQCAHxKCHAAAj3FqHQAAjxHkAAB4jCAHAMBjBDkAAB4jyAEA8BhBDgCAxwhyAAA8RpADAOAxghwAAI8R5AAAeIwgBwDAYwQ5AAAeI8gBAPAYQQ4AgMcIcgAAPPb/AIAYWyVo6mEAAAAASUVORK5CYII=" alt="resim.png"></p>
 
 </div>
@@ -1802,12 +1823,12 @@ First it would be better if we combine our <code>X</code> and <code>X_hold</code
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [43]:</div>
+<div class="prompt input_prompt">In [31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">kaggle_sub</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"datetime"</span><span class="p">:</span><span class="n">kaggle_test</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s2">"count"</span><span class="p">:</span><span class="n">final_predictions</span><span class="p">})</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"datetime"</span><span class="p">)</span>
 <span class="n">kaggle_sub</span><span class="p">[</span><span class="s2">"count"</span><span class="p">]</span><span class="o">=</span><span class="n">kaggle_sub</span><span class="p">[</span><span class="s2">"count"</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
-<span class="n">kaggle_sub</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">kaggle_sub</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1820,7 +1841,7 @@ First it would be better if we combine our <code>X</code> and <code>X_hold</code
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[43]:</div>
+    <div class="prompt output_prompt">Out[31]:</div>
 
 
 
@@ -1863,14 +1884,6 @@ First it would be better if we combine our <code>X</code> and <code>X_hold</code
 <th>2011-01-20 02:00:00</th>
       <td>22.045803</td>
     </tr>
-<tr>
-<th>2011-01-20 03:00:00</th>
-      <td>9.850910</td>
-    </tr>
-<tr>
-<th>2011-01-20 04:00:00</th>
-      <td>14.729010</td>
-    </tr>
 </tbody>
 </table>
 </div>
@@ -1884,7 +1897,7 @@ First it would be better if we combine our <code>X</code> and <code>X_hold</code
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [44]:</div>
+<div class="prompt input_prompt">In [22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Save the submission dataframe</span>
@@ -1903,9 +1916,14 @@ First it would be better if we combine our <code>X</code> and <code>X_hold</code
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Kaggle-Submission-Score">Kaggle Submission Score<a class="anchor-link" href="../bikeshare%20part2/#Kaggle-Submission-Score">¶</a>
 </h3>
-<p>When we fit our model to the Kaggle test set and submited we got the score below. This competition is closed so there is no ranking anymore but to get a bit of idea about our models performance the mean ranking and the two scores in the ranking that our score fall in between were below.</p>
-<p>For the start of our project this is not a bad score. We have just tried Linear Regression so far and also we did not used new features except from the time features. Later we can work on this and i think our ranking can get better</p>
-
+<p>When we fit our model to the Kaggle test set and submited we got the score below. This competition is closed so there is no ranking anymore but to get a bit of idea about our model's performance the mean ranking and the two scores in the ranking that our score fall in between were below. 
+<br></p>
+<p>For the start of our project this is a pretty good score.</p>
+<ul>
+<li>We have just tried Linear Regression so far and also </li>
+<li>we did not used new features except from the time features. </li>
+<li>Later we can work more on this and i think our ranking can get better</li>
+</ul>
 </div>
 </div>
 </div>
@@ -1935,7 +1953,7 @@ First it would be better if we combine our <code>X</code> and <code>X_hold</code
 <p>In this notebook we</p>
 <ul>
 <li>continued to prepare our dataset for machine learning</li>
-<li>used to the trigonometric function for time data transformation in order to better represent the cyclic nature of time features</li>
+<li>used the trigonometric function for time data transformation in order to better represent the cyclic nature of time features</li>
 <li>splitted our data set and keep an hould-out test set for final evaluation</li>
 <li>used <code>TimeSeriesSplit</code> iterators for the cross validation of timeseries data. This was important in order to only using past data to evaluate our model on the “future” observations </li>
 <li>used Sklearn Pipeline for better workflow</li>
@@ -1943,7 +1961,7 @@ First it would be better if we combine our <code>X</code> and <code>X_hold</code
 <li>created a custom scoring function which uses RSMLE for the sklearn model evaluation tools </li>
 <li>prepared and predicted the Kaggle testset and made a submission</li>
 </ul>
-<p>In the next post we will work on the analysis of the model performance especially with visualization tools</p>
+<p>In the next post we will continue our analysis of bikeshare data with tree-based models and focus on model performance especially with visualization tools</p>
 
 </div>
 </div>
