@@ -145,3 +145,5 @@
 'render_taxonomies:output\\categories\\boosting\\index.html', (315392, 1999)
 'render_taxonomies:output\\categories\\boosting.xml', (317440, 548)
 'render_taxonomies:output\\categories\\random-forest.xml', (318464, 548)
+'scale_images:output\\images\\regtree1.JPG', (319488, 219)
+'scale_images:output\\images\\mona.JPG', (320000, 212)
