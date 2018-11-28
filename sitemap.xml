@@ -15,11 +15,27 @@
  </url>
  <url>
   <loc>https://example.com/archive.html</loc>
-  <lastmod>2018-11-17T15:00:00Z</lastmod>
+  <lastmod>2018-11-28T20:23:00Z</lastmod>
  </url>
  <url>
   <loc>https://example.com/categories/</loc>
-  <lastmod>2018-11-22T14:08:00Z</lastmod>
+  <lastmod>2018-11-28T20:24:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://example.com/categories/bagging/</loc>
+  <lastmod>2018-11-28T20:23:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://example.com/categories/boosting/</loc>
+  <lastmod>2018-11-28T20:23:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://example.com/categories/cyclic-time-features/</loc>
+  <lastmod>2018-11-28T20:23:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://example.com/categories/decision-trees/</loc>
+  <lastmod>2018-11-28T20:23:00Z</lastmod>
  </url>
  <url>
   <loc>https://example.com/categories/future-selection/</loc>
@@ -38,6 +54,10 @@
   <lastmod>2018-11-22T14:04:00Z</lastmod>
  </url>
  <url>
+  <loc>https://example.com/categories/random-forest/</loc>
+  <lastmod>2018-11-28T20:23:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://example.com/categories/rmsle/</loc>
   <lastmod>2018-11-22T14:04:00Z</lastmod>
  </url>
@@ -48,6 +68,10 @@
  <url>
   <loc>https://example.com/categories/timeseriessplit/</loc>
   <lastmod>2018-11-22T14:04:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://example.com/categories/tree-based-models/</loc>
+  <lastmod>2018-11-28T20:23:00Z</lastmod>
  </url>
  <url>
   <loc>https://example.com/categories/visualization/</loc>
@@ -76,5 +100,9 @@
  <url>
   <loc>https://example.com/posts/gps-data-analysis/</loc>
   <lastmod>2018-10-12T20:33:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://example.com/posts/tree-based%20models/</loc>
+  <lastmod>2018-11-28T20:23:00Z</lastmod>
  </url>
 </urlset>
