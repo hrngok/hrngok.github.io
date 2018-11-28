@@ -150,3 +150,5 @@
 'scale_images:output\\images\\regtree2.JPG', (320512, 220)
 'scale_images:output\\images\\equation1.JPG', (321024, 221)
 'scale_images:output\\images\\partition1.JPG', (321536, 224)
+'scale_images:output\\images\\partition2.JPG', (322048, 224)
+'scale_images:output\\images\\partition3.JPG', (322560, 224)
