@@ -36,7 +36,7 @@
 'render_taxonomies', (31744, 56)
 'render_galleries:output\\galleries\\index.html', (52736, 4923)
 'create_bundles:output\\assets\\css\\all-nocdn.css', (36864, 1037)
-'sitemap:output\\sitemap.xml', (280576, 7243)
+'sitemap:output\\sitemap.xml', (280576, 7242)
 'scale_images', (39424, 56)
 'copy_assets:output\\assets\\js\\baguetteBox.min.js', (39936, 469)
 'copy_assets:output\\assets\\xml\\rss.xsl', (40448, 449)
