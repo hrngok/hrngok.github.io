@@ -7,11 +7,11 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
   <loc>https://example.com/categories/bagging.xml</loc>
-  <lastmod>2018-11-28T20:23:00Z</lastmod>
+  <lastmod>2018-11-28T21:52:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/boosting.xml</loc>
-  <lastmod>2018-11-28T20:23:00Z</lastmod>
+  <lastmod>2018-11-28T21:52:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/cyclic-time-features.xml</loc>
@@ -19,7 +19,7 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/decision-trees.xml</loc>
-  <lastmod>2018-11-28T20:24:00Z</lastmod>
+  <lastmod>2018-11-28T21:52:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/future-selection.xml</loc>
@@ -39,7 +39,7 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/random-forest.xml</loc>
-  <lastmod>2018-11-28T20:24:00Z</lastmod>
+  <lastmod>2018-11-28T21:52:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/rmsle.xml</loc>
@@ -55,7 +55,7 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/tree-based-models.xml</loc>
-  <lastmod>2018-11-28T20:23:00Z</lastmod>
+  <lastmod>2018-11-28T21:52:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/visualization.xml</loc>
@@ -63,14 +63,14 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/galleries/rss.xml</loc>
-  <lastmod>2018-10-30T13:32:00Z</lastmod>
+  <lastmod>2018-11-28T22:01:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/rss.xml</loc>
-  <lastmod>2018-11-28T20:23:00Z</lastmod>
+  <lastmod>2018-11-28T21:52:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/sitemap.xml</loc>
-  <lastmod>2018-11-28T20:24:00Z</lastmod>
+  <lastmod>2018-11-28T22:01:00Z</lastmod>
  </sitemap>
 </sitemapindex>
