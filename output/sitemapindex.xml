@@ -6,6 +6,22 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
+  <loc>https://example.com/categories/bagging.xml</loc>
+  <lastmod>2018-11-28T20:23:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://example.com/categories/boosting.xml</loc>
+  <lastmod>2018-11-28T20:23:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://example.com/categories/cyclic-time-features.xml</loc>
+  <lastmod>2018-11-28T20:23:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://example.com/categories/decision-trees.xml</loc>
+  <lastmod>2018-11-28T20:24:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>https://example.com/categories/future-selection.xml</loc>
   <lastmod>2018-11-22T14:08:00Z</lastmod>
  </sitemap>
@@ -19,19 +35,27 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/kaggle.xml</loc>
-  <lastmod>2018-11-22T14:08:00Z</lastmod>
+  <lastmod>2018-11-28T20:23:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://example.com/categories/random-forest.xml</loc>
+  <lastmod>2018-11-28T20:24:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/rmsle.xml</loc>
-  <lastmod>2018-11-22T14:08:00Z</lastmod>
+  <lastmod>2018-11-28T20:24:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/timeseries-data.xml</loc>
-  <lastmod>2018-11-22T14:08:00Z</lastmod>
+  <lastmod>2018-11-28T20:23:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/timeseriessplit.xml</loc>
-  <lastmod>2018-11-22T14:08:00Z</lastmod>
+  <lastmod>2018-11-28T20:24:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://example.com/categories/tree-based-models.xml</loc>
+  <lastmod>2018-11-28T20:23:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/visualization.xml</loc>
@@ -43,10 +67,10 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/rss.xml</loc>
-  <lastmod>2018-11-22T14:08:00Z</lastmod>
+  <lastmod>2018-11-28T20:23:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/sitemap.xml</loc>
-  <lastmod>2018-11-22T14:08:00Z</lastmod>
+  <lastmod>2018-11-28T20:24:00Z</lastmod>
  </sitemap>
 </sitemapindex>
