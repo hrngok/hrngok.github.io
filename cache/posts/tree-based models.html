@@ -3,10 +3,10 @@
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li>In part1 and part2 of our analyse on <code>bikeshare</code> dataset, we did explanatory analysis (EDA) and used Linear Regression for our prediction and Kaggle submission</li>
+<li>In <a href="https://hrngok.github.io/posts/bikeshare/">part1</a> and <a href="https://hrngok.github.io/posts/bikeshare%20part2/">part2</a> of our analyse on <code>bikeshare</code> dataset, we did explanatory analysis (EDA) and used Linear Regression for our prediction and Kaggle submission</li>
 <li>We will try to improve our prediction score on the same dataset by more complex tree-based models</li>
 <li>Before diving directly into the project maybe it would be better to remind the tree based models</li>
-<li>So in this post we will review the trees and we will apply the models to our dataset in the next post</li>
+<li>So in this post we will review the trees and we will apply these models to our dataset in the next post</li>
 </ul>
 <p><img src="/images/mona.png" alt="mona"></p>
 
@@ -30,21 +30,23 @@
 </li>
 <li><p>For example, the <strong>multiplication of two features</strong> can have more predictive power on the target than the individual features</p>
 </li>
-<li><p>With linear models, features must be <strong>linearly correlated</strong> (having non-zero correlation) to the target`.</p>
+<li><p>With linear models, features must be <strong>linearly correlated</strong> (having non-zero correlation) to the target.</p>
 </li>
-<li>Trees learn the <strong>non-linear interactions</strong> between the features and the target</li>
+<li>Trees can learn the <strong>non-linear interactions</strong> between the features and the target</li>
 </ul>
 <blockquote><p>For example, what if the $target$ goes up when</p>
 <ul>
 <li>the $feature1$ is going up, and </li>
-<li>the $feature2$ is going down? </li>
-<li>The only way to capture those interactions is to either <strong>multiply</strong> the features, or to use algorithms (like trees) that can handle non-linearity.</li>
+<li><p>the $feature2$ is going down? <br></p>
+</li>
+<li><p>One way to capture those interactions is either to  <strong>multiply</strong> the features, or to use algorithms (like trees) that can handle non-linearity.</p>
+</li>
 </ul>
 </blockquote>
 <ul>
-<li><p>Linear regression is parametric i.e we don't keep the training data after we get the model parameters (like <strong>w</strong> (weights), <strong>b</strong> (intercepts))</p>
+<li><p>Linear regression is parametric i.e we don't need to keep the training data after we get the model parameters (<strong>w</strong> (weights), <strong>b</strong> (intercepts))</p>
 </li>
-<li><p>Parametric and nonparametric models differ in the way parameters of the model are fixed or data needed each time to get determine the parameters</p>
+<li><p>Parametric and nonparametric models differ in the way parameters of the model are fixed or data needed each time to determine the parameters</p>
 </li>
 <li><p>Trees are considered as non-parametric models.</p>
 </li>
@@ -66,7 +68,7 @@
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="An-hyperplane-by-a-linear-model">An hyperplane by a linear model<a class="anchor-link" href="#An-hyperplane-by-a-linear-model">&#182;</a></h4><p>An hyperplane by a linear model divides the feature space into two
+<h4 id="An-hyperplane-by-a-linear-model">An hyperplane by a linear model<a class="anchor-link" href="#An-hyperplane-by-a-linear-model">&#182;</a></h4><p>An hyperplane created by a linear model divides the feature space into two
 <img src="/images/regtree1.png" alt="regtree1"></p>
 
 </div>
@@ -85,9 +87,10 @@
 <p><img src="/images/regtree2.png" alt="regtree2"></p>
 <blockquote><ul>
 <li>A 3-dimensional (with 3 features) tree. </li>
-<li>The first split (the red vertical plane) cuts the space into 2 regions, each of which is then split (by the green horizontal planes) into 2 regions. </li>
+<li>The first split (by the red vertical plane) cuts the space into 2 regions then, </li>
+<li>each of the two regions are split again (by the green horizontal planes) into 2 regions. </li>
 <li>Finally, those 4 regions are split (by the 4 blue vertical planes) into 2 regions. </li>
-<li>Since there is no more splitting, the finally the whole space splitted into 8 regions</li>
+<li>Since there is no more splitting, finally the whole space split into 8 regions</li>
 </ul>
 </blockquote>
 
@@ -115,7 +118,7 @@
 <li>They can find non-linear relationships between features and target variables, as well as interactions between features. </li>
 <li><p><strong>Quadratic, exponential, cyclical</strong>, and other relationships can all be revealed, as long as we have enough data to support all of the necessary cuts.</p>
 </li>
-<li><p>Decision trees can also find <strong>non-smooth behaviors</strong>, sudden jumps, and peaks, that other models like linear regression or artificial neural networks can hide.</p>
+<li><p>Decision trees can also find <strong>non-smooth behaviors, sudden jumps</strong>, and <strong>peaks</strong>, that other models like linear regression or artificial neural networks can hide.</p>
 </li>
 <li><p>Decision tree can easily identify the most important(predictive) feautes and relation between two or more features.</p>
 </li>
@@ -131,16 +134,18 @@
 </li>
 </ul>
 <ul>
-<li>Decision trees can be unstable because small variations in the data might result in a completely different tree being generated. This problem is mitigated by using decision trees within an <strong>ensemble</strong>.</li>
-</ul>
-<ul>
-<li><p>Decision tree learners create biased trees if some classes dominate. It is therefore recommended to <strong>balance the dataset</strong> prior to fitting with the decision tree.</p>
+<li><p>Decision trees can be unstable because small variations in the data might result in a completely different tree being generated. This problem is mitigated by using decision trees within an <strong>ensemble</strong>. 
+<br></p>
+</li>
+<li><p>Decision tree learners create biased trees if some classes dominate. It is therefore recommended to <strong>balance the dataset</strong> prior to fitting with the decision tree.
+<br></p>
 </li>
 <li><p>Practical decision-tree learning algorithms are based on heuristic algorithms such as the <strong>greedy algorithm</strong> where <strong>locally optimal decisions</strong> are made at each node. Such algorithms cannot guarantee to return the globally optimal decision tree.</p>
 </li>
-<li><p>This can be mitigated by training multiple trees in an ensemble learner, where the <strong>features and samples are randomly sampled with replacement</strong>.</p>
+<li><p>This can be mitigated by training multiple trees in an ensemble learner, where the <strong>features and samples are randomly sampled with replacement</strong>.
+<br></p>
 </li>
-<li><p>In principle, you can approximate anything with decision trees but in practice you cant approximate very well. Still decision trees are very efficient because in practice the feature spaces are high dimensional that is data is very sparse</p>
+<li><p>In principle, you can approximate anything with decision trees but in practice you can't approximate very well. Still decision trees are very efficient because in practice the feature spaces are high dimensional that is data is very sparse</p>
 </li>
 </ul>
 
@@ -153,20 +158,20 @@
 <h2 id="How-a-Regression-(numerical-cont.-target)-Tree-Splits-the-Feature-Space?">How a Regression (numerical cont. target) Tree Splits the Feature Space?<a class="anchor-link" href="#How-a-Regression-(numerical-cont.-target)-Tree-Splits-the-Feature-Space?">&#182;</a></h2><ul>
 <li><p>Trees start testing features from the ones that potentially most quickly lead to a conclusion i.e most predictive or important</p>
 </li>
-<li><p>In each node we test a feature</p>
+<li><p>In each node trees test a feature</p>
 </li>
 <li>Order of features matters</li>
-<li><p>In a step, for each feature the loss function (accuracy in case of classification) on the target variables calculated and the feature who provide the least loss is selected as the split feature</p>
+<li><p>In a step, for each feature the loss function (accuracy in case of classification) on the target variables calculated and the feature who provides the least loss is selected as the split feature</p>
 </li>
 <li><p>If the features are continuous, like temperature in our example, internal nodes may test the value against a <strong>treshold</strong></p>
 </li>
 <li><p>Everytime tree ask <code>Feature1&gt;=something</code> or <code>Feature2&gt;=something</code> results in two splits of the feature space horizontally or vertically</p>
 </li>
-<li><p>Decision trees are nested if-then staments</p>
+<li><p>Decision trees are nested <strong>if-then</strong> staments</p>
 </li>
 <li><p>They predict the value of a target variable by learning simple decision rules inferred from the features.</p>
 </li>
-<li><p>For instance, in our dataset, decision trees learn from data with a set of <strong>if-then-else decision rules</strong> like if the <code>"hour"</code> is later than 5h and earlier than 6h else if <code>temperature</code> is higher than 15C then..</p>
+<li><p>For instance, in our dataset, decision trees learn from data with a set of <strong>if-then-else</strong> decision rules like if the <code>"hour"</code> is later than <code>5h</code> and earlier than <code>6h</code> else if <code>temperature</code> is higher than <code>15C</code> then..</p>
 </li>
 <li><p>The deeper the tree, the more complex the decision rules and the fitter the model.</p>
 </li>
@@ -174,7 +179,8 @@
 <h2 id="Steps-of-Splitting-Process">Steps of Splitting Process<a class="anchor-link" href="#Steps-of-Splitting-Process">&#182;</a></h2><p>Lets denote our features (like <code>temperature, humidity</code> etc) as $X_1, X_2,...,X_p$</p>
 <p>For the split process there are 2 steps:</p>
 <ol>
-<li><p>We divide the feature space (the set of possible values for features) into <strong>J</strong> distinct and non-overlapping regions: $R_1, R_2,...,R_J$</p>
+<li><p>We divide the feature space (the set of possible values for features) into <strong>J</strong> distinct and non-overlapping regions: $R_1, R_2,...,R_J$
+<br></p>
 </li>
 <li><p>When we make any prediction for a sample, we check in which region(subset) our sample falls.</p>
 <ul>
@@ -186,9 +192,9 @@
 <p>For instance, suppose that</p>
 <ul>
 <li>in Step 1 we obtain 2 regions, $R_1$ and $R_2$, and </li>
-<li>target mean of the training samples in the first region is <code>10</code>, while </li>
-<li>target mean of the training samples in the second region is <code>20</code>. </li>
-<li>Then, if a new sample is in $R_1$, we will predict a value of <code>10</code> for the target value of that sample, and if it in $R_2$ we will predict a value of <code>20</code>.</li>
+<li>target mean of the training samples in the first region is $10$, while </li>
+<li>target mean of the training samples in the second region is $20$. </li>
+<li>Then, if a new sample is in $R_1$, we will predict a value of $10$ for the target value of that sample, and if it in $R_2$ we will predict a value of $20$.</li>
 </ul>
 <h3 id="How-do-we-construct-the-regions-$R1,...,RJ-$-?">How do we construct the regions $R1,...,RJ $ ?<a class="anchor-link" href="#How-do-we-construct-the-regions-$R1,...,RJ-$-?">&#182;</a></h3><p>We divide the space into high-dimensional rectangles, or boxes. The goal is to find boxes $R_1,...,R_J$ that minimize the</p>
 <ul>
