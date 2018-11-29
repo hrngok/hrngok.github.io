@@ -196,7 +196,7 @@
 <li><strong>Mean Absolute Error</strong>, which minimizes the <strong>L1 error</strong> using <strong>median</strong> values of the regions</li>
 </ul>
 <p><code>Mean Squared Error:</code></p>
-<p><img src="/images/mse.jpg" alt="mse"></p>
+<p><img src="/images/mse.png" alt="mse"></p>
 <p>where $ŶR_j$ is the target mean for the training observations within the $j th$ box and the <strong>$Y_i$</strong> is the actual target value of the test observation</p>
 <p><strong>Note:</strong></p>
 <ul>
@@ -249,7 +249,7 @@
 <li><p>we seeek the value of $j$ and $s$ that minimize the equation</p>
 </li>
 </ul>
-<p><img src="/images/equation1.jpg" alt="equation1"></p>
+<p><img src="/images/equation1.png" alt="equation1"></p>
 
 </div>
 </div>
@@ -282,7 +282,7 @@
 </ul>
 <p>Once the regions $R_1,...,R_J$ have been created, we predict the target for a given test observation using the mean of the training samples in the region to which that test observation belongs.</p>
 <p>A 5-region example of this approach is shown in below. The output of recursive binary splitting on a 2-features ($X_1, X_2$) example.</p>
-<p><img src="/images/partition1.jpg" alt="partition1"></p>
+<p><img src="/images/partition1.png" alt="partition1"></p>
 
 </div>
 </div>
@@ -294,7 +294,7 @@
 <ul>
 <li>First we split the feature space into 2 regions by $X_1&gt;t_1$ and $X_1&lt;=t_1$ and continue to partitioning the new regions</li>
 </ul>
-<p><img src="/images/partition2.jpg" alt="partition2"></p>
+<p><img src="/images/partition2.png" alt="partition2"></p>
 
 </div>
 </div>
@@ -303,7 +303,7 @@
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>A perspective plot of the prediction surface corresponding to the tree above.</p>
-<p><img src="/images/partition3.jpg" alt="partition3"></p>
+<p><img src="/images/partition3.png" alt="partition3"></p>
 
 </div>
 </div>
