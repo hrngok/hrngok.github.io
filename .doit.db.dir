@@ -170,3 +170,4 @@
 'scale_images:output\\images\\bagging.png', (330752, 219)
 'scale_images:output\\images\\boost.png', (331264, 215)
 'scale_images:output\\images\\ensemble.png', (331776, 221)
+'scale_images:output\\images\\randomf.png', (332288, 218)
