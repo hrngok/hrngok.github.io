@@ -166,3 +166,7 @@
 'scale_images:output\\images\\bagging2.JPG', (328704, 220)
 'scale_images:output\\images\\equation1.png', (329216, 222)
 'scale_images:output\\images\\ensemble.JPG', (329728, 220)
+'scale_images:output\\images\\bagging2.png', (330240, 221)
+'scale_images:output\\images\\bagging.png', (330752, 219)
+'scale_images:output\\images\\boost.png', (331264, 215)
+'scale_images:output\\images\\ensemble.png', (331776, 221)

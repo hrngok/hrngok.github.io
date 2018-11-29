@@ -475,7 +475,7 @@ We will try to improve our prediction scor">
 <li>The idea behind the ensemble learners is to use the wisdom of crowd over the individuals by assembling together several algorithms or models</li>
 <li>Ensemble models are meta-models that aggregates the predictions of individual models based on specific formulas.</li>
 </ul>
-<p><img src="../../images/ensemble.jpg" alt="ensemble"></p>
+<p><img src="../../images/ensemble.png" alt="ensemble"></p>
 <ul>
 <li>In the above image we see a tamplate of an ensemble model</li>
 <li>We train single learners like KNN, Decision Tree, SVM etc with the same data (<strong>X</strong>)</li>
@@ -515,7 +515,7 @@ We will try to improve our prediction scor">
 <li>Because the training data is sampled with replacement, about 60% of the instances in each bag are unique.</li>
 </ul>
 <p>For example a Random Forest algorithm can train 100 Decision Trees on different random subsets of the original training data.</p>
-<p><img src="../../images/bagging.jpg" alt="bagging"></p>
+<p><img src="../../images/bagging.png" alt="bagging"></p>
 <ul>
 <li>As depicted here the single models work independently i.e models run in parallel</li>
 <li>As understood from the name we bootstrap the data and aggregate all the predictions</li>
@@ -528,7 +528,7 @@ We will try to improve our prediction scor">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="../../images/bagging2.jpg" alt="bagging2"></p>
+<p><img src="../../images/bagging2.png" alt="bagging2"></p>
 <ul>
 <li>When a new instance is fed to the ensemble, each single model makes it's prediction and the meta model collects the predictions and make the final decision either by taking the mean (regression) or voting (classification)</li>
 </ul>
@@ -567,7 +567,7 @@ We will try to improve our prediction scor">
 <li>Repeat 1 to 3 steps without using the features used before</li>
 <li>Build forest by repeating the steps from the beginning </li>
 </ol>
-<p><img src="../../images/randomf.jpg" alt="randomf"></p>
+<p><img src="../../images/randomf.png" alt="randomf"></p>
 <h4 id="Prediction-Process">Prediction Process<a class="anchor-link" href="../tree-based%20models/#Prediction-Process">¶</a>
 </h4>
 <ul>
@@ -614,7 +614,7 @@ We will try to improve our prediction scor">
 <li>We compute the final prediction as a linear combination of all the learners with the weights of the learners which depends on the prediction performance of them</li>
 <li>The way of re-weighting and combining the learners depends on the boosting type like Adaboost, Xgboost etc</li>
 </ul>
-<p><img src="../../images/boost.jpg" alt="boost"></p>
+<p><img src="../../images/boost.png" alt="boost"></p>
 <p>In the image we see ada boost template.</p>
 <ul>
 <li>The orange data points are the ones that could not well predicted by the first learner </li>
