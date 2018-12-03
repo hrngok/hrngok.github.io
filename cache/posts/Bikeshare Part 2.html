@@ -471,11 +471,11 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Find the starting indice of the last five percent</span>
-<span class="n">last_five_percent_ind</span><span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bike_data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">())</span><span class="o">*</span> <span class="mf">0.95</span><span class="p">)</span>
+<span class="n">last_five_percent_ind</span><span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bike_data</span><span class="p">)</span><span class="o">*</span> <span class="mf">0.95</span><span class="p">)</span>
 <span class="n">last_five_percent_ind</span>
 
 <span class="c1"># Create the hold-out dataset</span>
@@ -506,7 +506,7 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[26]:</div>
+    <div class="prompt output_prompt">Out[5]:</div>
 
 
 
@@ -614,7 +614,7 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="o">=</span> <span class="n">bike_data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="n">last_five_percent_ind</span><span class="p">,</span> <span class="p">:]</span>
@@ -631,7 +631,7 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[25]:</div>
+    <div class="prompt output_prompt">Out[6]:</div>
 
 
 
@@ -971,7 +971,7 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Initialize the cross-validation iterator with 10 splits</span>
@@ -1050,6 +1050,7 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 </ul>
 <blockquote><p>RMSLE is preferable when</p>
 <ul>
+<li>targets having exponential growth, such as population counts, average sales of a commodity over a span of years etc </li>
 <li>we care about <strong>percentage errors</strong> rather than the <strong>absolute value of errors</strong>.</li>
 <li>there is a wide range in the target variables and</li>
 <li>we <strong>don’t want to penalize big differences</strong> when <strong>both the predicted and the actual are big numbers</strong>.</li>
@@ -1072,22 +1073,22 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 <ul>
 <li><p>Case-3 :</p>
 <ul>
-<li><p>Prediction = <code>600</code>, Actual = <code>1000</code> (the absolute difference is 400)</p>
+<li><p>Prediction = $600$, Actual = $1000$ (the absolute difference is $400$)</p>
 </li>
-<li><p>RMSE = <code>400</code>,</p>
+<li><p>RMSE = $400$,</p>
 </li>
-<li>RMSLogE = <code>0.5108</code></li>
+<li>RMSLogE = $0.5108$</li>
 </ul>
 </li>
 </ul>
 <ul>
 <li><p>Case-4 :</p>
 <ul>
-<li><p>Prediction = <code>1400</code>, Actual = <code>1000</code> (the absolute difference is 400)</p>
+<li><p>Prediction = $1400$, Actual = $1000$ (the absolute difference is $400$)</p>
 </li>
-<li><p>RMSE = <code>400</code>,</p>
+<li><p>RMSE = $400$,</p>
 </li>
-<li>RMSLogE = <code>0.3365</code></li>
+<li>RMSLogE = $0.3365$</li>
 </ul>
 </li>
 </ul>
@@ -1112,10 +1113,10 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Define the RSMLE function for error calculation: rsmsle_calculator</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Define the RMSLE function for error calculation: rmsle_calculator</span>
 <span class="c1"># Using the vectorized numpy functions instead of loops always better for computation</span>
 <span class="k">def</span> <span class="nf">rmsle_calculator</span><span class="p">(</span><span class="n">predicted</span><span class="p">,</span> <span class="n">actual</span><span class="p">):</span>
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">predicted</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">actual</span><span class="p">)</span>
@@ -1174,44 +1175,13 @@ When defining a custom scorer via <code>sklearn.metrics.make_scorer</code>, the 
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Make a custom scorer </span>
 <span class="c1"># rmsle_error will negate the return value of rmsle_calculator,</span>
 <span class="n">rmsle_error</span> <span class="o">=</span> <span class="n">make_scorer</span><span class="p">(</span><span class="n">rmsle_calculator</span><span class="p">,</span> <span class="n">greater_is_better</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
 
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Fit and score the model with cross-validation</span>
+<span class="c1"># Fit and score the model with cross-validation</span>
 <span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">pipeline</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">split</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">rmsle_error</span><span class="p">)</span>
 <span class="n">scores</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[14]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([-1.06115722, -0.97511162, -1.02056734, -0.93509628, -0.92447915])</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -1481,7 +1451,7 @@ First it would be better if we combine our <code>X</code> and <code>X_hold</code
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">kaggle_test</span><span class="p">[</span><span class="s2">&quot;month&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">kaggle_test</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span>
@@ -1513,7 +1483,7 @@ First it would be better if we combine our <code>X</code> and <code>X_hold</code
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[30]:</div>
+    <div class="prompt output_prompt">Out[19]:</div>
 
 
 
@@ -1649,7 +1619,7 @@ First it would be better if we combine our <code>X</code> and <code>X_hold</code
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">kaggle_sub</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;datetime&quot;</span><span class="p">:</span><span class="n">kaggle_test</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;count&quot;</span><span class="p">:</span><span class="n">final_predictions</span><span class="p">})</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;datetime&quot;</span><span class="p">)</span>
@@ -1667,7 +1637,7 @@ First it would be better if we combine our <code>X</code> and <code>X_hold</code
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[31]:</div>
+    <div class="prompt output_prompt">Out[21]:</div>
 
 
 
