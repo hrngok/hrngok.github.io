@@ -1,0 +1,2648 @@
+<!DOCTYPE html>
+<html prefix="        og: http://ogp.me/ns# article: http://ogp.me/ns/article#     " vocab="http://ogp.me/ns" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Ensemble Models - Kaggle Submission | Data to Wisdom</title>
+<link href="https://fonts.googleapis.com/css?family=Bitter:400,400i,700" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../rss.xml">
+<link rel="canonical" href="https://example.com/posts/bikeshare%20part3/">
+<!--[if lt IE 9]><script src="../../assets/js/html5shiv-printshiv.min.js"></script><![endif]--><meta name="author" content="Harun">
+<link rel="prev" href="../tree-based%20models/" title="Tree-based Models" type="text/html">
+<meta property="og:site_name" content="Data to Wisdom">
+<meta property="og:title" content="Ensemble Models - Kaggle Submission">
+<meta property="og:url" content="https://example.com/posts/bikeshare%20part3/">
+<meta property="og:description" content="In this notebook we will continue our analysis on bike data by applying tree based models 
+We will implement Random Forest, Adaboost, Gradient Boosting and Stochastic Gradient Boosting algorithms
+We w">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2018-12-08T22:08:04+02:00">
+<meta property="article:tag" content="Adaboost">
+<meta property="article:tag" content="Gradient Boosting">
+<meta property="article:tag" content="Kaggle">
+<meta property="article:tag" content="Randomized Forest">
+<meta property="article:tag" content="Stochastic Gradient Boosting">
+<meta property="article:tag" content="timeseries data">
+<meta property="article:tag" content="TimeSeriesSplit">
+</head>
+<body>
+    <a href="#page-content" class="sr-only sr-only-focusable">Skip to main content</a>
+    <section class="social"><ul>
+<li><a href="../../index.html" title="Home"><i class="fa fa-home"></i></a></li>
+            <li><a href="../../pages/about-me/index.html" title="About me"><i class="fa fa-user"></i></a></li>
+            <li><a href="../../archive.html" title="Archives"><i class="fa fa-folder-open"></i></a></li>
+            <li><a href="../../categories/index.html" title="Tags"><i class="fa fa-tags"></i></a></li>
+    
+    
+
+        </ul></section><section class="page-content"><div class="content" rel="main">
+            
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="../bikeshare%20part3/" class="u-url">Ensemble Models - Kaggle Submission</a></h1>
+
+        <div class="metadata">
+            <p class="dateline"><a href="../bikeshare%20part3/" rel="bookmark"><i class="fa fa-clock"></i> <time class="published dt-published" datetime="2018-12-08T22:08:04+02:00" itemprop="datePublished" title="2018-12-08 22:08">2018-12-08 22:08</time></a></p>
+            <p class="byline author vcard"> <i class="fa fa-user"></i> <span class="byline-name fn" itemprop="author">
+                    Harun
+            </span></p>
+                <p class="commentline"><i class="far fa-comment"></i>
+        
+
+
+            
+        </p>
+<p class="sourceline"><a href="../bikeshare%20part3/index.ipynb" class="sourcelink"><i class="fa fa-file-code"></i> Source</a></p>
+
+            
+
+            
+    <div class="tags">
+<h3 class="metadata-title">
+<i class="fa fa-tags"></i> Tags:</h3>
+        <ul itemprop="keywords" class="tags-ul">
+<li><a class="tag p-category" href="../../categories/adaboost/" rel="tag">Adaboost</a></li>
+            <li><a class="tag p-category" href="../../categories/gradient-boosting/" rel="tag">Gradient Boosting</a></li>
+            <li><a class="tag p-category" href="../../categories/kaggle/" rel="tag">Kaggle</a></li>
+            <li><a class="tag p-category" href="../../categories/randomized-forest/" rel="tag">Randomized Forest</a></li>
+            <li><a class="tag p-category" href="../../categories/stochastic-gradient-boosting/" rel="tag">Stochastic Gradient Boosting</a></li>
+            <li><a class="tag p-category" href="../../categories/timeseries-data/" rel="tag">timeseries data</a></li>
+            <li><a class="tag p-category" href="../../categories/timeseriessplit/" rel="tag">TimeSeriesSplit</a></li>
+        </ul>
+</div>
+
+        </div>
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>In this notebook we will continue our analysis on bike data by applying tree based models </li>
+<li>We will implement Random Forest, Adaboost, Gradient Boosting and Stochastic Gradient Boosting algorithms</li>
+<li>We will submit our predictions to Kaggle at the end.</li>
+<li>Since trees and ensembles have many hyperparameters, in this notebook we try to explain some good practice regarding the usage of these hyperparameter</li>
+<li>Also we will implement Grid Search in order to tune these hyperparameters</li>
+</ul>
+<p><img src="../../image/villo.png" alt="villo"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<!-- TEASER_END -->
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Notebook-Setup">Notebook Setup<a class="anchor-link" href="../bikeshare%20part3/#Notebook-Setup">¶</a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [40]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Import the necessary modules</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="k">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">TimeSeriesSplit</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="k">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="k">import</span> <span class="n">RandomForestRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="k">import</span> <span class="n">DecisionTreeRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="k">import</span> <span class="n">AdaBoostRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="k">import</span> <span class="n">GradientBoostingRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="k">import</span> <span class="n">KNeighborsRegressor</span>
+
+
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">cross_val_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">r2_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">mean_squared_error</span> <span class="k">as</span> <span class="n">MSE</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">mean_absolute_error</span> <span class="k">as</span> <span class="n">MAE</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">make_scorer</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">GridSearchCV</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span> 
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">)</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Lets start by loading our dataset that is prepared in the earlier post.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [41]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bike_data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"bike_data_inliers.csv"</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">"datetime"</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="s2">"datetime"</span><span class="p">)</span>
+<span class="n">bike_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[41]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+      <th>season</th>
+      <th>holiday</th>
+      <th>workingday</th>
+      <th>weather</th>
+      <th>temp</th>
+      <th>atemp</th>
+      <th>humidity</th>
+      <th>windspeed</th>
+      <th>casual</th>
+      <th>registered</th>
+      <th>count</th>
+      <th>month</th>
+      <th>weekday</th>
+      <th>hour</th>
+    </tr>
+<tr>
+<th>datetime</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+<th>2011-01-01 00:00:00</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>9.84</td>
+      <td>14.395</td>
+      <td>81</td>
+      <td>0.0</td>
+      <td>3</td>
+      <td>13</td>
+      <td>16</td>
+      <td>1</td>
+      <td>5</td>
+      <td>0</td>
+    </tr>
+<tr>
+<th>2011-01-01 01:00:00</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>9.02</td>
+      <td>13.635</td>
+      <td>80</td>
+      <td>0.0</td>
+      <td>8</td>
+      <td>32</td>
+      <td>40</td>
+      <td>1</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+<tr>
+<th>2011-01-01 02:00:00</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>9.02</td>
+      <td>13.635</td>
+      <td>80</td>
+      <td>0.0</td>
+      <td>5</td>
+      <td>27</td>
+      <td>32</td>
+      <td>1</td>
+      <td>5</td>
+      <td>2</td>
+    </tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [42]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Filter out the casual and registered columns </span>
+<span class="c1">## Filter out the high correlated columns "season" (correlated with "month") and "temp" (correlated with "atemp") </span>
+<span class="c1">## Also in the previous posts we noticed that the data record in the "weather" column is not relaible</span>
+<span class="c1">## We will also drop it</span>
+<span class="n">bike_data</span><span class="o">=</span> <span class="n">bike_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">"casual"</span><span class="p">,</span> <span class="s2">"registered"</span><span class="p">,</span> <span class="s2">"temp"</span><span class="p">,</span> <span class="s2">"season"</span><span class="p">,</span> <span class="s2">"weather"</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">bike_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[42]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+      <th>holiday</th>
+      <th>workingday</th>
+      <th>atemp</th>
+      <th>humidity</th>
+      <th>windspeed</th>
+      <th>count</th>
+      <th>month</th>
+      <th>weekday</th>
+      <th>hour</th>
+    </tr>
+<tr>
+<th>datetime</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+<th>2011-01-01 00:00:00</th>
+      <td>0</td>
+      <td>0</td>
+      <td>14.395</td>
+      <td>81</td>
+      <td>0.0</td>
+      <td>16</td>
+      <td>1</td>
+      <td>5</td>
+      <td>0</td>
+    </tr>
+<tr>
+<th>2011-01-01 01:00:00</th>
+      <td>0</td>
+      <td>0</td>
+      <td>13.635</td>
+      <td>80</td>
+      <td>0.0</td>
+      <td>40</td>
+      <td>1</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+<tr>
+<th>2011-01-01 02:00:00</th>
+      <td>0</td>
+      <td>0</td>
+      <td>13.635</td>
+      <td>80</td>
+      <td>0.0</td>
+      <td>32</td>
+      <td>1</td>
+      <td>5</td>
+      <td>2</td>
+    </tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Split-the-data">Split the data<a class="anchor-link" href="../bikeshare%20part3/#Split-the-data">¶</a>
+</h3>
+<ul>
+<li>
+<p>Even though there is a given test set (without target variable) for Kaggle submission we will analyse the data as an independent project and follow our data splitting principles for model evaluation</p>
+</li>
+<li>
+<p>At the end we will use the Kaggle test set for submission</p>
+</li>
+<li>
+<p>So after fitting a model we will use <strong>cross validation</strong> for evaluating the model performance and hyperparameter tuning but we still need to keep an <strong>hold-out set</strong> for our final evaluation.</p>
+</li>
+<li>
+<p>Since this is a timeseries dataset we must respect to the temporal order of the data. Thus, we must use only the past data to predict the future data.</p>
+</li>
+</ul>
+<ul>
+<li>So we can take the <strong>last %5</strong> as our hold-out data. (In the Kaggle competition the test set is the last 10 days of the months)</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [43]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Find the starting indice of the last five percent</span>
+<span class="n">last_five_percent_ind</span><span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bike_data</span><span class="p">)</span><span class="o">*</span> <span class="mf">0.95</span><span class="p">)</span>
+<span class="n">last_five_percent_ind</span>
+
+<span class="c1"># Create the hold-out dataset</span>
+<span class="n">hold_out_df</span><span class="o">=</span><span class="n">bike_data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">last_five_percent_ind</span><span class="p">:</span> <span class="p">,:]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"The shape of the hold-out dataset:"</span><span class="p">,</span> <span class="n">hold_out_df</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">hold_out_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The shape of the hold-out dataset: (522, 10)
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[43]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead><tr style="text-align: right;">
+<th></th>
+      <th>datetime</th>
+      <th>holiday</th>
+      <th>workingday</th>
+      <th>atemp</th>
+      <th>humidity</th>
+      <th>windspeed</th>
+      <th>count</th>
+      <th>month</th>
+      <th>weekday</th>
+      <th>hour</th>
+    </tr></thead>
+<tbody>
+<tr>
+<th>9914</th>
+      <td>2012-11-16 06:00:00</td>
+      <td>0</td>
+      <td>1</td>
+      <td>15.910</td>
+      <td>61</td>
+      <td>6.0032</td>
+      <td>130</td>
+      <td>11</td>
+      <td>4</td>
+      <td>6</td>
+    </tr>
+<tr>
+<th>9915</th>
+      <td>2012-11-16 07:00:00</td>
+      <td>0</td>
+      <td>1</td>
+      <td>15.150</td>
+      <td>61</td>
+      <td>11.0014</td>
+      <td>367</td>
+      <td>11</td>
+      <td>4</td>
+      <td>7</td>
+    </tr>
+<tr>
+<th>9916</th>
+      <td>2012-11-16 09:00:00</td>
+      <td>0</td>
+      <td>1</td>
+      <td>17.425</td>
+      <td>53</td>
+      <td>7.0015</td>
+      <td>351</td>
+      <td>11</td>
+      <td>4</td>
+      <td>9</td>
+    </tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We will do training and cross validation on the rest of the data. Lets create it</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [44]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="o">=</span> <span class="n">bike_data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="n">last_five_percent_ind</span><span class="p">,</span> <span class="p">:]</span>
+<span class="n">data</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[44]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead><tr style="text-align: right;">
+<th></th>
+      <th>datetime</th>
+      <th>holiday</th>
+      <th>workingday</th>
+      <th>atemp</th>
+      <th>humidity</th>
+      <th>windspeed</th>
+      <th>count</th>
+      <th>month</th>
+      <th>weekday</th>
+      <th>hour</th>
+    </tr></thead>
+<tbody>
+<tr>
+<th>9911</th>
+      <td>2012-11-16 03:00:00</td>
+      <td>0</td>
+      <td>1</td>
+      <td>15.15</td>
+      <td>65</td>
+      <td>8.9981</td>
+      <td>6</td>
+      <td>11</td>
+      <td>4</td>
+      <td>3</td>
+    </tr>
+<tr>
+<th>9912</th>
+      <td>2012-11-16 04:00:00</td>
+      <td>0</td>
+      <td>1</td>
+      <td>15.91</td>
+      <td>65</td>
+      <td>7.0015</td>
+      <td>5</td>
+      <td>11</td>
+      <td>4</td>
+      <td>4</td>
+    </tr>
+<tr>
+<th>9913</th>
+      <td>2012-11-16 05:00:00</td>
+      <td>0</td>
+      <td>1</td>
+      <td>15.91</td>
+      <td>65</td>
+      <td>6.0032</td>
+      <td>36</td>
+      <td>11</td>
+      <td>4</td>
+      <td>5</td>
+    </tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Features-and-Target-Variable">Features and Target Variable<a class="anchor-link" href="../bikeshare%20part3/#Features-and-Target-Variable">¶</a>
+</h3>
+<p>Having splitted the hold-out dataset, now time to create the features (X) and the target (y) datasets</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [45]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Target data</span>
+<span class="n">y</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">"count"</span><span class="p">]</span>
+
+<span class="c1"># Features data</span>
+<span class="n">X</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">"datetime"</span><span class="p">,</span> <span class="s2">"count"</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">X</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[45]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead><tr style="text-align: right;">
+<th></th>
+      <th>holiday</th>
+      <th>workingday</th>
+      <th>atemp</th>
+      <th>humidity</th>
+      <th>windspeed</th>
+      <th>month</th>
+      <th>weekday</th>
+      <th>hour</th>
+    </tr></thead>
+<tbody>
+<tr>
+<th>0</th>
+      <td>0</td>
+      <td>0</td>
+      <td>14.395</td>
+      <td>81</td>
+      <td>0.0</td>
+      <td>1</td>
+      <td>5</td>
+      <td>0</td>
+    </tr>
+<tr>
+<th>1</th>
+      <td>0</td>
+      <td>0</td>
+      <td>13.635</td>
+      <td>80</td>
+      <td>0.0</td>
+      <td>1</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Hold-Out-Features-and-Target-Variable">Hold-Out Features and Target Variable<a class="anchor-link" href="../bikeshare%20part3/#Hold-Out-Features-and-Target-Variable">¶</a>
+</h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [46]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create the features and target datasets from hold_out data</span>
+<span class="c1"># Hold-out target</span>
+<span class="n">y_hold</span><span class="o">=</span><span class="n">hold_out_df</span><span class="p">[</span><span class="s2">"count"</span><span class="p">]</span>
+
+<span class="c1"># Hold-out features data</span>
+<span class="n">X_hold</span><span class="o">=</span><span class="n">hold_out_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">"datetime"</span><span class="p">,</span> <span class="s2">"count"</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">X_hold</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[46]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead><tr style="text-align: right;">
+<th></th>
+      <th>holiday</th>
+      <th>workingday</th>
+      <th>atemp</th>
+      <th>humidity</th>
+      <th>windspeed</th>
+      <th>month</th>
+      <th>weekday</th>
+      <th>hour</th>
+    </tr></thead>
+<tbody>
+<tr>
+<th>9914</th>
+      <td>0</td>
+      <td>1</td>
+      <td>15.910</td>
+      <td>61</td>
+      <td>6.0032</td>
+      <td>11</td>
+      <td>4</td>
+      <td>6</td>
+    </tr>
+<tr>
+<th>9915</th>
+      <td>0</td>
+      <td>1</td>
+      <td>15.150</td>
+      <td>61</td>
+      <td>11.0014</td>
+      <td>11</td>
+      <td>4</td>
+      <td>7</td>
+    </tr>
+<tr>
+<th>9916</th>
+      <td>0</td>
+      <td>1</td>
+      <td>17.425</td>
+      <td>53</td>
+      <td>7.0015</td>
+      <td>11</td>
+      <td>4</td>
+      <td>9</td>
+    </tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="RMSLE-Calculator-Function">RMSLE Calculator Function<a class="anchor-link" href="../bikeshare%20part3/#RMSLE-Calculator-Function">¶</a>
+</h3>
+<p>In this Kaggle competion we seek to identify the models that result in predictions which minimize the Root Mean Squared Error. In the earlier post we talk about this metric in detail</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [47]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Define the RMSLE function for error calculation: rmsle_calculator</span>
+<span class="c1"># Using the vectorized numpy functions instead of loops always better for computation</span>
+<span class="k">def</span> <span class="nf">rmsle_calculator</span><span class="p">(</span><span class="n">predicted</span><span class="p">,</span> <span class="n">actual</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">predicted</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">actual</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">predicted</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">actual</span><span class="p">),</span> <span class="mi">2</span><span class="p">)))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Custom-Scoring-Function">Custom Scoring Function<a class="anchor-link" href="../bikeshare%20part3/#Custom-Scoring-Function">¶</a>
+</h4>
+<ul>
+<li>
+<p>We should define a scoring function in order to use as a scoring parameter for <code>model_selection.cross_val_score</code></p>
+</li>
+<li>
+<p>We need this parameter for model-evaluation tools which rely on a scoring strategy when using cross-validation internally (such as <code>model_selection.cross_val_score</code> and <code>model_selection.GridSearchCV</code>)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [48]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Make a custom scorer </span>
+<span class="c1"># rmsle_error will negate the return value of rmsle_calculator,</span>
+<span class="n">rmsle_error</span> <span class="o">=</span> <span class="n">make_scorer</span><span class="p">(</span><span class="n">rmsle_calculator</span><span class="p">,</span> <span class="n">greater_is_better</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Tips-on-Practical-Use-of-Decision-Trees">Tips on Practical Use of Decision Trees<a class="anchor-link" href="../bikeshare%20part3/#Tips-on-Practical-Use-of-Decision-Trees">¶</a>
+</h3>
+<p>Before starting implemetation of Random Forest algorithm it would be nice to remind some practical tips from Sklearn page. Here are some basic tips:</p>
+<ul>
+<li>Decision trees tend to overfit on data with a large number of features.</li>
+<li>Getting the right ratio of <strong>samples</strong> to <strong>number of features</strong> is important, since a tree with few samples in high dimensional space is very likely to overfit.</li>
+<li>Consider performing dimensionality reduction (<strong>PCA, ICA, or Feature selection</strong>) beforehand to give your tree a better chance of finding features that are discriminative.</li>
+<li>Remember that the number of samples required to populate the tree <code>doubles for each additional level</code> the tree grows to. </li>
+<li>Use <code>max_depth</code> to control the size of the tree to prevent overfitting.</li>
+<li>
+<p>Use <code>max_depth=3</code> as an initial tree depth to get a feel for how the tree is fitting to your data, and then increase the depth.</p>
+</li>
+<li>
+<p>Use <code>min_samples_split</code> or <code>min_samples_leaf</code> to ensure that multiple samples inform every decision in the tree, by controlling which splits will be considered.</p>
+<ul>
+<li>
+<code>min_samples_split</code> can create arbitrarily small leaves,</li>
+<li>
+<code>min_samples_leaf</code> guarantees that each leaf has a minimum size, avoiding low-variance, over-fit leaf nodes</li>
+<li>A very small number will usually mean the tree will overfit, whereas a large number will prevent the tree from learning the data. </li>
+<li>Try <code>min_samples_leaf=5</code> as an initial value. </li>
+<li>If the sample size varies greatly, a <strong>float number</strong> can be used as percentage in these two parameters. </li>
+<li>For classification <strong>with few classes</strong>, <code>min_samples_leaf=1</code> is often the best choice.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Balance your dataset before training to prevent the tree from being biased toward the classes that are dominant. <ul>
+<li>Class balancing can be done by sampling an equal number of samples from each class, or </li>
+<li>preferably by normalizing the sum of the sample weights (<code>sample_weight</code>) for each class to the same value. </li>
+<li>Also note that weight-based pre-pruning criteria, such as <code>min_weight_fraction_leaf</code>, will then be less biased toward dominant classes than criteria that are not aware of the sample weights, like <code>min_samples_leaf</code>.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<p>If the samples are weighted, it will be easier to optimize the tree structure using weight-based pre-pruning criterion such as <code>min_weight_fraction_leaf</code>, which ensure that leaf nodes contain at least a fraction of the overall sum of the sample weights.</p>
+</li>
+<li>
+<p>If the input matrix X (features) is <strong>very sparse</strong>, it is recommended to convert to sparse <code>csc_matrix</code> before calling fit and sparse <code>csr_matrix</code> before calling predict.</p>
+</li>
+<li>
+<p>Training time can be orders of magnitude faster for a sparse matrix input compared to a dense matrix when features have zero values in most of the samples.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Random-Forest-Estimator-(Forest-of-Randomized-Trees)">Random Forest Estimator (Forest of Randomized Trees)<a class="anchor-link" href="../bikeshare%20part3/#Random-Forest-Estimator-(Forest-of-Randomized-Trees)">¶</a>
+</h2>
+<ul>
+<li>
+<p>In Sklearn, bagging algorithms takes a user-specified base estimator along with parameters specifying the strategy to draw random subsets.</p>
+</li>
+<li>
+<p>In <code>RandomForestRegressor</code> the base estimators are decision trees</p>
+</li>
+<li>
+<p>In random forests, each tree in the ensemble is built from a sample drawn with replacement (i.e., a bootstrap sample) from the training set.</p>
+</li>
+<li>
+<p>In addition, when splitting a node during the construction of the tree, the split that is chosen is no longer the best split among all features.</p>
+<ul>
+<li>Instead, the split that is picked is the best split among a random subset of the features. </li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>As a result of this randomness, the bias of the forest usually slightly increases (with respect to the bias of a single non-random tree) but, due to averaging, its variance also decreases, usually more than compensating for the increase in bias, hence yielding an overall better model.</li>
+</ul>
+<ul>
+<li>Like in the other bagging algorithms in RandomForestRegressor<ul>
+<li>
+<code>max_samples</code> and <code>max_features</code> control the size of the subsets (in terms of samples and features), </li>
+<li>
+<code>bootstrap</code> and <code>bootstrap_features</code> control whether samples and features are drawn with or without replacement. </li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Parameters-of-Random-Forest">Parameters of Random Forest<a class="anchor-link" href="../bikeshare%20part3/#Parameters-of-Random-Forest">¶</a>
+</h4>
+<ul>
+<li>
+<p>The main parameters to adjust of random forest is <code>n_estimators</code> and <code>max_features</code>.</p>
+</li>
+<li>
+<p>The <code>n_estimator</code> is the number of trees in the forest.</p>
+<ul>
+<li>The larger the better, but also the longer it will take to compute. </li>
+<li>In addition, note that results will stop getting significantly better beyond a critical number of trees. </li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<code>max_features</code> is the size of the <strong>random subsets of features</strong> to consider when splitting a node. <ul>
+<li>The lower the greater the reduction of variance, but also the greater the increase in bias.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Empirical good default values are<ul>
+<li>
+<code>max_features=n_features</code> for regression problems, and </li>
+<li>
+<code>max_features=sqrt(n_features)</code> for classification tasks (where n_features is the number of features in the data). </li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<p>Good results are often achieved when setting <code>max_depth=None</code> in combination with <code>min_samples_split=2</code> (i.e., when fully developing the trees).</p>
+</li>
+<li>
+<p>Bear in mind though that these values are usually not optimal, and might result in models that consume a lot of RAM.</p>
+</li>
+<li>
+<p>The best parameter values should always be <strong>cross-validated</strong>.</p>
+</li>
+<li>
+<p>In addition, note that in random forests, bootstrap samples are used by default (<code>bootstrap=True</code>)</p>
+</li>
+</ul>
+<h4 id="Note">Note<a class="anchor-link" href="../bikeshare%20part3/#Note">¶</a>
+</h4>
+<ul>
+<li>The size of the model with the default parameters is $O(M*N*log(N)$ , where $M$ is the number of trees and $N$ is the number of samples. </li>
+<li>In order to reduce the size of the model, you can change these parameters: <ul>
+<li>
+<code>min_samples_split</code>, </li>
+<li>
+<code>max_leaf_nodes</code>,</li>
+<li>
+<code>max_depth</code> and </li>
+<li>
+<code>min_samples_leaf</code>.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Random-Forest-Model">Random Forest Model<a class="anchor-link" href="../bikeshare%20part3/#Random-Forest-Model">¶</a>
+</h3>
+<p>After reminding the practical tips we can instantiate our Random Forest model</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Instantiate a Random Forest object with parameters</span>
+<span class="n">random_forest</span><span class="o">=</span><span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+                                         <span class="n">max_depth</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+                                         <span class="n">max_features</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> 
+                                         <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+                                         <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Cross-Validation-Scores">Cross Validation Scores<a class="anchor-link" href="../bikeshare%20part3/#Cross-Validation-Scores">¶</a>
+</h3>
+<p>Let's define a function for utilize the <code>cross_val_score</code> function from <code>sklearn.metrics</code> to get the scores of each split. We will calculate the scores with the metrics:</p>
+<ul>
+<li>
+<strong>R_squared</strong> </li>
+<li><strong>RMSE</strong></li>
+<li>
+<strong>MAE</strong>, and</li>
+<li>
+<strong>RMSLE</strong> (Root Mean Squared Logarithmic Error, Kaggle's metric for this dataset. We will mainly take into account this metric)</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [50]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Define a function for calculating the cross validation scores with different metrics</span>
+<span class="k">def</span> <span class="nf">scores</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">split</span><span class="p">,</span> <span class="n">metric_lst</span><span class="p">,</span> <span class="n">estimator</span><span class="o">=</span><span class="n">random_forest</span><span class="p">):</span>
+    <span class="sd">'''Takes features and target sets, a list of metrics and an estimator -&gt; </span>
+<span class="sd">    returns the scores of the metrics in the list '''</span>
+    <span class="c1"># Fit and score the model with cross-validation</span>
+    <span class="k">for</span> <span class="n">metric_desc</span><span class="p">,</span> <span class="n">metric_name</span> <span class="ow">in</span> <span class="n">metric_lst</span><span class="p">:</span>
+        <span class="n">score</span><span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">split</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">metric_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">metric_name</span><span class="o">==</span><span class="s2">"neg_mean_squared_error"</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">"RMSE values:{np.sqrt(-score)}"</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">metric_name</span><span class="o">==</span><span class="s2">"r2"</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">"</span><span class="si">{metric_desc}</span><span class="s2"> values:</span><span class="si">{score}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">"</span><span class="si">{metric_desc}</span><span class="s2"> values:{-score}"</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [51]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create a metric list</span>
+<span class="n">metrics_lst</span><span class="o">=</span><span class="p">[(</span><span class="s2">"MAE"</span><span class="p">,</span> <span class="s2">"neg_mean_absolute_error"</span><span class="p">),</span> 
+             <span class="p">(</span><span class="s2">"MSE"</span><span class="p">,</span> <span class="s2">"neg_mean_squared_error"</span><span class="p">),</span> 
+             <span class="p">(</span><span class="s2">"R^2"</span><span class="p">,</span> <span class="s2">"r2"</span><span class="p">),</span>
+             <span class="p">(</span><span class="s2">"MSLE"</span><span class="p">,</span> <span class="n">rmsle_error</span><span class="p">),</span> <span class="c1"># Our custom defined RMSLE </span>
+             <span class="p">(</span><span class="s2">"MSLE"</span><span class="p">,</span> <span class="s2">"neg_mean_squared_log_error"</span><span class="p">)]</span>
+
+<span class="c1"># Split the timeseries data with TimeSeriesSplit</span>
+<span class="n">time_split</span> <span class="o">=</span> <span class="n">TimeSeriesSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">scores</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">time_split</span><span class="p">,</span> <span class="n">metrics_lst</span><span class="p">,</span> <span class="n">estimator</span><span class="o">=</span><span class="n">random_forest</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>MAE values:[72.19103188 46.93845747 67.0675416  74.70634337 68.92369856]
+
+RMSE values:[104.52779911  71.88854555 105.68288502 105.67601192  97.75787222]
+
+R^2 values:[0.48259751 0.73514714 0.29747846 0.60058387 0.64609849]
+
+MSLE values:[0.61212597 0.52121142 0.70357754 0.50449061 0.46967002]
+
+MSLE values:[0.37469821 0.27166134 0.49502135 0.25451078 0.22058993]
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [52]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Validate with the hold-out data</span>
+<span class="c1"># Fit the data to random_forest</span>
+<span class="n">random_forest</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># Predict the hold-out test set</span>
+<span class="n">pred</span><span class="o">=</span><span class="n">random_forest</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_hold</span><span class="p">)</span>
+
+<span class="c1"># Score the predictions with rmsle_calculator</span>
+<span class="n">rmsle_calculator</span><span class="p">(</span><span class="n">y_hold</span> <span class="p">,</span> <span class="n">pred</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[52]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.45870403895429723</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Visualizing-Features-Importances">Visualizing Features Importances<a class="anchor-link" href="../bikeshare%20part3/#Visualizing-Features-Importances">¶</a>
+</h3>
+<ul>
+<li>Tree-based methods enable measuring the importance (predictivity) of each feature in prediction</li>
+<li>It is calculated by regarding how much the tree nodes use a particular feature to split the data and reduce the variance</li>
+<li>
+<p>Features used at the top of the tree contribute to the final prediction decision of a larger fraction of the input samples.</p>
+</li>
+<li>
+<p>In Sklearn we can retreive the feature importance by using the attribute <code>feature_importance_</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [53]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create a pandas Series of features importances: importances</span>
+<span class="c1"># containing the feature names as index and their importances as values</span>
+<span class="n">importances</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">random_forest</span><span class="o">.</span><span class="n">feature_importances_</span> <span class="p">,</span> <span class="n">index</span><span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="c1"># Get the sorted importance values: importance_sorted</span>
+<span class="n">importance_sorted</span><span class="o">=</span><span class="n">importances</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
+
+<span class="c1"># Plot the sorted importance values by using horizontal bars</span>
+<span class="n">importance_sorted</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">"barh"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"blue"</span><span class="p">);</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAaQAAAEBCAYAAAA3ndFoAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAADl0RVh0U29mdHdhcmUAbWF0cGxvdGxpYiB2ZXJzaW9uIDIuMi4yLCBodHRwOi8vbWF0cGxvdGxpYi5vcmcvhp/UCwAAIABJREFUeJzt3XtcVXWi///X5iJJaJJuTcJvTuhB66hhR8UriqYoAgIp1RlKZ7Ss03Q8mYXpmJdsZiTKS9MQjXNqHBNNUEmPih4zndHUo6RO6bE5XklT3HhBUHCz1+8Pf+4iLyC3vZa+n48Hjwd7r7U+6732Y8vb9dlr720zDMNARETEw7w8HUBERARUSCIiYhIqJBERMQUVkoiImIIKSURETEGFJCIipqBCEhERU1AhiYiIKaiQRETEFFRIIiJiCiokERExBRWSiIiYggpJRERMwcfTAazizJliXC5rfDB606YBOBwXPB3jllgts9XygvUyWy0vKPNVXl42AgPvvuXtVEhV5HIZlikkwFJZr7JaZqvlBetltlpeUOaa0JSdiIiYggpJRERMQYUkIiKmoEISERFTsBmGYY5Xs0RExDRKSlwUFxdXa1svLxtNmwbc8na6yq6KWreGI0c8nUJEpH4YhhfV7KNq05SdiIiYgmUKadu2bSQnJ3s6hoiI1BHLFJKIiNzeLFVIhYWFjBkzhkGDBjF27FjKysrIyspi6NChxMTEkJKS4n4RLjQ01L1ddnY2KSkpAERGRjJu3DgGDRqEw+HwyHGIiMi1LHVRw/Hjx0lPT+f+++9nxIgRLFq0iL/85S8sWbKEwMBApk2bxnvvvcdrr71203H69OnD7Nmz6ym1iIg12e2N6nV/liqkdu3a0apVKwBCQkIoKiqiX79+BAYGApCUlMTEiRMrHadTp051mlNE5HZQUFBUre2qe9m3pabsfHx+6E+bzUbjxo0rLDcMA6fTWeE2UOE+AD8/vzpMKSIi1WGpQrqeDRs2cPbsWQCWLFlCt27dAAgMDOTbb7/FMAw2bNjgyYgiIlIFlpqy+6mAgACee+45kpOTuXz5Mg8//DDTpk0DYPz48YwdO5ZmzZrx6KOPcubMGQ+nFRGRm9FHB1WRPqlBRO4khqHXkERE5A5l6Sm7+nT4sKcTiIjUn5ISV73vU4VURQ7HBdN8zW9l7PZG1T7V9hSrZbZaXrBeZqvlBWWuKU3ZiYiIKaiQRETEFFRIIiJiCiokERExBRWSiIiYggpJRERMQYUkIiKmoEISERFTUCGJiIgpqJBERMQUVEgiImIKKiQRETEFfbhqFVXnuz08yW5vVK/7KylxUVxcXK/7FJHbiwqpivQFfTdnGF6oj0SkJjRlJyIipmDqQkpOTvZ0BBERqSemLqTt27d7OoKIiNQTU7yG5HQ6mTp1Kt9++y2nT58mNDSUe++9F4Dhw4fz6aefsmnTJubOnYvT6SQ4OJgZM2YQGBhIZGQk0dHR/O1vf8PHx4cXXniBP/3pTxw5coTXXnuNIUOGkJKSgp+fH3v37qW4uJjnn3+eYcOGefioRUTkx0xxhpSXl4evry+LFy9m3bp1FBUV0bt3bwA+/fRTCgsLSUtLY/78+SxfvpxevXrx9ttvu7dv1qwZ2dnZhISEkJGRwZ/+9CdSU1PJyMhwr3Ps2DEWL17Mxx9/zKxZsygoKKj34xQRkRszxRlSly5daNKkCQsXLuTgwYMcPnyYkpIS9/Ldu3dz4sQJnn76aQBcLhf33HOPe3mfPn0ACAoKonnz5vj4+BAUFMT58+fd6yQkJODr68t9991H586d2blzJ1FRUfV0hHeGml5qXt+XqteU1fKC9TJbLS8oc02YopD++7//m7lz5/L000+TkJDAmTNnMAzDvby8vJzOnTuTnp4OQGlpaYX3vPj6+rp/9/G5/iF5e3u7f3e5XDdcT6qvoKCo2tva7Y1qtH19s1pesF5mq+UFZb7Ky8tWrfdummLKbuvWrQwePJjExEQaN27Mtm3bKC8vx9vbG6fTSadOnfjqq684dOgQAO+//z6zZs26pX2sXr0awzD47rvv2LNnD48++mhdHIqIiFSTKU4Thg8fziuvvMKqVavw9fWlc+fO5Ofn079/f+Li4sjOzuatt95i3LhxuFwuWrRoQWpq6i3t49KlSyQmJlJWVsb06dMJDAyso6MREZHqsBk/nhu7TaWkpNC1a1cSEhKqPYY+qeHmDENTdmZntcxWywvKfJWlp+xERERMMWVX137729/WeIzDh2ue43ZWUuLydAQRsbg7opBqg8NxAZfLGrObVpw2EBHRlJ2IiJiCCklERExBhSQiIqagQhIREVNQIYmIiCmokERExBRUSCIiYgoqJBERMQUVkoiImIIKSURETEGFJCIipqBCEhERU9CHq1ZRdb7b46dKSlwVvnpdRER+oDOkKmrdGmy2mv34++vhFhG5Ef2FFBERU6jTQtq2bRvJycm1OuakSZPYu3fvNfenpKSQnZ3NyZMnGTNmDACff/45//mf/1mr+xcRkbphudeQZs6cedPlLVq04MMPPwTg73//e31EEhGRWlDnU3aFhYWMGTOGQYMGMXbsWA4ePEhkZKR7+bx585g3bx4APXv2ZMqUKQwbNozRo0ezevVqnnrqKSIjI9m+fTsAycnJbNu2DcMw+M1vfsOgQYNITk7m6NGjAOTn5xMZGck//vEPMjMzyczM5NNPPyUyMpJDhw4BUFJSQkREBKWlpXV9+CIiUkV1XkjHjx9nypQprF69mtOnT7N169Ybrnv69Gn69OnD8uXLKS0tZf369XzyySf86le/4uOPP66w7tq1a/nmm29YuXIlc+bMcRfSVW3atOGJJ57giSeeYPjw4QwbNoycnBwAcnNz6du3L35+frV/wCIiUi11PmXXrl07WrVqBUBISAhnzpy56fp9+vQB4P777+fRRx8FICgoiPPnz1dYb/v27QwcOBBfX1/uvfde93Y3kpCQwKhRo/j3f/93li1bxssvv1zdQ6oRu73RbbWf2mS1zFbLC9bLbLW8oMw1UeeF5OPzwy5sNhsAhmG473M6nRXWadCggft3b2/vG45rs9kqjPPjMa4nODiYoKAgcnNzcTgcdOrUqeoHUYsKCorqfB92e6N62U9tslpmq+UF62W2Wl5Q5qu8vGzVeu9mvV/23ahRI86ePUthYSFlZWVs3ry5WuN0796d1atXU1ZWxrlz5647jre3N06n0307MTGRN998k9jY2GrnFxGRuuGRQho9ejSPP/44I0eOpEOHDtUaZ8CAAXTt2pWhQ4fy/PPPExIScs06Xbp04bPPPmPBggUADBw4kHPnzhEXF1ejYxARkdpnM34873UbMwyDTZs2sWjRItLT0295+9at4ciRmmbQlN2NWC2z1fKC9TJbLS8o81XVnbKz3PuQquutt97i888/d79HSUREzOWO+eigSZMmsX79en72s595OoqIiFzHHXOGVFOHD9d8jJISV80HERG5TamQqsjhuIDLdUe83CYi4hF3zJSdiIiYmwpJRERMQYUkIiKmoEISERFTUCGJiIgpqJBERMQUVEgiImIK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">
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Obviously,  <code>hour</code> and <code>atemp</code> (temperature) are the most predictive features according to our <code>random_forest</code> model. The importances of these two features add up to <code>more than 90%</code></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Kaggle-submission-for-Random-Forest-Model">Kaggle submission for Random Forest Model<a class="anchor-link" href="../bikeshare%20part3/#Kaggle-submission-for-Random-Forest-Model">¶</a>
+</h3>
+<p>Now time to predict the given Kaggle test set and submit the predictions to Kaggle to get our score.</p>
+<ul>
+<li>
+<p>First, lets read the Kaggle test data and apply all the same steps that we did for the training set like creating new features in order to make them match</p>
+</li>
+<li>
+<p>Second, it would be better if we combine our <code>X</code> and <code>X_hold</code> and <code>y</code> and <code>y_hold</code> datasets then train our model with more data in order to let our model learn better before predicting on a new test data i.e Kaggle test dataset which we have not yet uploaded.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [54]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Read the Kaggle test data</span>
+<span class="n">kaggle_test</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"bike_kaggle_test.csv"</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">"datetime"</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="s2">"datetime"</span><span class="p">)</span>
+
+<span class="c1"># Create the time features "month","weekday" and "hour"</span>
+<span class="n">kaggle_test</span><span class="p">[</span><span class="s2">"month"</span><span class="p">]</span><span class="o">=</span><span class="n">kaggle_test</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span>
+<span class="n">kaggle_test</span><span class="p">[</span><span class="s2">"weekday"</span><span class="p">]</span><span class="o">=</span><span class="n">kaggle_test</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">dayofweek</span>
+<span class="n">kaggle_test</span><span class="p">[</span><span class="s2">"hour"</span><span class="p">]</span><span class="o">=</span><span class="n">kaggle_test</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">hour</span>
+<span class="n">kaggle_test</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[54]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+      <th>season</th>
+      <th>holiday</th>
+      <th>workingday</th>
+      <th>weather</th>
+      <th>temp</th>
+      <th>atemp</th>
+      <th>humidity</th>
+      <th>windspeed</th>
+      <th>month</th>
+      <th>weekday</th>
+      <th>hour</th>
+    </tr>
+<tr>
+<th>datetime</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+<th>2011-01-20 00:00:00</th>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>10.66</td>
+      <td>11.365</td>
+      <td>56</td>
+      <td>26.0027</td>
+      <td>1</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+<tr>
+<th>2011-01-20 01:00:00</th>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>10.66</td>
+      <td>13.635</td>
+      <td>56</td>
+      <td>0.0000</td>
+      <td>1</td>
+      <td>3</td>
+      <td>1</td>
+    </tr>
+<tr>
+<th>2011-01-20 02:00:00</th>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>10.66</td>
+      <td>13.635</td>
+      <td>56</td>
+      <td>0.0000</td>
+      <td>1</td>
+      <td>3</td>
+      <td>2</td>
+    </tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [55]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Drop the index</span>
+<span class="n">X_kaggle_test</span><span class="o">=</span> <span class="n">kaggle_test</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># Drop the unnecessary columns</span>
+<span class="n">X_kaggle_test</span><span class="o">=</span><span class="n">X_kaggle_test</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">"temp"</span><span class="p">,</span> <span class="s2">"season"</span><span class="p">,</span> <span class="s2">"weather"</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">X_kaggle_test</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[55]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead><tr style="text-align: right;">
+<th></th>
+      <th>holiday</th>
+      <th>workingday</th>
+      <th>atemp</th>
+      <th>humidity</th>
+      <th>windspeed</th>
+      <th>month</th>
+      <th>weekday</th>
+      <th>hour</th>
+    </tr></thead>
+<tbody>
+<tr>
+<th>0</th>
+      <td>0</td>
+      <td>1</td>
+      <td>11.365</td>
+      <td>56</td>
+      <td>26.0027</td>
+      <td>1</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+<tr>
+<th>1</th>
+      <td>0</td>
+      <td>1</td>
+      <td>13.635</td>
+      <td>56</td>
+      <td>0.0000</td>
+      <td>1</td>
+      <td>3</td>
+      <td>1</td>
+    </tr>
+<tr>
+<th>2</th>
+      <td>0</td>
+      <td>1</td>
+      <td>13.635</td>
+      <td>56</td>
+      <td>0.0000</td>
+      <td>1</td>
+      <td>3</td>
+      <td>2</td>
+    </tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Fit-Combined-Data-to-Random-Forest-Model">Fit Combined Data to Random Forest Model<a class="anchor-link" href="../bikeshare%20part3/#Fit-Combined-Data-to-Random-Forest-Model">¶</a>
+</h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [56]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Combine X and X hold: combined_train</span>
+<span class="n">combined_X</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">X</span><span class="p">,</span> <span class="n">X_hold</span><span class="p">])</span>
+
+<span class="c1"># Combine the y and y hold: combined_test</span>
+<span class="n">combined_y</span> <span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">y</span><span class="p">,</span> <span class="n">y_hold</span><span class="p">])</span>
+
+<span class="n">random_forest</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">combined_X</span><span class="p">,</span> <span class="n">combined_y</span><span class="p">)</span>
+
+<span class="c1"># Predict the Kaggle test set</span>
+<span class="n">final_predictions_rf</span><span class="o">=</span><span class="n">random_forest</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_kaggle_test</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Having predicted the test targets now we need to create a dataframe complying with Kaggle submission format</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [57]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">kaggle_sub_rf</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"datetime"</span><span class="p">:</span><span class="n">kaggle_test</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s2">"count"</span><span class="p">:</span><span class="n">final_predictions_rf</span><span class="p">})</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"datetime"</span><span class="p">)</span>
+<span class="n">kaggle_sub_rf</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[57]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+      <th>count</th>
+    </tr>
+<tr>
+<th>datetime</th>
+      <th></th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+<th>2011-01-20 00:00:00</th>
+      <td>17.469270</td>
+    </tr>
+<tr>
+<th>2011-01-20 01:00:00</th>
+      <td>10.278210</td>
+    </tr>
+<tr>
+<th>2011-01-20 02:00:00</th>
+      <td>6.495004</td>
+    </tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [58]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Save the submission dataframe</span>
+<span class="n">kaggle_sub_rf</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"kaggle_sub_rf.csv"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Kaggle-Results">Kaggle Results<a class="anchor-link" href="../bikeshare%20part3/#Kaggle-Results">¶</a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="../../image/kaggle_rf.png" alt="kaggle_rf"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="OOB-('Out-of-the-Bag'-or-'Out-of-the-Boot')-Validation">OOB ('Out of the Bag' or 'Out of the Boot') Validation<a class="anchor-link" href="../bikeshare%20part3/#OOB-('Out-of-the-Bag'-or-'Out-of-the-Boot')-Validation">¶</a>
+</h3>
+<ul>
+<li>The single trees in Random Forest algorithm take the input data by randomly selecting with replacement from the original data (bootstrap samples)</li>
+<li>This means each tree very highly containing dublicated samples and not containing some of the samples in the original training set</li>
+<li>On average, <ul>
+<li>for each model, <code>60%</code> of the training instances are sampled</li>
+<li>each single tree does not use <code>40%</code> of the training instance. </li>
+<li>They are called "Out of the bag". A better name is "Out of Boot" because they are the ones not choosen by the bootstrap method</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>This unseen samples can be used as validation set</li>
+<li>Random forest algorithm can run internally the single tree predictions on these OOB data</li>
+<li>Sometimes, our dataset can be very small and if we dont want to split it for the Validation set, OOB option can be a good alternative</li>
+<li>This allows us to see whether the model is <code>over-fitting</code>, without needing a <code>separate validation set</code>. </li>
+<li>In Sklearn RandomForestRegressor the parameter for OOB option is <code>oob_score = True</code>. </li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="OOB-Error--and-Timeseries-Data">OOB Error  and Timeseries Data<a class="anchor-link" href="../bikeshare%20part3/#OOB-Error--and-Timeseries-Data">¶</a>
+</h3>
+<ul>
+<li>OOB is good for especially small dataset which are not timeseries</li>
+<li>However OOB validation will give us a misleading evaluation of performance on a time-series dataset because it will be evaluating performance on past data using future data due to the random selection during the bootstrap method application</li>
+<li>Therefore, we need to use a methodology which respect to time order like <code>TimeSeriesSplit</code>.</li>
+<li>In this project we will not use OOB</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Adaboost">Adaboost<a class="anchor-link" href="../bikeshare%20part3/#Adaboost">¶</a>
+</h2>
+<p>After implementing RandomForestRegressor now let's implement <code>AdaBoostRegressor</code>.</p>
+<p>Here are some reminders:</p>
+<ul>
+<li>In Adaboost we fit a new estimator repeatedly by modifing the data each time. </li>
+<li>The data modifications at each boosting iteration consist of applying weights $w_1,...w_n$ to each of the training samples. </li>
+<li>Initially, those weights are all equally set to $w_i=1/N$, so that the first step simply trains a weak learner on the original data. </li>
+<li>
+<p>For each successive iteration, the sample weights are individually modified and the learning algorithm is reapplied to the reweighted data.</p>
+</li>
+<li>
+<p>At a given step, those training examples that were incorrectly predicted by the boosted model induced at the previous step have their weights increased, whereas the weights are decreased for those that were predicted correctly.</p>
+</li>
+<li>
+<p>As iterations proceed, examples that are difficult to predict receive ever-increasing influence.</p>
+</li>
+<li>Each subsequent weak learner is thereby forced to concentrate on the examples that are missed by the previous ones in the sequence.</li>
+</ul>
+<p><strong>Important Parameters of Sklearn <code>AdaBoostRegressor</code></strong></p>
+<ul>
+<li>
+<p><code>base_estimator</code> : The base estimator from which the boosted ensemble is built. Default is <code>DecisionTreeRegressor(max_depth=3)</code>. We can use a developped tree</p>
+</li>
+<li>
+<p>The complexity of the base estimators is important (e.g., its depth <code>max_depth</code> or minimum required number of samples to consider a split <code>min_samples_split</code>).</p>
+</li>
+<li>
+<p><code>n_estimators</code> : The maximum number of estimators at which boosting is terminated.In case of perfect fit, the learning procedure is stopped early. Default is 50</p>
+</li>
+<li>
+<p><code>learning_rate</code> : Controls the contribution of the weak learners in the final combination. Learning rate shrinks the contribution of each regressor by the provided value. There is a trade-off between learning_rate and n_estimators. If learning rate is small the number of estimators will be large. A number beetween 0 and 1. Default is 0.1</p>
+</li>
+<li>
+<p><code>loss</code> : The loss function to use when updating the weights after each boosting iteration.
+Options are <code>linear</code>, <code>square</code>, <code>exponential</code>. Default is <code>linear</code></p>
+</li>
+<li>
+<p><code>random_state</code> : Since Boosting involves randomness when choosing the input data, it is important to seed this parameter in order to reproduce the same results later</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [59]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Instantiate a DecisionTreeRegressor with arguments</span>
+<span class="n">dtree</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+                              <span class="n">max_features</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> 
+                              <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+                             <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Instantiate an AdaBoostClassifier with 300 trees, </span>
+<span class="n">adaboost</span> <span class="o">=</span> <span class="n">AdaBoostRegressor</span><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><span class="n">dtree</span><span class="p">,</span> 
+                             <span class="n">n_estimators</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+                             <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span>
+                             <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's evaluate the performance of AdaboostRegressor with scores function we defined earlier</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [60]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Calculate the scores</span>
+<span class="n">scores</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">time_split</span><span class="p">,</span> <span class="n">metrics_lst</span><span class="p">,</span> <span class="n">estimator</span><span class="o">=</span><span class="n">adaboost</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>MAE values:[66.53556939 43.77378891 65.3348207  72.22024961 65.9730083 ]
+
+RMSE values:[ 94.81543874  64.38501852 102.36121393 102.0862418   94.38518   ]
+
+R^2 values:[0.57428101 0.78755088 0.34094573 0.62725897 0.67009678]
+
+MSLE values:[0.57223361 0.51306689 0.68107254 0.48182514 0.45777072]
+
+MSLE values:[0.3274513  0.26323764 0.46385981 0.23215547 0.20955404]
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [61]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Validate with the hold-out data</span>
+<span class="n">ada</span><span class="o">=</span><span class="n">adaboost</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">pred</span><span class="o">=</span><span class="n">ada</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_hold</span><span class="p">)</span>
+<span class="n">rmsle_calculator</span><span class="p">(</span><span class="n">y_hold</span> <span class="p">,</span> <span class="n">pred</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[61]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.4269805955614845</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Kaggle-Submission-Adaboost">Kaggle Submission Adaboost<a class="anchor-link" href="../bikeshare%20part3/#Kaggle-Submission-Adaboost">¶</a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [62]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ada</span><span class="o">=</span><span class="n">adaboost</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">combined_X</span><span class="p">,</span> <span class="n">combined_y</span><span class="p">)</span>
+<span class="n">final_predictions_ada</span><span class="o">=</span> <span class="n">ada</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_kaggle_test</span><span class="p">)</span>
+<span class="n">kaggle_sub_ada</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"datetime"</span><span class="p">:</span><span class="n">kaggle_test</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s2">"count"</span><span class="p">:</span><span class="n">final_predictions_ada</span><span class="p">})</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"datetime"</span><span class="p">)</span>
+<span class="n">kaggle_sub_ada</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[62]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+      <th>count</th>
+    </tr>
+<tr>
+<th>datetime</th>
+      <th></th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+<th>2011-01-20 00:00:00</th>
+      <td>16.488889</td>
+    </tr>
+<tr>
+<th>2011-01-20 01:00:00</th>
+      <td>9.366667</td>
+    </tr>
+<tr>
+<th>2011-01-20 02:00:00</th>
+      <td>6.297357</td>
+    </tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [63]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Save the submission dataframe</span>
+<span class="n">kaggle_sub_ada</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"kaggle_sub_ada.csv"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="data:image/png;base64,%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" alt="resim.png"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Grid-Search-Adaboost">Grid Search Adaboost<a class="anchor-link" href="../bikeshare%20part3/#Grid-Search-Adaboost">¶</a>
+</h3>
+<p>Lets implement a short grid search for tuning some hyperparameters of adaboost</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [64]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># First get the parameters of adaboost</span>
+<span class="n">adaboost</span><span class="o">.</span><span class="n">get_params</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[64]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{'base_estimator__criterion': 'mse',
+ 'base_estimator__max_depth': 6,
+ 'base_estimator__max_features': 6,
+ 'base_estimator__max_leaf_nodes': None,
+ 'base_estimator__min_impurity_decrease': 0.0,
+ 'base_estimator__min_impurity_split': None,
+ 'base_estimator__min_samples_leaf': 8,
+ 'base_estimator__min_samples_split': 2,
+ 'base_estimator__min_weight_fraction_leaf': 0.0,
+ 'base_estimator__presort': False,
+ 'base_estimator__random_state': 1,
+ 'base_estimator__splitter': 'best',
+ 'base_estimator': DecisionTreeRegressor(criterion='mse', max_depth=6, max_features=6,
+            max_leaf_nodes=None, min_impurity_decrease=0.0,
+            min_impurity_split=None, min_samples_leaf=8,
+            min_samples_split=2, min_weight_fraction_leaf=0.0,
+            presort=False, random_state=1, splitter='best'),
+ 'learning_rate': 0.02,
+ 'loss': 'linear',
+ 'n_estimators': 300,
+ 'random_state': 1}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [65]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create the parameters grid for adaboost:params_ada</span>
+<span class="n">params_ada</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'n_estimators'</span><span class="p">:[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span>
+              <span class="s1">'learning_rate'</span><span class="p">:[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">]}</span>
+    
+<span class="c1"># Instantiate a 3-fold CV grid search object:grid_ada</span>
+<span class="n">grid_ada</span><span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">adaboost</span><span class="p">,</span>
+                         <span class="n">param_grid</span><span class="o">=</span><span class="n">params_ada</span><span class="p">,</span>    
+                         <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                         <span class="n">scoring</span><span class="o">=</span><span class="s2">"neg_mean_squared_log_error"</span><span class="p">,</span>
+                         <span class="c1">#verbose=True,</span>
+                         <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [66]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Fit the combined data to grid_ada </span>
+<span class="n">grid_ada</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">combined_X</span><span class="p">,</span> <span class="n">combined_y</span><span class="p">);</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [67]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get the best parameters of the grid search</span>
+<span class="n">grid_ada</span><span class="o">.</span><span class="n">best_params_</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[67]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{'learning_rate': 0.01, 'n_estimators': 50}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This grid search on two parameters did not improved the score. We need to do a more complex grid search with more parameters together but adding each new parameter makes the grid search computationaly more expensive. If you have time and gpu power you can give it a try</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Gradient-Boosting">Gradient Boosting<a class="anchor-link" href="../bikeshare%20part3/#Gradient-Boosting">¶</a>
+</h2>
+<p>Let's continue our analysis by applying a <code>GradientBoostingRegressor</code> model to our data</p>
+<ul>
+<li>In contrast to Adaboost, in Gradient Boosting the weights of training samples are not modified between squential predictors.</li>
+<li>Instead each predictor is trained using the residual errors <code>(y-ŷ)</code> of its predecessors as target values(labels)</li>
+<li>One disadvantage of boosting algorithms is scalability, due to the sequential nature of boosting it can hardly be parallelized.</li>
+</ul>
+<p><strong>Important Parameters of Sklearn <code>GradientBoostingRegressor</code></strong></p>
+<p>Since in each stage a regression tree is fit on the Sklearn <code>GradientBoostingRegressor</code> the parameters of DecisionTreeRegressor are also the parameters of GradientBoostingRegressor. However in <code>AdaboostRegressor</code> we provide the base estimator with a seperate parameter.</p>
+<ul>
+<li>
+<code>n_estimators</code>: number of boosting stages, or trees, to use.</li>
+<li>
+<code>learning_rate</code>: A number beetween 0 and 1. Learning rate shrinks the contribution of each regressor by the provided value. There is a trade-off between learning_rate and n_estimators. If learning rate is small the number of estimators will be large. Default is 0.1</li>
+<li>
+<code>subsample</code>: The fraction of samples to be used for fitting the individual base learners. If smaller than 1.0 this results in Stochastic Gradient Boosting. subsample interacts with the parameter n_estimators. Choosing subsample &lt; 1.0 leads to a reduction of variance and an increase in bias.</li>
+<li>
+<code>in_samples_leaf</code>: The minimum number of samples required to be at a leaf node</li>
+<li>
+<code>max_depth</code> : Maximum depth of the individual regression trees.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [68]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Instantiate a GradientBoostingRegressor object</span>
+<span class="n">gbr</span><span class="o">=</span><span class="n">GradientBoostingRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> 
+                              <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
+                              <span class="n">max_depth</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                              <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+                              <span class="n">random_state</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># Calculate the scores of GradientBoostingRegressor</span>
+<span class="n">scores</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">time_split</span><span class="p">,</span> <span class="n">metrics_lst</span><span class="p">,</span> <span class="n">estimator</span><span class="o">=</span><span class="n">gbr</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>MAE values:[63.78243526 29.52160019 58.18626779 74.91291222 72.97491302]
+
+RMSE values:[ 90.93426958  45.57951373  88.49253049 102.05948781  97.819009  ]
+
+R^2 values:[0.60842039 0.89353064 0.507435   0.62745431 0.64565569]
+
+MSLE values:[0.55231098 0.41224693 0.63309638 0.47929402 0.44532874]
+
+MSLE values:[0.30504742 0.16994753 0.40081102 0.22972276 0.19831768]
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Kaggle-Submission-Gradient-Boosting">Kaggle Submission Gradient Boosting<a class="anchor-link" href="../bikeshare%20part3/#Kaggle-Submission-Gradient-Boosting">¶</a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [69]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">gbr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">combined_X</span><span class="p">,</span> <span class="n">combined_y</span><span class="p">)</span>
+<span class="n">final_predictions_gbr</span><span class="o">=</span> <span class="n">gbr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_kaggle_test</span><span class="p">)</span>
+<span class="n">kaggle_sub_gbr</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"datetime"</span><span class="p">:</span><span class="n">kaggle_test</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s2">"count"</span><span class="p">:</span><span class="n">final_predictions_gbr</span><span class="p">})</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"datetime"</span><span class="p">)</span>
+<span class="n">kaggle_sub_gbr</span><span class="p">[</span><span class="s2">"count"</span><span class="p">]</span><span class="o">=</span><span class="n">kaggle_sub_gbr</span><span class="p">[</span><span class="s2">"count"</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
+<span class="n">kaggle_sub_gbr</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[69]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+      <th>count</th>
+    </tr>
+<tr>
+<th>datetime</th>
+      <th></th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+<th>2011-01-20 00:00:00</th>
+      <td>17.592650</td>
+    </tr>
+<tr>
+<th>2011-01-20 01:00:00</th>
+      <td>9.359919</td>
+    </tr>
+<tr>
+<th>2011-01-20 02:00:00</th>
+      <td>7.708385</td>
+    </tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [70]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Save the submission dataframe</span>
+<span class="n">kaggle_sub_gbr</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"kaggle_sub_gbr.csv"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="data:image/png;base64,%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" alt="resim.png"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Stochastic-Gradient-Boosting">Stochastic Gradient Boosting<a class="anchor-link" href="../bikeshare%20part3/#Stochastic-Gradient-Boosting">¶</a>
+</h2>
+<p>Each tree in the ensemble is trained to find the best features and the best split points. This may cause the decesion trees use the <strong>same features</strong> and the <strong>same split points</strong>. To decrease this effect we can use <code>Stochastic Gradient Boosting (SGB)</code> by introducing further randomization to Gradient Boosting</p>
+<ul>
+<li>In SGB each decision tree is trained on a random subset of the training data</li>
+<li>The subsets are choosen without replacement</li>
+<li>
+<strong>At each node</strong> to choose the best-splits the features are also choosen without replacement <ul>
+<li>This create further diversity in the ensemble and add more variance </li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<p>SGB combines gradient boosting with bootstrap averaging (bagging)</p>
+</li>
+<li>
+<p>Here we are using a similar sampling method as in Random Forest algorithm</p>
+</li>
+<li>The difference is that the trees continue to be trained as in the Gradient Boosting ie after training the first tree the subsequent trees are trained regarding the residual errors of the preciding trees</li>
+</ul>
+<h5 id="learning_rate-and-subsampling-effect">
+<code>learning_rate</code> and <code>subsampling</code> effect<a class="anchor-link" href="../bikeshare%20part3/#learning_rate-and-subsampling-effect">¶</a>
+</h5>
+<p>Some tips from Sklearn page:</p>
+<ul>
+<li>The figure below illustrates the effect of <code>shrinkage</code> and <code>subsampling</code> on the goodness-of-fit of the model. </li>
+<li>We can clearly see that shrinkage outperforms no-shrinkage. </li>
+<li>Subsampling with shrinkage can further increase the accuracy of the model. </li>
+<li>Subsampling without shrinkage, on the other hand, does poorly.</li>
+</ul>
+<p><img src="data:image/png;base64,%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" alt="resim.png"></p>
+<ul>
+<li>The number of subsampled features can be controlled via the <code>max_features</code> parameter.</li>
+</ul>
+<p><strong>Note</strong>: Using a small <code>max_features</code> value can significantly decrease the runtime.</p>
+<h4 id="Interpretation">Interpretation<a class="anchor-link" href="../bikeshare%20part3/#Interpretation">¶</a>
+</h4>
+<ul>
+<li>Individual decision trees can be interpreted easily by simply visualizing the tree structure. </li>
+<li>Gradient boosting models, however, comprise hundreds of regression trees thus they cannot be easily interpreted by visual inspection of the individual trees. </li>
+<li>But we can take the average of the feature importance of each tree to get the important features of the ensembles.</li>
+<li>The feature importance scores of a fit gradient boosting model can be accessed via the <code>feature_importances_</code> property</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [73]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Instantiate a GradientBoostingRegressor object</span>
+<span class="n">sgb</span><span class="o">=</span><span class="n">GradientBoostingRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+                              <span class="n">subsample</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                              <span class="n">max_depth</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> 
+                              <span class="n">min_samples_split</span><span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+                              <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> 
+                              <span class="n">max_features</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span>
+                              <span class="n">random_state</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># Calculate the scores of GradientBoostingRegressor</span>
+<span class="n">scores</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">time_split</span><span class="p">,</span> <span class="n">metrics_lst</span><span class="p">,</span> <span class="n">estimator</span><span class="o">=</span><span class="n">sgb</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>MAE values:[61.99985965 40.33608158 60.5692487  74.9969457  68.99776331]
+
+RMSE values:[ 88.02700477  57.99335732  91.11700132 104.47887358  95.44953937]
+
+R^2 values:[0.63305857 0.8276379  0.47778522 0.60958209 0.66261434]
+
+MSLE values:[0.64242847 0.55233378 0.7128809  0.57816768 0.52222838]
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Kaggle-Submission-Stochastic-Gradient-Boosting">Kaggle Submission Stochastic Gradient Boosting<a class="anchor-link" href="../bikeshare%20part3/#Kaggle-Submission-Stochastic-Gradient-Boosting">¶</a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sgb</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">combined_X</span><span class="p">,</span> <span class="n">combined_y</span><span class="p">)</span>
+<span class="n">final_predictions_sgb</span><span class="o">=</span> <span class="n">sgb</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_kaggle_test</span><span class="p">)</span>
+<span class="n">kaggle_sub_sgb</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"datetime"</span><span class="p">:</span><span class="n">kaggle_test</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s2">"count"</span><span class="p">:</span><span class="n">final_predictions_sgb</span><span class="p">})</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"datetime"</span><span class="p">)</span>
+<span class="n">kaggle_sub_sgb</span><span class="p">[</span><span class="s2">"count"</span><span class="p">]</span><span class="o">=</span><span class="n">kaggle_sub_sgb</span><span class="p">[</span><span class="s2">"count"</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
+<span class="n">kaggle_sub_sgb</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Save the submission dataframe</span>
+<span class="n">kaggle_sub_sgb</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"kaggle_sub_sgb.csv"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="data:image/png;base64,%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" alt="resim.png"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Final-Submission">Final Submission<a class="anchor-link" href="../bikeshare%20part3/#Final-Submission">¶</a>
+</h3>
+<p>Here are the models and the scores on Kaggle submission</p>
+<ul>
+<li>Random Forest :0.5271</li>
+<li>Adaboost:0.6493</li>
+<li>GradientBoostingRegressor: 0.5386</li>
+<li>Stochastic GradientBoosting: 0.6690</li>
+</ul>
+<p>So we will submit the Random Forest.</p>
+<ul>
+<li>
+<p>We should notice that ensemble algorithms have a lot of parameters to tune, i.e a lot of knobs that control the model.</p>
+</li>
+<li>
+<p>The best way to optimize these knobs to make comprehensive Grid Searh or Randomized Search. In our notebook we did not do rigorous optimization though all the models performed better than the linear model in the earlier post.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This is a closed competion though to get a feeling of ranking here is our ranking falls in among 3,251 teams :)
+<img src="data:image/png;base64,%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" alt="resim.png"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Sources: <br><a href="https://scikit-learn.org/stable/modules/ensemble.html">https://scikit-learn.org/stable/modules/ensemble.html</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../tree-based%20models/" rel="prev" title="Tree-based Models">Previous post</a>
+            </li>
+        </ul></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
+        
+        
+
+
+        </section><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha256-SDRP1VVYu+tgAGKhddBSl5+ezofHKZeI+OzxakbIe/Y=" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+    },
+    displayAlign: 'center', // Change this to 'left' if you want left-aligned equations.
+    "HTML-CSS": {
+        styles: {'.MathJax_Display': {"margin": 0}}
+    }
+});
+</script></article><footer id="footer"><p>Contents © 2018         <a href="mailto:n.tesla@example.com">Harun</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+            
+        </footer>
+</div>
+    </section><script src="../../assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
+    moment.locale("en");
+    fancydates(2, "YYYY-MM-DD HH:mm");
+    </script><!-- end fancy dates --><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>

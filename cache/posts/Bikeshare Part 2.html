@@ -4,7 +4,7 @@
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
 <li>With this notebook we continue our analysis of <code>bikeshare</code> dataset.</li>
-<li>In this part we will do machine learning steps in order to predict the bike rentals for the given Kaggle testset and submit it to the Kaggle</li>
+<li>In this part we will do machine learning steps in order to predict the bike rentals for the given Kaggle test set and submit it to the Kaggle</li>
 </ul>
 <p><img src="/images/timecycle.jpg" alt="time"></p>
 
@@ -1093,13 +1093,17 @@ Even though there is only 1 hour difference between 0h-23h with this represantat
 </li>
 </ul>
 <ul>
-<li>When the differences are the same between <strong>actual</strong> and <strong>predicted</strong> in both cases. <ul>
+<li><p>When the differences are the same between <strong>actual</strong> and <strong>predicted</strong> in both cases.</p>
+<ul>
 <li>RMSE treated them equally, however </li>
 <li>RMSLogE penalized the under estimate more than over estimate (under estimated prediction score is higher than over estimated prediction score)</li>
 </ul>
 </li>
+<li><p>This second feature (<strong>penalizing the under estimate more than over estimate</strong>) of RSMLE also looks plausible for bike business.</p>
+</li>
+<li>Having extra bikes might be preferable to not being able to supply as many bikes as the demand. </li>
+<li>Often <strong>penalizing the under estimate more than over estimate</strong> is important for prediction of sales and inventory demands.</li>
 </ul>
-<p>This second feature (<strong>penalizing the under estimate more than over estimate</strong>) of RSMLE also looks plausible for bike business. Having extra bikes might be preferable to not being able to supply as many bikes as the demand.</p>
 
 </div>
 </div>
