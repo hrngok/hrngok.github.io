@@ -204,3 +204,6 @@
 'scale_images:output\\images\\ensemble2.png', (442880, 223)
 'scale_images:output\\images\\kagglegbr.PNG', (443392, 221)
 'scale_images:output\\images\\kagglerf.PNG', (443904, 218)
+'scale_images:output\\images\\shrinkage.PNG', (444416, 221)
+'scale_images:output\\images\\rank.PNG', (444928, 211)
+'scale_images:output\\images\\kaggleada.PNG', (445440, 221)
