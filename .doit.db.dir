@@ -199,3 +199,8 @@
 'scale_images:output\\images\\kaggle_rf.jpg', (440320, 222)
 'scale_images:output\\images\\kaggle.rf.jpg', (440832, 222)
 'scale_images:output\\images\\kaggle.rf.PNG', (441344, 220)
+'scale_images:output\\images\\kagglerf.jpg', (441856, 220)
+'scale_images:output\\images\\kagglesgb.PNG', (442368, 221)
+'scale_images:output\\images\\ensemble2.png', (442880, 223)
+'scale_images:output\\images\\kagglegbr.PNG', (443392, 221)
+'scale_images:output\\images\\kagglerf.PNG', (443904, 218)
