@@ -194,3 +194,6 @@
 'scale_images:output\\images\\bb.jpg', (437760, 208)
 'scale_images:output\\images\\sbb.jpg', (438272, 209)
 'scale_images:output\\images\\kaggle_ada.PNG', (438784, 223)
+'scale_images:output\\images\\kaggle_sgb.PNG', (439296, 223)
+'scale_images:output\\images\\kaggle_gbr.PNG', (439808, 223)
+'scale_images:output\\images\\kaggle_rf.jpg', (440320, 222)
