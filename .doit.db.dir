@@ -189,3 +189,4 @@
 'render_taxonomies:output\\categories\\adaboost.xml', (402432, 543)
 'scale_images:output\\images\\villo.PNG', (406016, 214)
 'scale_images:output\\images\\kaggle_rf.PNG', (406528, 221)
+'scale_images:output\\images\\villo.jpg', (407040, 214)
