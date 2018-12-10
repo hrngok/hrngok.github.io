@@ -192,3 +192,5 @@
 'scale_images:output\\images\\villo.jpg', (407040, 214)
 'render_posts:cache\\posts\\Bikeshare Part 3.html', (437248, 390)
 'scale_images:output\\images\\bb.jpg', (437760, 208)
+'scale_images:output\\images\\sbb.jpg', (438272, 209)
+'scale_images:output\\images\\kaggle_ada.PNG', (438784, 223)

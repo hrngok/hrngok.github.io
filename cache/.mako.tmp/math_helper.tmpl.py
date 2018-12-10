@@ -5,7 +5,7 @@ STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1544440114.9940917
+_modified_time = 1544440494.1881733
 _enable_loop = True
 _template_filename = 'c:/users/smartforfreedom/anaconda3/envs/blog/lib/site-packages/nikola/data/themes/base/templates/math_helper.tmpl'
 _template_uri = 'math_helper.tmpl'
@@ -32,9 +32,9 @@ def render_body(context,**pageargs):
 def render_math_scripts(context):
     __M_caller = context.caller_stack._push_frame()
     try:
+        mathjax_config = context.get('mathjax_config', UNDEFINED)
         katex_auto_render = context.get('katex_auto_render', UNDEFINED)
         use_katex = context.get('use_katex', UNDEFINED)
-        mathjax_config = context.get('mathjax_config', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\n')
         if use_katex:
@@ -90,9 +90,9 @@ def render_math_scripts_ifpost(context,post):
 def render_math_scripts_ifposts(context,posts):
     __M_caller = context.caller_stack._push_frame()
     try:
-        any = context.get('any', UNDEFINED)
         def math_scripts():
             return render_math_scripts(context)
+        any = context.get('any', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\n')
         if any(post.has_math for post in posts):
