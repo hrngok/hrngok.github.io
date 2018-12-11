@@ -207,3 +207,7 @@
 'scale_images:output\\images\\shrinkage.PNG', (444416, 221)
 'scale_images:output\\images\\rank.PNG', (444928, 211)
 'scale_images:output\\images\\kaggleada.PNG', (445440, 221)
+'scale_images:output\\images\\kagglegbr.jpg', (445952, 222)
+'scale_images:output\\images\\kagglesgb.jpg', (446464, 222)
+'scale_images:output\\images\\kaggleada.jpg', (446976, 222)
+'scale_images:output\\images\\rank.jpg', (447488, 211)
