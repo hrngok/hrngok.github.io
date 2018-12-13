@@ -3,10 +3,10 @@
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li>In this notebook we will continue our analysis on bike data by applying tree based models </li>
+<li>In this notebook we will continue our analysis with bike data by applying tree based models </li>
 <li>We will implement Random Forest, Adaboost, Gradient Boosting and Stochastic Gradient Boosting algorithms</li>
 <li>We will submit our predictions to Kaggle at the end.</li>
-<li>Since trees and ensembles have many hyperparameters, in this notebook we try to explain some good practice regarding the usage of these hyperparameters</li>
+<li>Since trees and ensembles have many hyperparameters, in this notebook we try to explain some good practices regarding the usage of these hyperparameters</li>
 <li>Also we will implement Grid Search in order to tune these hyperparameters</li>
 </ul>
 <p><img src="/images/villo.jpg" alt="villo"></p>
@@ -18,6 +18,27 @@
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <!-- TEASER_END -->
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Outline">Outline<a class="anchor-link" href="#Outline">&#182;</a></h1><ul>
+<li>Data Split: Training and Hold-out Datasets</li>
+<li>RMSLE Calculator Function</li>
+<li>Tips For Implementing Decision Trees</li>
+<li>Random Forest Estimator (Forest of Randomized Trees)</li>
+<li>Kaggle Submission for Random Forest Model</li>
+<li>OOB ('Out of the Bag' or 'Out of the Boot') Validation</li>
+<li>Adaboost</li>
+<li>Kaggle Submission For Adaboost Model</li>
+<li>Gradient Boosting</li>
+<li>Kaggle Submission For Gradient Boosting</li>
+<li>Stochastic Gradient Boosting</li>
+<li>Kaggle Submission For Stochastic Gradient Boosting</li>
+</ul>
+
 </div>
 </div>
 </div>
@@ -306,7 +327,7 @@
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Split-the-data">Split the data<a class="anchor-link" href="#Split-the-data">&#182;</a></h2><ul>
+<h2 id="Data-Split:-Training-and-Hold-out-Datasets">Data Split: Training and Hold-out Datasets<a class="anchor-link" href="#Data-Split:-Training-and-Hold-out-Datasets">&#182;</a></h2><ul>
 <li><p>Even though there is a given test set (without target variable) for Kaggle submission we will analyse the data as an independent project and follow our data splitting principles for model evaluation</p>
 </li>
 <li><p>At the end we will use the Kaggle test set for submission</p>
@@ -536,7 +557,7 @@
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Features-and-Target-Variable">Features and Target Variable<a class="anchor-link" href="#Features-and-Target-Variable">&#182;</a></h2><p>Having split the hold-out dataset, now time to create the features (X) and the target (y) datasets</p>
+<h3 id="Features-and-Target-Variable">Features and Target Variable<a class="anchor-link" href="#Features-and-Target-Variable">&#182;</a></h3><p>Having split the hold-out dataset, now time to create the features (X) and the target (y) datasets</p>
 
 </div>
 </div>
@@ -787,7 +808,7 @@
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Tips-on-Practical-Use-of-Decision-Trees">Tips on Practical Use of Decision Trees<a class="anchor-link" href="#Tips-on-Practical-Use-of-Decision-Trees">&#182;</a></h2><p>Before starting implemetation of Random Forest algorithm it would be nice to remind some practical tips about decision trees from Sklearn page. Here are some basic tips:</p>
+<h2 id="Tips-For-Implementing-Decision-Trees">Tips For Implementing Decision Trees<a class="anchor-link" href="#Tips-For-Implementing-Decision-Trees">&#182;</a></h2><p>Before starting implemetation of Random Forest algorithm it would be nice to remind some practical tips about decision trees from Sklearn page. Here are some basic tips:</p>
 <ul>
 <li>Decision trees tend to overfit on data with a large number of features.</li>
 <li>Getting the right ratio of <strong>samples</strong> to <strong>number of features</strong> is important, since a tree with few samples in high dimensional space is very likely to overfit.</li>
@@ -910,7 +931,7 @@
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Random-Forest-Model">Random Forest Model<a class="anchor-link" href="#Random-Forest-Model">&#182;</a></h2><p>After reminding the practical tips we can instantiate our Random Forest model</p>
+<h3 id="Random-Forest-Model">Random Forest Model<a class="anchor-link" href="#Random-Forest-Model">&#182;</a></h3><p>After reminding the practical tips we can instantiate our Random Forest model</p>
 
 </div>
 </div>
@@ -936,7 +957,7 @@
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Cross-Validation-Scores">Cross Validation Scores<a class="anchor-link" href="#Cross-Validation-Scores">&#182;</a></h2><p>Let's define a function for utilize the <code>cross_val_score</code> function from <code>sklearn.metrics</code> to get the scores of each split. We will calculate the scores with the metrics:</p>
+<h3 id="Cross-Validation-Scores">Cross Validation Scores<a class="anchor-link" href="#Cross-Validation-Scores">&#182;</a></h3><p>Let's define a function for utilize the <code>cross_val_score</code> function from <code>sklearn.metrics</code> to get the scores of each split. We will calculate the scores with the metrics:</p>
 <ul>
 <li><strong>R_squared</strong> </li>
 <li><strong>RMSE</strong></li>
@@ -1069,7 +1090,7 @@ MSLE values:[0.37469821 0.27166134 0.49502135 0.25451078 0.22058993]
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Visualizing-Features-Importances">Visualizing Features Importances<a class="anchor-link" href="#Visualizing-Features-Importances">&#182;</a></h2><ul>
+<h3 id="Visualizing-Features-Importances">Visualizing Features Importances<a class="anchor-link" href="#Visualizing-Features-Importances">&#182;</a></h3><ul>
 <li>Tree-based methods enable measuring the importance (predictivity) of each feature in prediction</li>
 <li>It is calculated by regarding how much the tree nodes use a particular feature to split the data and reduce the variance</li>
 <li><p>Features used at the top of the tree contribute to the final prediction decision of a larger fraction of the input samples.</p>
@@ -1135,7 +1156,7 @@ MSLE values:[0.37469821 0.27166134 0.49502135 0.25451078 0.22058993]
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Kaggle-submission-for-Random-Forest-Model">Kaggle submission for Random Forest Model<a class="anchor-link" href="#Kaggle-submission-for-Random-Forest-Model">&#182;</a></h2><p>Now time to predict the given Kaggle test set and submit the predictions to Kaggle to get our score.</p>
+<h2 id="Kaggle-Submission-for-Random-Forest-Model">Kaggle Submission for Random Forest Model<a class="anchor-link" href="#Kaggle-Submission-for-Random-Forest-Model">&#182;</a></h2><p>Now time to predict the given Kaggle test set and submit the predictions to Kaggle to get our score.</p>
 <ul>
 <li><p>First, lets read the Kaggle test data and apply all the same steps that we did for the training set like creating new features in order to make them match</p>
 </li>
@@ -1502,7 +1523,7 @@ MSLE values:[0.37469821 0.27166134 0.49502135 0.25451078 0.22058993]
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Kaggle-Results">Kaggle Results<a class="anchor-link" href="#Kaggle-Results">&#182;</a></h2>
+<h3 id="Kaggle-Results">Kaggle Results<a class="anchor-link" href="#Kaggle-Results">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -1541,7 +1562,7 @@ MSLE values:[0.37469821 0.27166134 0.49502135 0.25451078 0.22058993]
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="OOB-Error--and-Timeseries-Data">OOB Error  and Timeseries Data<a class="anchor-link" href="#OOB-Error--and-Timeseries-Data">&#182;</a></h2><ul>
+<h3 id="OOB-Error--and-Timeseries-Data">OOB Error  and Timeseries Data<a class="anchor-link" href="#OOB-Error--and-Timeseries-Data">&#182;</a></h3><ul>
 <li>OOB is good for especially small dataset which are not timeseries</li>
 <li>However OOB validation will give us a misleading evaluation of performance on a time-series dataset because it will be evaluating performance on past data using future data due to the random selection during the bootstrap method application</li>
 <li>Therefore, we need to use a methodology which respect to time order like <code>TimeSeriesSplit</code>.</li>
@@ -1699,7 +1720,7 @@ MSLE values:[0.3274513  0.26323764 0.46385981 0.23215547 0.20955404]
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Kaggle-Submission-Adaboost">Kaggle Submission Adaboost<a class="anchor-link" href="#Kaggle-Submission-Adaboost">&#182;</a></h2>
+<h2 id="Kaggle-Submission-of-Adaboost-Model">Kaggle Submission of Adaboost Model<a class="anchor-link" href="#Kaggle-Submission-of-Adaboost-Model">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -1803,7 +1824,7 @@ MSLE values:[0.3274513  0.26323764 0.46385981 0.23215547 0.20955404]
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Grid-Search-Adaboost">Grid Search Adaboost<a class="anchor-link" href="#Grid-Search-Adaboost">&#182;</a></h2><p>Lets implement a short grid search for tuning some hyperparameters of adaboost</p>
+<h3 id="Grid-Search-Adaboost">Grid Search Adaboost<a class="anchor-link" href="#Grid-Search-Adaboost">&#182;</a></h3><p>Lets implement a short grid search for tuning some hyperparameters of adaboost</p>
 
 </div>
 </div>
@@ -2014,7 +2035,7 @@ MSLE values:[0.30504742 0.16994753 0.40081102 0.22972276 0.19831768]
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Kaggle-Submission-Gradient-Boosting">Kaggle Submission Gradient Boosting<a class="anchor-link" href="#Kaggle-Submission-Gradient-Boosting">&#182;</a></h2>
+<h2 id="Kaggle-Submission-For-Gradient-Boosting">Kaggle Submission For Gradient Boosting<a class="anchor-link" href="#Kaggle-Submission-For-Gradient-Boosting">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -2208,7 +2229,7 @@ MSLE values:[0.64242847 0.55233378 0.7128809  0.57816768 0.52222838]
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Kaggle-Submission-Stochastic-Gradient-Boosting">Kaggle Submission Stochastic Gradient Boosting<a class="anchor-link" href="#Kaggle-Submission-Stochastic-Gradient-Boosting">&#182;</a></h2>
+<h2 id="Kaggle-Submission-For-Stochastic-Gradient-Boosting">Kaggle Submission For Stochastic Gradient Boosting<a class="anchor-link" href="#Kaggle-Submission-For-Stochastic-Gradient-Boosting">&#182;</a></h2>
 </div>
 </div>
 </div>
