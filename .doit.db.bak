@@ -224,3 +224,5 @@
 'render_pages:output\\posts\\metrics\\index.html', (492032, 5066)
 'render_taxonomies:output\\categories\\mean-squared-error.xml', (503296, 500)
 'render_taxonomies:output\\categories\\mse\\index.html', (503808, 1951)
+'scale_images:output\\images\\ruler.PNG', (505856, 215)
+'scale_images:output\\images\\mse_r2.PNG', (506368, 216)
