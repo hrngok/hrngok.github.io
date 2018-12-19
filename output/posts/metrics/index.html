@@ -126,10 +126,14 @@
 </ul>
 <p><strong>Disadvantage of MSE</strong>:</p>
 <ul>
-<li>If we make a single very bad prediction, the squaring will make the error even worse and</li>
+<li>If we make a single very bad prediction, taking the square will make the error even worse and<ul>
 <li>it may skew the metric towards overestimating the model’s badness. </li>
+</ul>
+</li>
+</ul>
+<ul>
 <li>That is a particularly problematic behaviour if we have noisy data (data that for whatever reason is not entirely reliable) </li>
-<li>On the other hand, if all the errors are <strong>smaller than 1</strong>, than the opposite effect is felt: we may underestimate the model’s badness.</li>
+<li>On the other hand, if all the errors are <strong>smaller than 1</strong>, than it affects in the opposite direction: we may underestimate the model’s badness.</li>
 </ul>
 <h4 id="$R^2$">$R^2$<a class="anchor-link" href="#%24R%5E2%24">¶</a>
 </h4>
@@ -215,8 +219,6 @@
 <li>Conversely, with RMSLogE two results are scored the same. </li>
 <li>RMSLogE takes into account just the ratio of change</li>
 </ul>
-<p>The decisions always depends on the domains or business cases and for the bike rentals business and the ranges of bike rentals this <strong>"ratio of change"</strong> feature of RMSLE looks like suitable.
-<br></p>
 <p>Lets have a look at the below example</p>
 <ul>
 <li>
@@ -247,34 +249,18 @@
 </li>
 </ul>
 <ul>
-<li>
-<p>When the differences are the same between <strong>actual</strong> and <strong>predicted</strong> in both cases.</p>
-<ul>
+<li>When the differences are the same between <strong>actual</strong> and <strong>predicted</strong> in both cases. <ul>
 <li>RMSE treated them equally, however </li>
 <li>RMSLogE penalized the under estimate more than over estimate (under estimated prediction score is higher than over estimated prediction score)</li>
 </ul>
 </li>
-<li>
-<p>This second feature (<strong>penalizing the under estimate more than over estimate</strong>) of RSMLE also looks plausible for bike business.</p>
-</li>
-<li>Having extra bikes might be preferable to not being able to supply as many bikes as the demand. </li>
+</ul>
+<ul>
 <li>Often <strong>penalizing the under estimate more than over estimate</strong> is important for prediction of sales and inventory demands.</li>
+<li>To some extent having extra inventory or supply might be more preferable to not being able to providing product as much as the demand. </li>
 </ul>
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
 </div>
 </div>
     </div>
