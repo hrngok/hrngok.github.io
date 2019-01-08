@@ -3,7 +3,7 @@
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Obviously it is of great importance to understand and utilize the metrics properly also in machine learning. Deriving insights without making clear sense of metrics is like choosing between 1 litre of milk and 0.6 galon of milk. If we dont know well the metrics litre and galon we can't make an healty decision.</p>
-<p>In this notebook we try to understand the machine learning. We will regularly add new metrics to this notebook by time.
+<p>In this notebook we try to understand the machine learning. We will later add new metrics to this notebook by time.
 <img src="/images/ruler.jpg" alt="ruler"></p>
 
 </div>
@@ -19,8 +19,7 @@
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="R-Squared-(-$R^2$)-and-Mean-Squared-Error-($MSE$)">R-Squared ( $R^2$) and Mean Squared Error ($MSE$)<a class="anchor-link" href="#R-Squared-(-$R^2$)-and-Mean-Squared-Error-($MSE$)">&#182;</a></h2><p>In the previous post we cover the metric Mean Squared Logarithmic error. Let's now review the metrics R-squared and Mean Squared Error</p>
-<p><img src="/images/mse_r2.jpg" alt="mse_r2"></p>
+<h2 id="R-Squared-(-$R^2$)-and-Mean-Squared-Error-($MSE$)">R-Squared ( $R^2$) and Mean Squared Error ($MSE$)<a class="anchor-link" href="#R-Squared-(-$R^2$)-and-Mean-Squared-Error-($MSE$)">&#182;</a></h2><p><img src="/images/mse_r2.jpg" alt="mse_r2"></p>
 <ul>
 <li><p>$MSE$ measures how far the data are from the model’s predicted values</p>
 </li>
@@ -105,13 +104,14 @@
 </blockquote>
 <p>Let's imagine two cases of predictions,</p>
 <ul>
-<li>Case-1: our model predicts the number of bike rentals as <code>30</code> when the actual number is <code>40</code> </li>
-<li><p>Case-2: our model predicts the number of rentals as <code>300</code> when the actual number is <code>400</code></p>
-</li>
-<li><p>With RMSE the second result is scored as <code>10 times</code> more than the first result</p>
-</li>
+<li>Case-1: our model makes a prediction of <code>30</code> when the actual number is <code>40</code> </li>
+<li><p>Case-2: our model makes a prediction of <code>300</code> when the actual number is <code>400</code></p>
+<ul>
+<li>With RMSE the second result is scored as <code>10 times</code> more than the first result</li>
 <li>Conversely, with RMSLogE two results are scored the same. </li>
-<li>RMSLogE takes into account just the ratio of change</li>
+<li>RMSLogE takes into account just the <strong>ratio of change</strong></li>
+</ul>
+</li>
 </ul>
 <p>Lets have a look at the below example</p>
 <ul>
@@ -144,12 +144,34 @@
 </li>
 </ul>
 <ul>
-<li>Often <strong>penalizing the under estimate more than over estimate</strong> is important for prediction of sales and inventory demands.</li>
+<li>Often, <strong>penalizing the under estimate more than over estimate</strong> is important for prediction of sales and inventory demands.</li>
 <li>To some extent having extra inventory or supply might be more preferable to not being able to providing product as much as the demand. </li>
 </ul>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Sources: <br>
+<a href="https://www.quora.com/What-is-the-difference-between-an-RMSE-and-RMSLE-logarithmic-error-and-does-a-high-RMSE-imply-low-RMSLE">https://www.quora.com/What-is-the-difference-between-an-RMSE-and-RMSLE-logarithmic-error-and-does-a-high-RMSE-imply-low-RMSLE</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 </div>
  
 
