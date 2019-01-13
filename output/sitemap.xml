@@ -15,11 +15,11 @@
  </url>
  <url>
   <loc>https://example.com/archive.html</loc>
-  <lastmod>2019-01-08T06:49:00Z</lastmod>
+  <lastmod>2019-01-13T23:44:00Z</lastmod>
  </url>
  <url>
   <loc>https://example.com/categories/</loc>
-  <lastmod>2018-12-13T11:52:00Z</lastmod>
+  <lastmod>2019-01-13T23:44:00Z</lastmod>
  </url>
  <url>
   <loc>https://example.com/categories/adaboost/</loc>
@@ -32,6 +32,10 @@
  <url>
   <loc>https://example.com/categories/boosting/</loc>
   <lastmod>2018-11-28T20:23:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://example.com/categories/confusion-matrix/</loc>
+  <lastmod>2019-01-13T23:44:00Z</lastmod>
  </url>
  <url>
   <loc>https://example.com/categories/cyclic-time-features/</loc>
@@ -144,6 +148,10 @@
  <url>
   <loc>https://example.com/posts/metrics/</loc>
   <lastmod>2018-12-13T11:52:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://example.com/posts/metrics2/</loc>
+  <lastmod>2019-01-13T23:44:00Z</lastmod>
  </url>
  <url>
   <loc>https://example.com/posts/tree-based%20models/</loc>

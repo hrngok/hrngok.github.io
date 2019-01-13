@@ -18,6 +18,10 @@
   <lastmod>2018-12-13T11:11:00Z</lastmod>
  </sitemap>
  <sitemap>
+  <loc>https://example.com/categories/confusion-matrix.xml</loc>
+  <lastmod>2019-01-13T23:44:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>https://example.com/categories/cyclic-time-features.xml</loc>
   <lastmod>2019-01-08T06:50:00Z</lastmod>
  </sitemap>
@@ -103,10 +107,10 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/rss.xml</loc>
-  <lastmod>2019-01-08T06:50:00Z</lastmod>
+  <lastmod>2019-01-13T23:44:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/sitemap.xml</loc>
-  <lastmod>2019-01-08T06:50:00Z</lastmod>
+  <lastmod>2019-01-13T23:44:00Z</lastmod>
  </sitemap>
 </sitemapindex>
