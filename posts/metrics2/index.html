@@ -19,8 +19,8 @@
 <meta property="og:site_name" content="Data to Wisdom">
 <meta property="og:title" content="Metrics - Confusion Matrix">
 <meta property="og:url" content="https://example.com/posts/metrics2/">
-<meta property="og:description" content="In a typical data science project we try several models like (logistic regression, SVM, tree-classifiers etc) on our data
-We measure the predicting performance of different models to find the best per">
+<meta property="og:description" content="In a typical data science project we try several models like (logistic regression, SVM, tree-classifiers etc) on our data.
+Then we measure the predicting performance of these models to find the best p">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2018-10-10T22:08:04+02:00">
 <meta property="article:tag" content="confusion matrix">
@@ -72,14 +72,14 @@ We measure the predicting performance of different models to find the best per">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li>In a typical data science project we try several models like (logistic regression, SVM, tree-classifiers etc) on our data</li>
-<li>We measure the predicting performance of different models to find the best performing model</li>
-<li>Finally we decide to implement the best performing model</li>
+<li>In a typical data science project we try several models like (logistic regression, SVM, tree-classifiers etc) on our data.</li>
+<li>Then we measure the predicting performance of these models to find the best performing one.</li>
+<li>Finally we decide to implement the best performing model.</li>
 <li>
-<p>In this notebook we talk about one of the classification model evaluation tools: Confusion matrix</p>
+<p>In this notebook we talk about one of the classification model evaluation tools: Confusion matrix.</p>
 </li>
 <li>
-<p>They can help to see deeper how much reliable our models are</p>
+<p>They can help us to see deeper how much reliable our models are.</p>
 </li>
 <li>
 <p>We are going to look at the confusion matrices of a variety of Scikit-Learn models and compare them using visual diagnostic tools from Yellowbrick in order to select the best model for our data.</p>
@@ -155,13 +155,19 @@ We measure the predicting performance of different models to find the best per">
 <p>We use confusion matrices to understand <strong>which classes are most easily confused</strong></p>
 </li>
 <li>
-<p>There are two sets of labels in a confusion matrix of binary classification:</p>
+<p>There are two sets of labels in a confusion matrix of <strong>binary (2 class) classification</strong>:</p>
 <ul>
 <li>
 <code>{POSITIVE, NEGATIVE}</code>- first, the model makes the prediction. It returns the labels 1 (POSITIVE) or 0 (NEGATIVE). </li>
 <li>
 <code>{TRUE, FALSE}</code>- then the model's prediction is evaluated if the prediction is made correctly (TRUE) or incorrectly (FALSE) based on the actual known labels.</li>
 </ul>
+</li>
+</ul>
+<ul>
+<li>
+<strong>Tip:</strong> If you have difficulty to remember these terms because of the similarity of the terms just insert the word <code>"PREDICTED"</code> in the middle. </li>
+<li>For instance  if you are confused with the meaning of <code>"false positive"</code> read it like <code>"false(ly) PREDICTED positive"</code>
 </li>
 </ul>
 </div>
@@ -186,10 +192,11 @@ We measure the predicting performance of different models to find the best per">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li>If the class labels are more than 2 ie not 1 or 0 (positive or negative), the confusion matrix looks like something like this</li>
+<li>In multi-class classification ie if the class labels are more than 2  (not 1 or 0, positive or negative), the confusion matrix looks like something like this</li>
 </ul>
 <p><img src="../../images/confusion2.jpg" alt="confusion2"></p>
 <ul>
+<li>We do not use the terms like "true positive" with the confusion matrix with classes more than 2</li>
 <li>The size of the confusion matrix is $nxn$ where $n$ is the number of classes</li>
 <li>Different references may use a different convention for axes ie actual and predicted classes can take place on different axes</li>
 </ul>
@@ -223,6 +230,16 @@ We measure the predicting performance of different models to find the best per">
 <li>Each species was identified as definitely <strong>edible</strong> or <strong>poisonous</strong>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Loading-and-Exploring-the-Dataset">Loading and Exploring the Dataset<a class="anchor-link" href="#Loading-and-Exploring-the-Dataset">¶</a>
+</h4>
 </div>
 </div>
 </div>
@@ -401,6 +418,16 @@ library which provides scikit-learn-compatible categorical variable encoders. </
 <li>In a separate post we will analyse the encoders later</li>
 <li>All the transformers of <strong>Category Encoders</strong> can be used in Sklearn pipelines.</li>
 </ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Target-and-Features-Datasets">Target and Features Datasets<a class="anchor-link" href="#Target-and-Features-Datasets">¶</a>
+</h4>
 </div>
 </div>
 </div>
@@ -665,10 +692,10 @@ library which provides scikit-learn-compatible categorical variable encoders. </
 </h3>
 <ul>
 <li>
-<p>Even though we can get deeper insight on predictions of the classifiers by confusion matrices, still it is not very practical to compare several models performance with each other especially if the classes are not binary</p>
+<p>Even though we can get deeper insight on predictions of the classifiers by confusion matrices, still it is not very practical to compare several models performance with each other</p>
 </li>
 <li>
-<p>Since confusion matrices provides tables of actual and prediction comparision we still need some more metrics to interpret the result more directly regarding our problem</p>
+<p>Since confusion matrices provides tables of actual and prediction comparision we still need some more metrics to interpret the result more directly to choose the best model</p>
 </li>
 <li>
 <p>So we will continue to work on classification metrics like <strong>precision, recall, roc, auc</strong> etc in the next posts</p>
