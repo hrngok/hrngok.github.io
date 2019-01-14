@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Data to Wisdom (Posts about confusion matrix)</title><link>https://example.com/</link><description></description><atom:link href="https://example.com/categories/confusion-matrix.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:n.tesla@example.com"&gt;Harun&lt;/a&gt; </copyright><lastBuildDate>Mon, 14 Jan 2019 00:00:52 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Metrics - Confusion Matrix</title><link>https://example.com/posts/metrics2/</link><dc:creator>Harun</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Data to Wisdom (Posts about confusion matrix)</title><link>https://example.com/</link><description></description><atom:link href="https://example.com/categories/confusion-matrix.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:n.tesla@example.com"&gt;Harun&lt;/a&gt; </copyright><lastBuildDate>Mon, 14 Jan 2019 00:14:12 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Metrics - Confusion Matrix</title><link>https://example.com/posts/metrics2/</link><dc:creator>Harun</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;ul&gt;
@@ -10,9 +10,7 @@
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;They can help to see deeper how much reliable our models are&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;We are going to look at the &lt;strong&gt;confusion matrices&lt;/strong&gt; of a variety of Scikit-Learn models and compare them using visual diagnostic tools from Yellowbrick in order to select the best model for our data.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;In other posts we will continue the classification metrics with the precision, recall, roc, auc etc&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;We are going to look at the confusion matrices of a variety of Scikit-Learn models and compare them using visual diagnostic tools from Yellowbrick in order to select the best model for our data.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 
