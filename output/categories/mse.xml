@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Data to Wisdom (Posts about mse)</title><link>https://example.com/</link><description></description><atom:link href="https://example.com/categories/mse.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:n.tesla@example.com"&gt;Harun&lt;/a&gt; </copyright><lastBuildDate>Mon, 14 Jan 2019 00:00:52 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Scoring Metrics</title><link>https://example.com/posts/metrics/</link><dc:creator>Harun</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Data to Wisdom (Posts about mse)</title><link>https://example.com/</link><description></description><atom:link href="https://example.com/categories/mse.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:n.tesla@example.com"&gt;Harun&lt;/a&gt; </copyright><lastBuildDate>Mon, 14 Jan 2019 00:10:11 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Scoring Metrics</title><link>https://example.com/posts/metrics/</link><dc:creator>Harun</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;Obviously it is of great importance to understand and utilize the metrics properly also in machine learning. Deriving insights without making clear sense of metrics is like choosing between 1 litre of milk and 0.6 galon of milk. If we dont know well the metrics litre and galon we can't make an healty decision.&lt;/p&gt;
 &lt;p&gt;In this notebook we talk about the regression model metrics:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Mean Squared Error (&lt;em&gt;MSE&lt;/em&gt;)&lt;/li&gt;
+&lt;li&gt;Mean Squared Error ($MSE$)&lt;/li&gt;
 &lt;li&gt;R-Squared ($R^2$)&lt;/li&gt;
-&lt;li&gt;Mean Squared Logarithmic Error (&lt;strong&gt;MSLE&lt;/strong&gt;)&lt;/li&gt;
+&lt;li&gt;Mean Squared Logarithmic Error ($MSLE$)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;We will later add new metrics to this notebook by time.
 &lt;img src="https://example.com/images/ruler.jpg" alt="ruler"&gt;&lt;/p&gt;
