@@ -5,7 +5,7 @@ STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1547765177.7468417
+_modified_time = 1547765459.3024814
 _enable_loop = True
 _template_filename = 'themes/zen/templates/post_header.tmpl'
 _template_uri = 'post_header.tmpl'
@@ -46,8 +46,8 @@ def render_body(context,**pageargs):
 def render_html_title(context):
     __M_caller = context.caller_stack._push_frame()
     try:
-        post = context.get('post', UNDEFINED)
         title = context.get('title', UNDEFINED)
+        post = context.get('post', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\n')
         if title and not post.meta('hidetitle'):
@@ -65,9 +65,9 @@ def render_html_translations(context,post):
     __M_caller = context.caller_stack._push_frame()
     try:
         messages = context.get('messages', UNDEFINED)
+        sorted = context.get('sorted', UNDEFINED)
         lang = context.get('lang', UNDEFINED)
         translations = context.get('translations', UNDEFINED)
-        sorted = context.get('sorted', UNDEFINED)
         len = context.get('len', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\n')
@@ -93,8 +93,8 @@ def render_html_translations(context,post):
 def render_html_sourcelink(context):
     __M_caller = context.caller_stack._push_frame()
     try:
-        post = context.get('post', UNDEFINED)
         show_sourcelink = context.get('show_sourcelink', UNDEFINED)
+        post = context.get('post', UNDEFINED)
         messages = context.get('messages', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\n')
@@ -112,9 +112,9 @@ def render_html_sourcelink(context):
 def render_html_tags(context,post):
     __M_caller = context.caller_stack._push_frame()
     try:
-        messages = context.get('messages', UNDEFINED)
         _link = context.get('_link', UNDEFINED)
         hidden_tags = context.get('hidden_tags', UNDEFINED)
+        messages = context.get('messages', UNDEFINED)
         __M_writer = context.writer()
         __M_writer('\n')
         if post.tags:
@@ -137,21 +137,21 @@ def render_html_tags(context,post):
 def render_html_post_header(context):
     __M_caller = context.caller_stack._push_frame()
     try:
+        date_format = context.get('date_format', UNDEFINED)
         post = context.get('post', UNDEFINED)
-        messages = context.get('messages', UNDEFINED)
-        _link = context.get('_link', UNDEFINED)
         def html_translations(post):
             return render_html_translations(context,post)
-        def html_title():
-            return render_html_title(context)
-        site_has_comments = context.get('site_has_comments', UNDEFINED)
-        def html_tags(post):
-            return render_html_tags(context,post)
-        date_format = context.get('date_format', UNDEFINED)
-        comments = _mako_get_namespace(context, 'comments')
+        messages = context.get('messages', UNDEFINED)
         def html_sourcelink():
             return render_html_sourcelink(context)
+        def html_tags(post):
+            return render_html_tags(context,post)
+        _link = context.get('_link', UNDEFINED)
+        site_has_comments = context.get('site_has_comments', UNDEFINED)
+        comments = _mako_get_namespace(context, 'comments')
         author_pages_generated = context.get('author_pages_generated', UNDEFINED)
+        def html_title():
+            return render_html_title(context)
         __M_writer = context.writer()
         __M_writer('\n    <header>\n        ')
         __M_writer(str(html_title()))
