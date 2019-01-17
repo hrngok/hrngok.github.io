@@ -6,6 +6,10 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
+  <loc>https://example.com/categories/accuracy.xml</loc>
+  <lastmod>2019-01-17T22:12:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>https://example.com/categories/adaboost.xml</loc>
   <lastmod>2019-01-08T06:50:00Z</lastmod>
  </sitemap>
@@ -19,7 +23,7 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/confusion-matrix.xml</loc>
-  <lastmod>2019-01-13T23:44:00Z</lastmod>
+  <lastmod>2019-01-17T21:45:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/cyclic-time-features.xml</loc>
@@ -28,6 +32,10 @@
  <sitemap>
   <loc>https://example.com/categories/decision-trees.xml</loc>
   <lastmod>2018-12-13T11:11:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://example.com/categories/f1-score.xml</loc>
+  <lastmod>2019-01-17T22:12:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/future-selection.xml</loc>
@@ -51,15 +59,19 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/mean-squared-error.xml</loc>
-  <lastmod>2019-01-08T06:50:00Z</lastmod>
+  <lastmod>2019-01-14T10:17:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/mse.xml</loc>
-  <lastmod>2019-01-08T06:50:00Z</lastmod>
+  <lastmod>2019-01-14T10:16:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://example.com/categories/precision.xml</loc>
+  <lastmod>2019-01-17T22:12:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/r-squared.xml</loc>
-  <lastmod>2019-01-08T06:50:00Z</lastmod>
+  <lastmod>2019-01-14T10:16:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/random-forest.xml</loc>
@@ -70,16 +82,28 @@
   <lastmod>2019-01-08T06:50:00Z</lastmod>
  </sitemap>
  <sitemap>
+  <loc>https://example.com/categories/recall.xml</loc>
+  <lastmod>2019-01-17T22:12:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>https://example.com/categories/rmsle.xml</loc>
-  <lastmod>2019-01-08T06:50:00Z</lastmod>
+  <lastmod>2019-01-14T10:16:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/root-mean-squared-logaritmic-error.xml</loc>
-  <lastmod>2019-01-08T06:50:00Z</lastmod>
+  <lastmod>2019-01-14T10:17:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/scoring-metrics.xml</loc>
-  <lastmod>2019-01-08T06:50:00Z</lastmod>
+  <lastmod>2019-01-14T10:16:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://example.com/categories/sensitivity.xml</loc>
+  <lastmod>2019-01-17T22:12:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://example.com/categories/specifity.xml</loc>
+  <lastmod>2019-01-17T22:12:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/stochastic-gradient-boosting.xml</loc>
@@ -98,6 +122,14 @@
   <lastmod>2018-12-13T11:11:00Z</lastmod>
  </sitemap>
  <sitemap>
+  <loc>https://example.com/categories/true-negative-rate.xml</loc>
+  <lastmod>2019-01-17T22:12:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://example.com/categories/true-positive-rate.xml</loc>
+  <lastmod>2019-01-17T22:12:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>https://example.com/categories/visualization.xml</loc>
   <lastmod>2018-12-09T23:12:00Z</lastmod>
  </sitemap>
@@ -107,10 +139,10 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/rss.xml</loc>
-  <lastmod>2019-01-13T23:44:00Z</lastmod>
+  <lastmod>2019-01-17T22:12:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/sitemap.xml</loc>
-  <lastmod>2019-01-13T23:44:00Z</lastmod>
+  <lastmod>2019-01-17T22:12:00Z</lastmod>
  </sitemap>
 </sitemapindex>
