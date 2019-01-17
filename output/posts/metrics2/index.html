@@ -222,24 +222,16 @@ Then we measure the predicting performance of these models to find the best p">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Loading-and-Exploring-the-Dataset">Loading and Exploring the Dataset<a class="anchor-link" href="#Loading-and-Exploring-the-Dataset">¶</a>
+</h4>
 <ul>
 <li>This tutorial uses a <strong>modified version</strong> of the <code>mushroom</code> dataset from the <strong>UCI Machine Learning Repository</strong>.</li>
-<li>Even though these toy datasets are not interesting anymore because of repetitive usage, here our focus is the classification metrics not other steps of data processing. So we try to get the advantage of fast implementation putting of this dataset </li>
+<li>Even though these toy datasets are not interesting anymore because of repetitive usage, here our focus is the classification metrics not other steps of data processing. So we try to get the advantage of fast implementation of this dataset </li>
 <li>Our objective is to predict if a mushroom is <strong>poisonous</strong> or <strong>edible</strong> based on its characteristics.</li>
 <li>The data include descriptions of hypothetical samples corresponding to <strong>23 species of mushrooms</strong>  </li>
 <li>Each species was identified as definitely <strong>edible</strong> or <strong>poisonous</strong>
 </li>
 </ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Loading-and-Exploring-the-Dataset">Loading and Exploring the Dataset<a class="anchor-link" href="#Loading-and-Exploring-the-Dataset">¶</a>
-</h4>
 </div>
 </div>
 </div>
@@ -415,8 +407,8 @@ dtype: int64</pre>
 <li>We need to encode them into numerical types in order to fit Sklearn models. </li>
 <li>For this purpose, we will utilize <a href="http://contrib.scikit-learn.org/categorical-encoding/index.html">Category Encoders</a>
 library which provides scikit-learn-compatible categorical variable encoders. </li>
-<li>In a separate post we will analyse the encoders later</li>
 <li>All the transformers of <strong>Category Encoders</strong> can be used in Sklearn pipelines.</li>
+<li>Later in a separate post we will analyse the encoders</li>
 </ul>
 </div>
 </div>
@@ -454,10 +446,47 @@ library which provides scikit-learn-compatible categorical variable encoders. </
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Classifiers-Dictionary">Classifiers Dictionary<a class="anchor-link" href="#Classifiers-Dictionary">¶</a>
+</h4>
+<ul>
+<li>Now, tet's create a dictionary which contains the classifiers we want to use for our classification task</li>
+<li>Here we create the dictionary with instantiates of Sklearn estimators <strong>without hyperparameter tuning</strong>. </li>
+<li>In reality we need to create the dictionary by tuned classifiers.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Estimators dictionary</span>
+<span class="c1"># We can add as more classifiers to our dictionary</span>
+<span class="c1"># This is just a sample</span>
+<span class="n">estimators_dct</span><span class="o">=</span><span class="p">{</span><span class="s2">"Logistic Legression"</span><span class="p">:</span> <span class="n">LogisticRegression</span><span class="p">(),</span>
+                <span class="s2">"Linear SVC"</span> <span class="p">:</span> <span class="n">LinearSVC</span><span class="p">(),</span>
+                <span class="s2">"Random Forest"</span><span class="p">:</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span>
+                <span class="s2">"SGD Classifier"</span><span class="p">:</span> <span class="n">SGDClassifier</span><span class="p">(),</span>
+               <span class="p">}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="confusion_matrices-function">confusion_matrices function<a class="anchor-link" href="#confusion_matrices-function">¶</a>
 </h3>
 <ul>
-<li>Let's define a function to get the confusion matrices of a given dictionary of models easily without repetion.</li>
+<li>Let's define a function to get the confusion matrices of a given dictionary of models (like in the upper cell) easily without repetion.</li>
+</ul>
+<ul>
 <li>Our function will<ul>
 <li>take <strong>X_train, y_train datasets</strong> and an <strong>estimator dictionary</strong> </li>
 <li>return the confusion matrix produced by the predictions of each model in the dictionary</li>
@@ -503,39 +532,6 @@ library which provides scikit-learn-compatible categorical variable encoders. </
         <span class="n">cm</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
         
         <span class="n">cm</span><span class="o">.</span><span class="n">poof</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>Let's create a dictionary which contains the classifiers instantiantes </li>
-<li>Here we create the dictionary with instantiates of Sklearn estimators <strong>without hyperparameter tuning</strong>. </li>
-<li>In reality we need to create the dictionary by tuned classifiers.</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [10]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Estimators dictionary</span>
-<span class="c1"># We can add as more classifiers to our dictionary</span>
-<span class="c1"># This is just a sample</span>
-<span class="n">estimators_dct</span><span class="o">=</span><span class="p">{</span><span class="s2">"Logistic Legression"</span><span class="p">:</span> <span class="n">LogisticRegression</span><span class="p">(),</span>
-                <span class="s2">"Linear SVC"</span> <span class="p">:</span> <span class="n">LinearSVC</span><span class="p">(),</span>
-                <span class="s2">"Random Forest"</span><span class="p">:</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span>
-                <span class="s2">"SGD Classifier"</span><span class="p">:</span> <span class="n">SGDClassifier</span><span class="p">(),</span>
-               <span class="p">}</span>
 </pre></div>
 
     </div>
