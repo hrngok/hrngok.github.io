@@ -262,3 +262,6 @@
 'scale_images:output\\images\\f1.JPG', (607744, 208)
 'scale_images:output\\images\\acc1.JPG', (608256, 212)
 'scale_images:output\\images\\f1.png', (608768, 208)
+'scale_images:output\\images\\all3.png', (609280, 212)
+'scale_images:output\\images\\sheep.png', (609792, 215)
+'scale_images:output\\images\\acc1.png', (610304, 212)
