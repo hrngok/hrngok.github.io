@@ -350,7 +350,7 @@ library which provides scikit-learn-compatible categorical variable encoders. </
 <h3 id="Classifiers-Dictionary">Classifiers Dictionary<a class="anchor-link" href="#Classifiers-Dictionary">&#182;</a></h3><ul>
 <li>Now, tet's create a dictionary which contains the classifiers we want to use for our classification task</li>
 <li>Here we create the dictionary with instantiates of Sklearn estimators <strong>without hyperparameter tuning</strong>. </li>
-<li>In reality we need to create the dictionary by tuned classifiers.</li>
+<li>In reality we need to evaluate the performance of tuned classifiers.</li>
 </ul>
 
 </div>
@@ -384,8 +384,8 @@ library which provides scikit-learn-compatible categorical variable encoders. </
 </ul>
 <ul>
 <li>Our function will<ul>
-<li>take <strong>X_train, y_train datasets</strong> and an <strong>estimator dictionary</strong> </li>
-<li>return the confusion matrix produced by the predictions of each model in the dictionary</li>
+<li>take <strong>X, y datasets</strong> and an <strong>estimator dictionary</strong> </li>
+<li>return the confusion matrices produced by the predictions of each model in the dictionary</li>
 </ul>
 </li>
 </ul>
@@ -404,7 +404,7 @@ library which provides scikit-learn-compatible categorical variable encoders. </
 
 <span class="k">def</span> <span class="nf">confusion_matrices</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">estimator_dict</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Takes X_train, y_train datasets, an estimator dictionary -&gt; returns confusion matrices</span>
+<span class="sd">    Takes X, y datasets and an estimator dictionary -&gt; returns confusion matrices of the classifiers</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Split the data as train and test</span>
     <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
@@ -441,7 +441,7 @@ library which provides scikit-learn-compatible categorical variable encoders. </
 <div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Call the confusion matrices function to get the confusion matrices</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Call the confusion_matrices function to get the confusion matrices</span>
 <span class="n">confusion_matrices</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">estimators_dct</span><span class="p">)</span>
 </pre></div>
 
