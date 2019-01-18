@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Data to Wisdom (Posts about sensitivity)</title><link>https://example.com/</link><description></description><atom:link href="https://example.com/categories/sensitivity.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:n.tesla@example.com"&gt;Harun&lt;/a&gt; </copyright><lastBuildDate>Thu, 17 Jan 2019 23:03:33 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Metrics - Precision, Recall, F1 Score</title><link>https://example.com/posts/metrics3/</link><dc:creator>Harun</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Data to Wisdom (Posts about sensitivity)</title><link>https://example.com/</link><description></description><atom:link href="https://example.com/categories/sensitivity.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:n.tesla@example.com"&gt;Harun&lt;/a&gt; </copyright><lastBuildDate>Fri, 18 Jan 2019 14:22:54 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Metrics - Precision, Recall, F1 Score</title><link>https://example.com/posts/metrics3/</link><dc:creator>Harun</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;ul&gt;
@@ -11,7 +11,11 @@
 &lt;/li&gt;
 &lt;li&gt;These metrics can be computed from a confusion matrix and are more efficient to choose the best model. &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src="https://example.com/images/sheep.png" alt="sheep"&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;In the first part we remind the concepts and in the second part we will apply these concepts for evaluating some classifiers' performance&lt;/li&gt;
+&lt;li&gt;Skitlearn provides all these scores by &lt;code&gt;ClassificationReport&lt;/code&gt;
+&lt;img src="https://example.com/images/sheep.png" alt="sheep"&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;

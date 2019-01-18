@@ -11,7 +11,11 @@
 </li>
 <li>These metrics can be computed from a confusion matrix and are more efficient to choose the best model. </li>
 </ul>
-<p><img src="/images/sheep.png" alt="sheep"></p>
+<ul>
+<li>In the first part we remind the concepts and in the second part we will apply these concepts for evaluating some classifiers' performance</li>
+<li>Skitlearn provides all these scores by <code>ClassificationReport</code>
+<img src="/images/sheep.png" alt="sheep"></li>
+</ul>
 
 </div>
 </div>
@@ -57,7 +61,7 @@
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Accuracy,-Sensitivity-(Recall),-Specifity,-Precision">Accuracy, Sensitivity (Recall), Specifity, Precision<a class="anchor-link" href="#Accuracy,-Sensitivity-(Recall),-Specifity,-Precision">&#182;</a></h2><ul>
+<h1 id="Part-1">Part-1<a class="anchor-link" href="#Part-1">&#182;</a></h1><h2 id="Accuracy,-Sensitivity-(Recall),-Specifity,-Precision">Accuracy, Sensitivity (Recall), Specifity, Precision<a class="anchor-link" href="#Accuracy,-Sensitivity-(Recall),-Specifity,-Precision">&#182;</a></h2><ul>
 <li>Lets talk about these metrics</li>
 <li>In this contex <code>POSITIVE</code> means that an instance belonging to the <strong>class of interest</strong></li>
 </ul>
@@ -80,9 +84,9 @@
 <li>We have <strong>998 NEGATIVE</strong> and <strong>2 POSITIVE</strong> classes. </li>
 <li>The accuracy <strong>999/1000=0.999</strong>. It is a high accuracy score</li>
 <li>However <code>accuracy</code> by itself is not reliable in this case. </li>
-<li><p>Think of a classifier which allways make prediction as <code>NEGATIVE</code> also get a <strong>998/1000= 0.998</strong> accuracy</p>
+<li><p>Think of a classifier which allways only says <code>NEGATIVE</code> when predicting any sample, also get a <strong>998/1000= 0.998</strong> accuracy</p>
 </li>
-<li><p>Accuracy can be largely contributed by a large number of <strong>TRUE</strong>(ly) predicted as <strong>NEGATIVE</strong>s which in most business circumstances, we do not focus on much.</p>
+<li><p>Accuracy can be largely contributed by a large number of <strong>TRUE</strong>(ly) predicted <strong>NEGATIVE</strong>s (like non-spam, non-fradulent, not sick etc) which in most business circumstances, we do not focus on much.</p>
 </li>
 </ul>
 
@@ -101,17 +105,14 @@
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="True-Positive-Rate-(Sensitivity,-Recall)">True Positive Rate (Sensitivity, Recall)<a class="anchor-link" href="#True-Positive-Rate-(Sensitivity,-Recall)">&#182;</a></h3><ul>
-<li><p>The ability of a classifier to find all positive instances.</p>
-</li>
-<li><p>Among all of the actual <strong>Positive Class(1)</strong> samples, what portion of them is predicted correctly?</p>
-</li>
-<li><p>In other words, for all instances that were actually positive, what percent was classified correctly?</p>
-</li>
-<li><p><code>#samples TRUE(ly) predicted as POSITIVE / #all actual POSITIVE samples</code></p>
-</li>
+<li>The ability of a classifier to find all <strong>POSITIVE</strong> instances. </li>
+<li>How good is the model at capturing the <strong>Positive Class</strong> samples</li>
 </ul>
 <ul>
-<li>How sensitive is the model on capturing the <strong>Positive Class</strong> samples</li>
+<li>Among all of the actual <strong>Positive Class(1)</strong> samples, what portion of them is classified correctly?</li>
+</ul>
+<ul>
+<li><code>#samples TRUE(ly) predicted POSITIVE / #all actual POSITIVE samples</code></li>
 </ul>
 <ul>
 <li>The term <strong>"recall"</strong> is coming from information retrivieal domain. </li>
@@ -121,7 +122,7 @@
 </li>
 </ul>
 <ul>
-<li>If we compute the sensitivity of the table above, we will see that it is not as high as accuracy.<ul>
+<li>If we compute the sensitivity of the table above, we will see that it is not high even though accuracy is very high.<ul>
 <li>True Positive= 1</li>
 <li>All Positives= 2</li>
 <li>True Positive Rate = 1/2 -&gt; 0.5</li>
@@ -144,9 +145,13 @@
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="True-Negative-Rate-(Specifity)">True Negative Rate (Specifity)<a class="anchor-link" href="#True-Negative-Rate-(Specifity)">&#182;</a></h3><ul>
+<li>The ability of a classifier to find all <strong>NEGATIVE</strong> instances. </li>
+<li>How good is the model at capturing the <strong>NEGATIVE Class</strong> samples</li>
+</ul>
+<ul>
 <li><p>Among all of the <strong>Negative Class(0)</strong> samples, what portion of them is predicted correctly?</p>
 </li>
-<li><p><code>#samples TRUE(ly) predicted as NEGATIVE / #all NEGATIVE samples</code></p>
+<li><p><code>#samples TRUE(ly) predicted NEGATIVE / #all NEGATIVE samples</code></p>
 </li>
 </ul>
 
@@ -168,23 +173,23 @@
 </ul>
 <p>We expect from the dog to</p>
 <ul>
-<li>higly detect the bags with drugs (find all the True Positives)</li>
-<li>higly <strong>NOT</strong> to detect, let them go without any reaction, the bags without drugs (find all the True Negatives)</li>
+<li>higly detect the bags with drugs (find all actual POSITIVEs)</li>
+<li>higly <strong>NOT</strong> to detect the bags without drugs, let them go without any reaction, (find all the actual NEGATIVEs)</li>
 </ul>
 <p>So there is a trade off between <strong>Specificity (True Positive Rate)</strong> and <strong>Sensitivity (True Negative Rate)</strong>.</p>
 <ul>
 <li>If the dog treat every bag as drug contained; <ul>
 <li>this procedure is perfectly <strong>sensitive</strong> (perfect <strong>True Positive Rate</strong>) </li>
-<li>it will detect every packet of drugs, all True Positives for sure but</li>
-<li>not specific at all. It creates a cost of false accusations. </li>
+<li>it will detect every packet of drugs, all actual POSITIVEs for sure but</li>
+<li>not specific at all. It creates cost of false accusations. </li>
 </ul>
 </li>
 </ul>
 <ul>
-<li>If the dog treat all the bag as no one containing drugs <ul>
+<li>If the dog treat all the bags as none of them containing drugs <ul>
 <li>this is perfectly <strong>specific</strong> (perfect <strong>True Negative Rate</strong>)</li>
-<li>it means it will find all True Negatives and not react them. (we will never make a false accusation), but</li>
-<li>not sensitive at all. It creates a cost of missing the drug contained bags</li>
+<li>it means it will find all actual NEGATIVEs and not react to them. (We will never make a false accusation), but</li>
+<li>not sensitive at all. It creates cost of missing the drug contained bags</li>
 </ul>
 </li>
 </ul>
@@ -214,7 +219,7 @@
 <li><code>#samples TRUE(ly) predicted as POSITIVE / #all predictions made as POSITIVE Class(1)</code></li>
 </ul>
 <ul>
-<li><p>Here the reference (denominator) is the <strong>predictions</strong>, not the actual number of classes like in sensitivity and specifity</p>
+<li><p>Here the denominator is the <strong>predictions</strong>, not the actual number of classes like in sensitivity and specifity</p>
 </li>
 <li><p>When the data is <strong>imbalanced</strong> ie has "skewed classes", <strong>precision</strong> standalone is not a good performance metric.</p>
 </li>
@@ -238,8 +243,9 @@
 <ul>
 <li>precision = <code>TP/all POSITIVE Class(1) predictions</code> -&gt; <strong>1/1 = %100</strong></li>
 <li>This is not relaible by itself. </li>
-<li><p>Think of any classifier which allways make POSITIVE Class(1) predictions could get the same precision</p>
-</li>
+<li>Think of any classifier which allways only says POSITIVE when predicting any sample, could get the same precision</li>
+</ul>
+<ul>
 <li><p>That is why we should use the <strong>Precision</strong> and <strong>Recall</strong> together for more accurate measurements</p>
 </li>
 <li><p>An ideal algorithm should have high precision and recall (True Positive Rate) values.</p>
@@ -258,15 +264,14 @@
 <h3 id="F1-Score">F1 Score<a class="anchor-link" href="#F1-Score">&#182;</a></h3><p><img src="/images/f1.png" alt="f1"></p>
 <ul>
 <li>A weighted harmonic mean of <strong>precision</strong> and <strong>recall</strong> </li>
-<li>Best score is <code>1.0</code> and the worst is <code>0.0</code></li>
+<li>Best score is <code>1.0</code> when both precision and recall are <code>1</code> and the worst is <code>0.0</code></li>
 <li>When either <strong>recall</strong> or <strong>precision</strong> is small, the score will be small. </li>
-<li>The perfect score is <code>1</code> when both precision and recall are <code>1</code> .</li>
 </ul>
 <ul>
-<li><p>It is a convenient single score to characterize overall accuracy, especially for comparing the performance of different classifiers.</p>
-</li>
-<li><p>As a rule of thumb, the <strong>weighted average of F1</strong> should be used to compare classifier models</p>
-</li>
+<li>It is a convenient single score to characterize overall accuracy, especially for comparing the performance of different classifiers.</li>
+</ul>
+<ul>
+<li>As a rule of thumb, the <strong>weighted average of F1</strong> should be used to compare classifier models</li>
 </ul>
 <ul>
 <li>Using $ F_1$ to compare classifiers assumes that precision and recall are equally important for the application.</li>
@@ -293,15 +298,15 @@
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Choosing-a-Metric-for-Model-Evaluation">Choosing a Metric for Model Evaluation<a class="anchor-link" href="#Choosing-a-Metric-for-Model-Evaluation">&#182;</a></h3><p>Choise of metric depends on our business objectives, in other words depends of “What business challenge are we trying to solve using the model?” :</p>
+<h3 id="Choosing-a-Metric-for-Model-Evaluation">Choosing a Metric for Model Evaluation<a class="anchor-link" href="#Choosing-a-Metric-for-Model-Evaluation">&#182;</a></h3><p>Choise of metric depends on our business objectives, in other words depends of what business challenge we are trying to solve using the model.<br></p>
 <p>Ultimately we</p>
 <ul>
 <li>make a value judgement about which errors to minimize and</li>
 <li>choose an appropriate metric to match that judgement</li>
 </ul>
-<p>Here are two different problem we want to solve:</p>
+<p>Here are two different examples of problems we want to solve:</p>
 <p><strong>1- Email Spam Detection:</strong> <br>
-If our goal is to create a spam filter (in this case spam is POSITIVE, non-spam is NEGATIVE):</p>
+If our goal is to create a spam filter (in this case spam is POSITIVE, non-spam is NEGATIVE class):</p>
 <ul>
 <li>We have to make a value judgement here between the cost of false classifications<ul>
 <li>the cost of loosing an important mail in the spam box and</li>
@@ -310,9 +315,9 @@ If our goal is to create a spam filter (in this case spam is POSITIVE, non-spam 
 </li>
 </ul>
 <ul>
-<li>In email spam detection, <strong>Presion</strong> or <strong>Specifity</strong> becomes more important as a metric because <ul>
-<li><strong>FALSE</strong>(ly) predicted <strong>NEGATIVE</strong>s (true spam goes into the <strong>inbox, not caught</strong>) is more accaptable than</li>
-<li><strong>FALSE</strong>(ly) predicted <strong>POSITIVE</strong>s (non-spam goes into the <strong>spam box, caught</strong> by the spam filter)</li>
+<li>In email spam detection, <strong>Precision</strong> or <strong>Specifity</strong> becomes more important as a metric because <ul>
+<li><strong>FALSE</strong>(ly) predicted <strong>NEGATIVE</strong>s (true spam goes into the inbox, <strong>spam not caught</strong>) is more accaptable than</li>
+<li><strong>FALSE</strong>(ly) predicted <strong>POSITIVE</strong>s (non-spam goes into the spam box, <strong>normal mail caught as spam</strong>)</li>
 </ul>
 </li>
 </ul>
@@ -330,15 +335,15 @@ If our goal is to create a spam filter (in this case spam is POSITIVE, non-spam 
 If our goal is to create a fraud detector (in this case fraudelent transaction is POSITIVE, non-fraudelent is NEGATIVE):</p>
 <ul>
 <li>We have to make a value judgement here between false classifications<ul>
-<li>the cost of labeling a normal transaction and</li>
+<li>the cost of labeling a normal transaction as fraudelent and</li>
 <li>the cost of missing a fraudelent transaction</li>
 </ul>
 </li>
 </ul>
 <ul>
 <li>In Fradulent Transaction Detection, we need to optimize for <strong>Sensitivity(Recall)</strong> because<ul>
-<li><strong>FALSE</strong>(ly) predicted <strong>POSITIVE</strong>s (normal transactions that are flagged as possible fraud) are more acceptable than</li>
-<li><strong>FALSE</strong>(ly) predicted <strong>NEGATIVE</strong>s (fraudelent transactions that are not detected)</li>
+<li><strong>FALSE</strong>(ly) predicted as <strong>POSITIVE</strong>s (normal transactions that are flagged as possible fraud) are more acceptable than</li>
+<li><strong>FALSE</strong>(ly) predicted as <strong>NEGATIVE</strong>s (fraudelent transactions that are not detected, missed the fraud case)</li>
 </ul>
 </li>
 </ul>
@@ -346,20 +351,31 @@ If our goal is to create a fraud detector (in this case fraudelent transaction i
 <li><p><strong>Sesitivity (Recall)</strong> is a good measure to determine when there is a high cost associated with <strong>FALSE NEGATIVE</strong>,</p>
 <ul>
 <li>For instance, in fraud detection or sick patient detection</li>
-<li><p>If a fraudulent transaction (Actual Positive) is predicted as non-fraudulent (Predicted Negative), the consequence can be very bad for the bank.</p>
+<li><p>If a fraudulent transaction (actual POSITIVE) is predicted as non-fraudulent (Predicted Negative), the consequence can be very bad for the bank.</p>
 </li>
-<li><p>Similarly, if a sick patient (Actual Positive) goes through the test and predicted as not sick (Predicted Negative), the cost associated with <strong>FALSE NEGATIVE</strong> will be extremely high if the sickness is contagious or severe</p>
+<li><p>Similarly, if a sick patient (actual POSITIVE) goes through the test and predicted as not sick (predicted as NEGATIVE), the cost associated with <strong>FALSE NEGATIVE</strong> will be extremely high if the sickness is contagious or severe</p>
 </li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>FALSE NEGATIVE</strong> and <strong>FALSE POSITIVE</strong> usually has business costs (tangible &amp; intangible). Generally speaking, <ul>
+<li>for the False Negative the cost comes from not taking actions towards it, like not doing anything for the fraud, sick patient cases</li>
+<li>for the False Positive the cost comes from taking wrong actions towards it, like sending a normal mail into spam box</li>
 </ul>
 </li>
 </ul>
 <ul>
-<li><strong>FALSE NEGATIVE</strong> and <strong>FALSE POSITIVE</strong> usually has business costs (tangible &amp; intangible) </li>
+<li>These are known as Type I and Type II errors also:</li>
+<li><p><strong>Type I error</strong> (“FALSE POSITIVE”) is detecting an effect that is not present (e.g. determining a mushroom is poisonous when it is in fact edible).</p>
+</li>
+<li><p><strong>Type II error</strong> (“FALSE NEGATIVE”) is failing to detect an effect that is present (e.g. believing a mushroom is edible when it is in fact poisonous).</p>
+</li>
 </ul>
 <ul>
-<li><strong>F1 Score</strong> is can be a choise<ul>
-<li>when you want to seek a balance between Precision and Recall and</li>
-<li>there is an <strong>uneven class distribution (large number of Actual Negatives)</strong>.</li>
+<li><strong>F1 SCORE</strong> can be a choise when<ul>
+<li>you want to seek a balance between Precision and Recall and</li>
+<li>there is an <strong>uneven class distribution (large number of actual NEGATIVEs)</strong>.</li>
 </ul>
 </li>
 </ul>
@@ -370,14 +386,41 @@ If our goal is to create a fraud detector (in this case fraudelent transaction i
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Some-points-to-remember:">Some points to remember:<a class="anchor-link" href="#Some-points-to-remember:">&#182;</a></h2><ul>
+<li>Classifier  performance are not one-dimensional.</li>
+<li>Different fields use different (but related) measures of accuracy.</li>
+</ul>
+<ul>
+<li>Classifier performance depend on <ul>
+<li>the relative cost of <strong>Type I</strong> and <strong>Type II errors</strong>, as well as </li>
+<li>on the <strong>proportion of positive and negative instances</strong> in the population of interest.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Part-2">Part-2<a class="anchor-link" href="#Part-2">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Loading-and-Exploring-the-Dataset">Loading and Exploring the Dataset<a class="anchor-link" href="#Loading-and-Exploring-the-Dataset">&#182;</a></h2><ul>
-<li><p>Lets make a classification evaluation on the <code>mushroom</code> dataset</p>
+<li><p>Lets make a classification performance evaluation on the <code>mushroom</code> dataset</p>
 </li>
 <li><p>We will use a <strong>modified version</strong> of the <code>mushroom</code> dataset from the <strong>UCI Machine Learning Repository</strong>.</p>
 </li>
-<li>Even though these toy datasets are not very interesting anymore because of repetitive usage, here our focus is the classification metrics not other steps of data processing. So we try to get the advantage of fast implementation of this dataset </li>
+<li>Even though these toy datasets are not very interesting anymore because of repetitive usage, here our focus is the classification metrics not other steps of data processing. So we try to get the advantage of fast implementation of this dataset</li>
+</ul>
+<ul>
 <li>Our objective is to predict if a mushroom is <strong>poisonous</strong> or <strong>edible</strong> based on its characteristics.</li>
-<li>The data include descriptions of hypothetical samples corresponding to <strong>23 species of mushrooms</strong>  </li>
+<li>The data include descriptions of samples of mushrooms</li>
 <li>Each species was identified as definitely <strong>edible</strong> or <strong>poisonous</strong></li>
 </ul>
 
@@ -391,6 +434,7 @@ If our goal is to create a fraud detector (in this case fraudelent transaction i
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Url of the dataset</span>
 <span class="n">url</span><span class="o">=</span><span class="s1">&#39;https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/data/agaricus-lepiota.txt&#39;</span>
+
 <span class="c1"># Column names list</span>
 <span class="n">column_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">,</span> <span class="s1">&#39;cap-shape&#39;</span><span class="p">,</span> <span class="s1">&#39;cap-surface&#39;</span><span class="p">,</span> <span class="s1">&#39;cap-color&#39;</span><span class="p">]</span>
 <span class="c1"># Load the data</span>
@@ -502,7 +546,7 @@ If our goal is to create a fraud detector (in this case fraudelent transaction i
 <h3 id="Classifiers-Dictionary">Classifiers Dictionary<a class="anchor-link" href="#Classifiers-Dictionary">&#182;</a></h3><ul>
 <li>Now, let's create a dictionary which contains the classifiers we want to use for our classification task</li>
 <li>Here we create the dictionary with instantiates of Sklearn estimators <strong>without hyperparameter tuning</strong>. </li>
-<li>In reality we need to create the dictionary by tuned classifiers.</li>
+<li>In reality we need to evaluate the performance of tuned classifiers.</li>
 </ul>
 
 </div>
@@ -538,12 +582,12 @@ If our goal is to create a fraud detector (in this case fraudelent transaction i
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="model_selection-function">model_selection function<a class="anchor-link" href="#model_selection-function">&#182;</a></h2><ul>
-<li>Let's define a function to get the <strong>F1 Scores</strong> of a given dictionary of models (like in the upper cell) easily without repetion.</li>
+<li>Let's define a function to get the <strong>Precision, F1</strong> and <strong>Recall Scores</strong> of a given dictionary of models (like in the upper cell) easily without repetion.</li>
 </ul>
 <ul>
 <li>Our function will<ul>
-<li>take <strong>X_train, y_train datasets</strong> and an <strong>estimator dictionary</strong> </li>
-<li>return the F1 scores produced by the predictions of each model in the dictionary</li>
+<li>take <strong>X, y datasets</strong> and an <strong>estimator dictionary</strong> </li>
+<li>return a nested dictionary containing the <strong>Precision, F1</strong> and <strong>Recall Scores</strong> produced by the predictions of each model in the estimators dictionary</li>
 </ul>
 </li>
 </ul>
@@ -589,10 +633,18 @@ If our goal is to create a fraud detector (in this case fraudelent transaction i
         <span class="n">precision_dct</span><span class="p">[</span><span class="n">estimator</span><span class="p">]</span><span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">predicted</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s1">&#39;edible&#39;</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
         <span class="n">recall_dct</span><span class="p">[</span><span class="n">estimator</span><span class="p">]</span><span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">recall_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">predicted</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s1">&#39;edible&#39;</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
         
-    <span class="c1"># Return the sorted list of the F1, Precision, Recall scores of the classifiers in descending order</span>
-    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;Precision&quot;</span><span class="p">:</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">precision_dct</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-            <span class="s2">&quot;Recall&quot;</span><span class="p">:</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">recall_dct</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-            <span class="s2">&quot;F1&quot;</span><span class="p">:</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">f1_dct</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)}</span>
+    <span class="c1"># Return the sorted list of the F1, Precision, Recall scores in descending order</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;Precision&quot;</span><span class="p">:</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">precision_dct</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> 
+                                <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> 
+                                <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+            
+            <span class="s2">&quot;Recall&quot;</span><span class="p">:</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">recall_dct</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> 
+                             <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> 
+                             <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+            
+            <span class="s2">&quot;F1&quot;</span><span class="p">:</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">f1_dct</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span>
+                         <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> 
+                         <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)}</span>
 </pre></div>
 
     </div>
@@ -605,7 +657,7 @@ If our goal is to create a fraud detector (in this case fraudelent transaction i
 <div class="prompt input_prompt">In&nbsp;[127]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># model_selection function to get the sorted f1, precision, recall scores</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Call model_selection function to get the sorted f1, precision, recall scores</span>
 <span class="n">model_selection_all</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">estimators_dct</span><span class="p">)</span>
 </pre></div>
 
@@ -669,11 +721,12 @@ If our goal is to create a fraud detector (in this case fraudelent transaction i
 <h2 id="Evaluation-of-Mushroom-Classifier">Evaluation of Mushroom Classifier<a class="anchor-link" href="#Evaluation-of-Mushroom-Classifier">&#182;</a></h2><p>We have to make a value judgement here between the cost of false classifications (False Positive and False Negative)</p>
 <ul>
 <li>the cost of falsely classifying a mushroom as Poisonous which is actually Edible </li>
-<li><p>the cost of falsely classifiying a mushroom as Edible which is actually Poisonous</p>
-</li>
+<li>the cost of falsely classifiying a mushroom as Edible which is actually Poisonous </li>
+</ul>
+<ul>
 <li><p>Without doubt the cost of the latter (classifiying a mushroom as Edible which is actually Poisonous) is too high. It can cause to loose our lives!</p>
 </li>
-<li><p>So in mushroom detection! problem we need to be very sensitive to the <strong>presion score of the Edible class</strong>.</p>
+<li><p>So in mushroom detection! problem we need to be very sensitive to the <strong>presion and specifitiy scores of the Edible class</strong></p>
 </li>
 </ul>
 
@@ -698,10 +751,6 @@ If our goal is to create a fraud detector (in this case fraudelent transaction i
 <li><p>Now let’s display the precision, recall, and F1 scores by using Yellowbrick’s <code>ClassificationReport</code> visualizer</p>
 </li>
 <li><p>This allows us interpret easily Type I and Type II error with numerical scores as well as color-coded heatmaps</p>
-</li>
-<li><p><strong>Type I error</strong> (“FALSE POSITIVE”) is detecting an effect that is not present (e.g. determining a mushroom is poisonous when it is in fact edible).</p>
-</li>
-<li><p><strong>Type II error</strong> (“FALSE NEGATIVE”) is failing to detect an effect that is present (e.g. believing a mushroom is edible when it is in fact poisonous).</p>
 </li>
 </ul>
 
@@ -1035,25 +1084,6 @@ If our goal is to create a fraud detector (in this case fraudelent transaction i
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Some points to remember:</strong></p>
-<ul>
-<li>Classifier  performance are not one-dimensional.</li>
-<li>Different fields use different (but related) measures of accuracy.</li>
-</ul>
-<ul>
-<li>Classifier performance depend on <ul>
-<li>the relative cost of <strong>Type I</strong> and <strong>Type II errors</strong>, as well as </li>
-<li>on the<strong>proportion of positive and negative instances</strong> in the population of interest.</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
