@@ -175,7 +175,7 @@ Classifiers generally don't ret">
 <p>The blue ones are <strong>actual obese</strong> and the red ones are <strong>actual not obese</strong></p>
 </li>
 </ul>
-<p><img src="../../images/roc4.png" alt="roc4"></p>
+<p><img src="../../images/roc4.jpg" alt="roc4"></p>
 <ul>
 <li>When we look at the plot we see that <ul>
 <li>1 <strong>actual obese</strong>(blue) classified as <strong>not obese</strong> (under the threshold)</li>
@@ -195,7 +195,7 @@ Classifiers generally don't ret">
 <ul>
 <li>Let's create a confusion matrix from these results</li>
 </ul>
-<p><img src="../../images/roc5.png" alt="roc5"></p>
+<p><img src="../../images/roc5.jpg" alt="roc5"></p>
 <ul>
 <li>With these results we can evaluate the performance of this Logistic Regression with the threshold set to $0.5$<ul>
 <li>
@@ -215,7 +215,7 @@ Classifiers generally don't ret">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
 <li>What if we set the threshold to $0.1$ in order to be able classify all the <strong>actual obese</strong> samples as <strong>obese</strong>
-<img src="../../images/roc6.png" alt="roc6">
+<img src="../../images/roc6.jpg" alt="roc6">
 </li>
 </ul>
 <ul>
@@ -238,7 +238,7 @@ Classifiers generally don't ret">
 <ul>
 <li>Let's create a confusion matrix from these results</li>
 </ul>
-<p><img src="../../images/roc7.png" alt="roc7"></p>
+<p><img src="../../images/roc7.jpg" alt="roc7"></p>
 <ul>
 <li>With these results we can evaluate the performance of the Logistic Regression with the threshold set to 
 $0.1$<ul>
@@ -337,7 +337,7 @@ $0.1$<ul>
 <ul>
 <li>Let's try to answer the question: <strong>"How can we find the optimal threshold?"</strong> by checking 3 thresholds (points) on the ROC curve below.</li>
 </ul>
-<p><img src="../../images/roc8.png" alt="roc8"></p>
+<p><img src="../../images/roc8.jpg" alt="roc8"></p>
 <p>(By the way, any ROC curve generated from a finite set of samples is actually a step function, like above, which approaches a true curve as the number of instances approaches infinity)</p>
 <ul>
 <li>Threshold1: At the bottom-left, point $(0,0)$ (The threshold bar is at the top)<ul>
@@ -383,7 +383,7 @@ $0.1$<ul>
 </ul>
 </li>
 </ul>
-<p><img src="../../images/roc9.png" alt="roc9"></p>
+<p><img src="../../images/roc9.jpg" alt="roc9"></p>
 <ul>
 <li>This leads to another metric, <strong>Area Under the Curve (AUC)</strong>, which is a computation of the relationship between false positives and true positives</li>
 </ul>
@@ -417,7 +417,7 @@ $0.1$<ul>
 </ul>
 </li>
 </ul>
-<p><img src="../../images/roc10.png" alt="roc10"></p>
+<p><img src="../../images/roc10.jpg" alt="roc10"></p>
 
 </div>
 </div>
@@ -429,7 +429,7 @@ $0.1$<ul>
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="How-to-Interpret-AUC?">How to Interpret AUC?<a class="anchor-link" href="../roc%20curve%20%26%20auc/#How-to-Interpret-AUC?">¶</a>
 </h4>
-<p><img src="../../images/roc11.png" alt="roc11"></p>
+<p><img src="../../images/roc11.jpg" alt="roc11"></p>
 <ul>
 <li>AUC provides an <strong>aggregate measure</strong> of performance <strong>across all possible classification thresholds</strong>. </li>
 </ul>
@@ -442,7 +442,7 @@ $0.1$<ul>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Let's try to interpret a model's AUC score which has a ROC curve like below:</p>
-<p><img src="../../images/roc12.png" alt="roc12"></p>
+<p><img src="../../images/roc12.jpg" alt="roc12"></p>
 <ul>
 <li>
 <p>For all the thresholds the values of <strong>True Positive Rate (TPR)</strong> and the <strong>False Positive Rate(FPR)</strong> (the proportion of negative examples predicted incorrectly) will be equal on the curve (The diagonal line <strong>y=x</strong>)</p>
@@ -489,7 +489,7 @@ $0.1$<ul>
 </li>
 <li>This is the region of upper triangle</li>
 </ul>
-<p><img src="../../images/roc13.png" alt="roc13"></p>
+<p><img src="../../images/roc13.jpg" alt="roc13"></p>
 
 </div>
 </div>
