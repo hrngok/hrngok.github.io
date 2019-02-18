@@ -11,15 +11,15 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/adaboost.xml</loc>
-  <lastmod>2019-01-08T06:50:00Z</lastmod>
+  <lastmod>2019-02-18T16:30:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/area-under-the-roc-curve.xml</loc>
-  <lastmod>2019-01-29T14:18:00Z</lastmod>
+  <lastmod>2019-01-29T16:08:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/auc.xml</loc>
-  <lastmod>2019-01-29T14:18:00Z</lastmod>
+  <lastmod>2019-01-29T16:08:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/bagging.xml</loc>
@@ -47,7 +47,7 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/future-selection.xml</loc>
-  <lastmod>2018-12-09T23:12:00Z</lastmod>
+  <lastmod>2019-01-29T14:50:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/geospatial-data-analysis.xml</loc>
@@ -59,15 +59,23 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/gradient-boosting.xml</loc>
-  <lastmod>2019-01-08T06:50:00Z</lastmod>
+  <lastmod>2019-02-18T16:30:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://example.com/categories/imputation.xml</loc>
+  <lastmod>2019-02-18T16:30:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/kaggle.xml</loc>
-  <lastmod>2019-01-08T06:50:00Z</lastmod>
+  <lastmod>2019-02-18T16:30:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/mean-squared-error.xml</loc>
   <lastmod>2019-01-14T10:17:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://example.com/categories/missing-values.xml</loc>
+  <lastmod>2019-02-18T16:30:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/mse.xml</loc>
@@ -87,7 +95,7 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/randomized-forest.xml</loc>
-  <lastmod>2019-01-08T06:50:00Z</lastmod>
+  <lastmod>2019-02-18T16:30:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/recall.xml</loc>
@@ -99,7 +107,7 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/roc-curve.xml</loc>
-  <lastmod>2019-01-29T14:18:00Z</lastmod>
+  <lastmod>2019-01-29T16:08:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/root-mean-squared-logaritmic-error.xml</loc>
@@ -119,15 +127,15 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/stochastic-gradient-boosting.xml</loc>
-  <lastmod>2019-01-08T06:50:00Z</lastmod>
+  <lastmod>2019-02-18T16:30:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/timeseries-data.xml</loc>
-  <lastmod>2019-01-08T06:50:00Z</lastmod>
+  <lastmod>2019-02-18T16:30:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/timeseriessplit.xml</loc>
-  <lastmod>2019-01-08T06:50:00Z</lastmod>
+  <lastmod>2019-02-18T16:30:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/tree-based-models.xml</loc>
@@ -143,7 +151,7 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/visualization.xml</loc>
-  <lastmod>2018-12-09T23:12:00Z</lastmod>
+  <lastmod>2019-01-29T14:50:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/galleries/rss.xml</loc>
@@ -151,10 +159,10 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/rss.xml</loc>
-  <lastmod>2019-01-29T14:18:00Z</lastmod>
+  <lastmod>2019-02-18T16:30:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/sitemap.xml</loc>
-  <lastmod>2019-01-29T14:18:00Z</lastmod>
+  <lastmod>2019-02-18T16:30:00Z</lastmod>
  </sitemap>
 </sitemapindex>
