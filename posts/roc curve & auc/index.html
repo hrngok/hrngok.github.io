@@ -134,7 +134,19 @@ Classifiers generally don't ret">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li>To understand the concept, here is a simple example of Logistic Regression for classification of mice as <strong>obese</strong> or <strong>not obese</strong> reagarding their weights. </li>
+<li>To understand the concept, here is a simple example of Logistic Regression for classification of mice as <strong>obese</strong> or <strong>not obese</strong> reagarding their weights. 
+<img src="../../images/mouse.jpg" alt="mouse">
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
 <li>X-axis shows the <strong>weights</strong>
 </li>
 <li>Y-axis shows the <strong>probabilities</strong> of the target variable (being obese)</li>
@@ -257,7 +269,7 @@ $0.1$<ul>
 <h4 id="How-can-we-find-the-optimal-threshold?">How can we find the optimal threshold?<a class="anchor-link" href="../roc%20curve%20%26%20auc/#How-can-we-find-the-optimal-threshold?">¶</a>
 </h4>
 <ul>
-<li>We can't compute confusion matrix for all the threshoslds but libraries like Sklearn can bring us the ROC curves</li>
+<li>We can't compute confusion matrix for all the thresholds but libraries like Sklearn can bring us the ROC curves</li>
 <li>ROC curves shows the results of all the possible thresholds</li>
 </ul>
 </div>
@@ -305,14 +317,19 @@ $0.1$<ul>
 <p>Metrics such as <strong>accuracy, precision, lift</strong> and <strong>F-score</strong> use values from both columns of the confusion matrix.</p>
 </li>
 <li>
-<p>As a class distribution changes these measures will change as well, even if the fundamental classifier performance does not.</p>
+<p>As class distribution changes these measures will change as well, even if the fundamental classifier performance does not.</p>
 </li>
 </ul>
 <ul>
 <li>ROC graphs are based upon True Positive Rate and False Positive Rate, in which each dimension is a strict columnar ratio, so do not depend on class distributions.</li>
 </ul>
 <ul>
-<li>ROC curves can only be used to assess classiﬁers that return some conﬁdence score (or a probability) of prediction. - For example, logistic regression, neural networks, and decision trees (and ensemble models based on decision trees) can be assessed using ROC curves. </li>
+<li>
+<p>ROC curves can only be used to assess classiﬁers that return some conﬁdence score (or a probability) of prediction.</p>
+</li>
+<li>
+<p>For example, <strong>logistic regression, neural networks</strong>, and <strong>decision trees</strong> (and ensemble models based on decision trees) can be assessed using ROC curves.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -340,21 +357,24 @@ $0.1$<ul>
 <p><img src="../../images/roc8.jpg" alt="roc8"></p>
 <p>(By the way, any ROC curve generated from a finite set of samples is actually a step function, like above, which approaches a true curve as the number of instances approaches infinity)</p>
 <ul>
-<li>Threshold1: At the bottom-left, point $(0,0)$ (The threshold bar is at the top)<ul>
+<li>
+<strong>Threshold1:</strong> At the bottom-left, point $(0,0)$ (The threshold bar is at the top)<ul>
 <li>False Positive Rate (FPR):$0$ This is great. The classifier did not make identified any actual Negative sample as Positive </li>
 <li>True Positive Rate (TPR): $0$ This is awful. The classifier could not catch any of the True Positive samples</li>
 </ul>
 </li>
 </ul>
 <ul>
-<li>Threshold2: At the top-left corner, point $(0.4, 0.8)$   <ul>
+<li>
+<strong>Threshold2:</strong> At the top-left corner, point $(0.4, 0.8)$   <ul>
 <li>FPR:$0.4$ Classifier identified some negative samples as positive</li>
 <li>TPR:$0.8$ Classifier showed a good performance on capturing the actual positives</li>
 </ul>
 </li>
 </ul>
 <ul>
-<li>Threshold3: At the top-right, point $(1.0, 1.0)$ (The thereshold bar is at the bottom)<ul>
+<li>
+<strong>Threshold3:</strong> At the top-right, point $(1.0, 1.0)$ (The thereshold bar is at the bottom)<ul>
 <li>FPR:$1.0$ This is awful. Classifier identified all the actual negative samples as positive</li>
 <li>TPR:$1.0$ Classifier showed a good performance on capturing all the actual positives</li>
 </ul>
@@ -410,7 +430,7 @@ $0.1$<ul>
 <li>Firstly, they are not ROC curves, ROC curves are on the right side</li>
 <li>We gave a validation dataset to some models and</li>
 <li>models gave us the predict probability of each sample (e.g Sklearn with <code>predict_proba</code>)</li>
-<li>Since we know the labels of them. We assosiated <strong>green for the positives</strong> and <strong>red for the negatives</strong>
+<li>Since we know the labels of the samples. We assosiated <strong>green for the positives</strong> and <strong>red for the negatives</strong>
 </li>
 <li>We noticed that some models could separate two classes better than other. </li>
 <li>The more overlapping the worse classification performance</li>
@@ -540,21 +560,24 @@ $0.1$<ul>
 <p>AUC isn't a useful metric for this type of optimization.</p>
 </li>
 <li>
-<p>In practice, if you have a "perfect" classifier with an AUC of 1.0, you should be suspicious, as it likely indicates a bug in your model.</p>
+<p>In practice, if you have a "perfect" classifier with an AUC of <code>1.0</code>, you should be suspicious, as it likely indicates a bug in your model.</p>
 </li>
 <li>
 <p>For example, you may have overfit to your training data, or the label data may be replicated in one of your features</p>
 </li>
 </ul>
 <ul>
+<li>Without an explicit cost of error model (<strong>cost of false positives</strong> and separate <strong>cost of false negatives</strong>) you should always be suspicious of a single number summary of a classifier performance (be it accuracy, AUC, F1 or so on). </li>
+</ul>
+<ul>
 <li>
-<p>Without an explicit cost of error model (cost of false positives and separate cost of false negatives) you should always be suspicious of a single number summary of a classifier performance (be it accuracy, AUC, F1 or so on).</p>
+<p>Using both <strong>precision</strong> and <strong>recall</strong> can be preferable.</p>
 </li>
 <li>
-<p>We in fact prefer using both precision and recall. If you insist on a single number: the F1 is a good heuristic measure of classifier quality, as it at least incorporates our operational choice of score threshold into the quality assessment.</p>
+<p>If you insist on a single number: the <strong>F1</strong> is a good measure of classifier quality, as it at least incorporates our operational choice of <strong>score threshold</strong> into the quality assessment.</p>
 </li>
 <li>
-<p>The ROC curve is useful tool designing a classifier from a scoring function (though I prefer the “double hump graph”), but once you have chosen a threshold the performance of the other classifiers (induced by choosing different thresholds) are irrelevant to assessing the performance of the classifier you have settled on.</p>
+<p>The ROC curve is useful tool designing a classifier from a <strong>scoring function</strong>, but once you have chosen a threshold the performance of the other classifiers (induced by choosing different thresholds) are irrelevant to assessing the performance of the classifier you have settled on.</p>
 </li>
 </ul>
 </div>
