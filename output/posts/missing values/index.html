@@ -679,6 +679,21 @@ Pandas provides a nice selection of simple and more complex interpolation method
 <li>
 <p>For example, <code>"feature3"</code> column has missing values, so we can add a feature <code>"feature3_missing"</code> which takes the values ∈<code>{0,1}</code>.</p>
 </li>
+</ul>
+<ul>
+<li>
+<p>While the dummy variable adjustment method is not a proper way when data are truly missing (missing at random), it may still be appropriate in examples like:</p>
+<ul>
+<li>
+<p>If someone is not sharing her contact info (missing) it could mean that she is not open to being contacted</p>
+</li>
+<li>
+<p>Married respondents may be asked to rate the quality of their marriage, but that question has no meaning for unmarried respondents.</p>
+</li>
+<li>you might have questions about mother’s education and father’s education, but the father is unknown or was never part of the family. </li>
+<li>you might have spouse’s education, but there is no spouse. </li>
+</ul>
+</li>
 <li>
 <p>Afterwards we will <strong>check if the the added binary features improve the model or not</strong>.</p>
 </li>
@@ -751,7 +766,7 @@ Pandas provides a nice selection of simple and more complex interpolation method
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Score-of-the-dataset-with-dropped-missing-values">Score of the dataset with dropped missing values<a class="anchor-link" href="../missing%20values/#Score-of-the-dataset-with-dropped-missing-values">¶</a>
+<h4 id="Score-of-the-Dataset-with-Dropped-Missing-Values">Score of the Dataset with Dropped Missing Values<a class="anchor-link" href="../missing%20values/#Score-of-the-Dataset-with-Dropped-Missing-Values">¶</a>
 </h4>
 <p>We can use a template like this get the score from dropped values</p>
 
@@ -786,7 +801,7 @@ Pandas provides a nice selection of simple and more complex interpolation method
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Score-of-the-dataset-with-imputed-values">Score of the dataset with imputed values<a class="anchor-link" href="../missing%20values/#Score-of-the-dataset-with-imputed-values">¶</a>
+<h4 id="Score-of-the-Dataset-with-Imputed-Values">Score of the Dataset with Imputed Values<a class="anchor-link" href="../missing%20values/#Score-of-the-Dataset-with-Imputed-Values">¶</a>
 </h4>
 <p>We can use a template like this get the score from imputed values</p>
 
@@ -866,24 +881,6 @@ Pandas provides a nice selection of simple and more complex interpolation method
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>
-<p>While the dummy variable adjustment method is not a proper way when data are truly missing (missing at random), it may still be appropriate in example like:</p>
-<ul>
-<li>Married respondents may be asked to rate the quality of their marriage, but that question has no meaning for unmarried respondents. </li>
-<li>you might have questions about mother’s education and father’s education, but the father is unknown or was never part of the family. </li>
-<li>you might have spouse’s education, but there is no spouse. </li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
