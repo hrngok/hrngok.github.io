@@ -7,19 +7,23 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://example.com/</loc>
-  <lastmod>2018-11-17T17:04:00Z</lastmod>
+  <lastmod>2019-06-25T10:23:00Z</lastmod>
  </url>
  <url>
   <loc>https://example.com/2018/</loc>
   <lastmod>2018-10-12T20:33:00Z</lastmod>
  </url>
  <url>
+  <loc>https://example.com/2019/</loc>
+  <lastmod>2019-06-25T10:23:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://example.com/archive.html</loc>
-  <lastmod>2019-02-18T16:30:00Z</lastmod>
+  <lastmod>2019-06-25T10:22:00Z</lastmod>
  </url>
  <url>
   <loc>https://example.com/categories/</loc>
-  <lastmod>2019-02-18T16:30:00Z</lastmod>
+  <lastmod>2019-06-25T10:23:00Z</lastmod>
  </url>
  <url>
   <loc>https://example.com/categories/accuracy/</loc>
@@ -40,6 +44,10 @@
  <url>
   <loc>https://example.com/categories/bagging/</loc>
   <lastmod>2018-11-28T20:23:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://example.com/categories/bike-dataset/</loc>
+  <lastmod>2019-06-25T10:23:00Z</lastmod>
  </url>
  <url>
   <loc>https://example.com/categories/boosting/</loc>
@@ -174,12 +182,20 @@
   <lastmod>2018-10-12T19:49:00Z</lastmod>
  </url>
  <url>
+  <loc>https://example.com/index-1.html</loc>
+  <lastmod>2019-06-25T10:23:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://example.com/listings/</loc>
   <lastmod>2018-10-12T19:49:00Z</lastmod>
  </url>
  <url>
   <loc>https://example.com/pages/about-me/</loc>
   <lastmod>2018-10-20T16:04:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://example.com/posts/bay_area%20bike%20data/</loc>
+  <lastmod>2019-06-25T10:23:00Z</lastmod>
  </url>
  <url>
   <loc>https://example.com/posts/bikeshare%20part2/</loc>

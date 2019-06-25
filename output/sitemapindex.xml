@@ -11,35 +11,39 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/adaboost.xml</loc>
-  <lastmod>2019-02-18T16:30:00Z</lastmod>
+  <lastmod>2019-06-12T23:09:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/area-under-the-roc-curve.xml</loc>
-  <lastmod>2019-01-29T16:08:00Z</lastmod>
+  <lastmod>2019-02-24T18:22:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/auc.xml</loc>
-  <lastmod>2019-01-29T16:08:00Z</lastmod>
+  <lastmod>2019-02-24T18:22:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/bagging.xml</loc>
-  <lastmod>2018-12-13T11:11:00Z</lastmod>
+  <lastmod>2019-02-18T18:07:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://example.com/categories/bike-dataset.xml</loc>
+  <lastmod>2019-06-25T10:23:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/boosting.xml</loc>
-  <lastmod>2018-12-13T11:11:00Z</lastmod>
+  <lastmod>2019-02-18T18:07:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/confusion-matrix.xml</loc>
-  <lastmod>2019-01-18T14:32:00Z</lastmod>
+  <lastmod>2019-02-24T18:56:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/cyclic-time-features.xml</loc>
-  <lastmod>2019-01-08T06:50:00Z</lastmod>
+  <lastmod>2019-06-25T10:23:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/decision-trees.xml</loc>
-  <lastmod>2018-12-13T11:11:00Z</lastmod>
+  <lastmod>2019-02-18T18:07:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/f1-score.xml</loc>
@@ -47,27 +51,27 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/future-selection.xml</loc>
-  <lastmod>2019-01-29T14:50:00Z</lastmod>
+  <lastmod>2019-06-12T23:09:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/geospatial-data-analysis.xml</loc>
-  <lastmod>2018-11-22T14:08:00Z</lastmod>
+  <lastmod>2019-02-24T19:04:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/gps-data-analysis.xml</loc>
-  <lastmod>2018-11-22T14:08:00Z</lastmod>
+  <lastmod>2019-02-24T19:04:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/gradient-boosting.xml</loc>
-  <lastmod>2019-02-18T16:30:00Z</lastmod>
+  <lastmod>2019-06-12T23:09:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/imputation.xml</loc>
-  <lastmod>2019-02-18T16:30:00Z</lastmod>
+  <lastmod>2019-06-12T23:09:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/kaggle.xml</loc>
-  <lastmod>2019-02-18T16:30:00Z</lastmod>
+  <lastmod>2019-06-25T10:23:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/mean-squared-error.xml</loc>
@@ -75,7 +79,7 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/missing-values.xml</loc>
-  <lastmod>2019-02-18T16:30:00Z</lastmod>
+  <lastmod>2019-06-12T23:09:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/mse.xml</loc>
@@ -91,11 +95,11 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/random-forest.xml</loc>
-  <lastmod>2018-12-13T11:11:00Z</lastmod>
+  <lastmod>2019-02-18T18:07:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/randomized-forest.xml</loc>
-  <lastmod>2019-02-18T16:30:00Z</lastmod>
+  <lastmod>2019-06-12T23:09:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/recall.xml</loc>
@@ -107,7 +111,7 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/roc-curve.xml</loc>
-  <lastmod>2019-01-29T16:08:00Z</lastmod>
+  <lastmod>2019-02-24T18:22:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/root-mean-squared-logaritmic-error.xml</loc>
@@ -127,19 +131,19 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/stochastic-gradient-boosting.xml</loc>
-  <lastmod>2019-02-18T16:30:00Z</lastmod>
+  <lastmod>2019-06-12T23:09:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/timeseries-data.xml</loc>
-  <lastmod>2019-02-18T16:30:00Z</lastmod>
+  <lastmod>2019-06-25T10:23:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/timeseriessplit.xml</loc>
-  <lastmod>2019-02-18T16:30:00Z</lastmod>
+  <lastmod>2019-06-25T10:23:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/tree-based-models.xml</loc>
-  <lastmod>2018-12-13T11:11:00Z</lastmod>
+  <lastmod>2019-02-18T18:07:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/true-negative-rate.xml</loc>
@@ -151,7 +155,7 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/visualization.xml</loc>
-  <lastmod>2019-01-29T14:50:00Z</lastmod>
+  <lastmod>2019-06-12T23:09:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/galleries/rss.xml</loc>
@@ -159,10 +163,10 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/rss.xml</loc>
-  <lastmod>2019-02-18T16:30:00Z</lastmod>
+  <lastmod>2019-06-25T10:23:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/sitemap.xml</loc>
-  <lastmod>2019-02-18T16:30:00Z</lastmod>
+  <lastmod>2019-06-25T10:23:00Z</lastmod>
  </sitemap>
 </sitemapindex>
