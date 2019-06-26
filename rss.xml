@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Data to Wisdom</title><link>https://example.com/</link><description>This is a demo site for Nikola.</description><atom:link href="https://example.com/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:n.tesla@example.com"&gt;Harun&lt;/a&gt; </copyright><lastBuildDate>Tue, 25 Jun 2019 10:47:15 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>SF Bay Area Bike Data</title><link>https://example.com/posts/bay_area%20bike%20data/</link><dc:creator>Harun</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Data to Wisdom</title><link>https://example.com/</link><description>This is a demo site for Nikola.</description><atom:link href="https://example.com/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:n.tesla@example.com"&gt;Harun&lt;/a&gt; </copyright><lastBuildDate>Wed, 26 Jun 2019 08:53:24 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>SF Bay Area Bike Data</title><link>https://example.com/posts/bay_area%20bike%20data/</link><dc:creator>Harun</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;In this notebook we will be working on the &lt;a href="https://www.kaggle.com/benhamner/sf-bay-area-bike-share"&gt;Kaggle project: SF Bay Area Bike Share&lt;/a&gt;&lt;/p&gt;
@@ -11,18 +11,21 @@
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="Table-of-contents"&gt;Table of contents&lt;a class="anchor-link" href="https://example.com/posts/bay_area%20bike%20data/#Table-of-contents"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://example.com/posts/bay_area%20bike%20data/#overview"&gt;Project In a nutshell&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://example.com/posts/bay_area%20bike%20data/#pen&amp;amp;paper"&gt;'Pen &amp;amp; Paper' thinking&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href="https://example.com/posts/bay_area%20bike%20data/#exploration"&gt;Data exploration&lt;/a&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://example.com/posts/bay_area%20bike%20data/#missing"&gt;Missing values&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://example.com/posts/bay_area%20bike%20data/#Categorical"&gt;Categorical features&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://example.com/posts/bay_area%20bike%20data/#departures"&gt;Stations departures count&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://example.com/posts/bay_area%20bike%20data/#moved"&gt;Moved stations on the map&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://example.com/posts/bay_area%20bike%20data/#stations"&gt;Combine the stations&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href="https://example.com/posts/bay_area%20bike%20data/#dublicates"&gt;Duplicates&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://example.com/posts/bay_area%20bike%20data/"&gt;Read more…&lt;/a&gt; (52 min remaining to read)&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><category>bike dataset</category><category>Kaggle</category><guid>https://example.com/posts/bay_area%20bike%20data/</guid><pubDate>Thu, 16 May 2019 20:08:04 GMT</pubDate></item><item><title>Ensemble Models - Kaggle Submission</title><link>https://example.com/posts/bikeshare%20part3/</link><dc:creator>Harun</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;p&gt;&lt;a id="overview"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id="Project-In-a-nutshell"&gt;Project In a nutshell&lt;a class="anchor-link" href="https://example.com/posts/bay_area%20bike%20data/#Project-In-a-nutshell"&gt;¶&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;We are trying to predict the &lt;strong&gt;net change&lt;/strong&gt; in the bike stock (&lt;strong&gt;bikes returned - bikes taken&lt;/strong&gt;)  at a specific station at a specific hour.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;We have 3 datasets: &lt;code&gt;station data&lt;/code&gt;, &lt;code&gt;trip data&lt;/code&gt;, &lt;code&gt;weather data&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+ &lt;p&gt;&lt;a href="https://example.com/posts/bay_area%20bike%20data/"&gt;Read more…&lt;/a&gt; (53 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><category>bike dataset</category><category>Kaggle</category><guid>https://example.com/posts/bay_area%20bike%20data/</guid><pubDate>Thu, 16 May 2019 20:08:04 GMT</pubDate></item><item><title>Ensemble Models - Kaggle Submission</title><link>https://example.com/posts/bikeshare%20part3/</link><dc:creator>Harun</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;ul&gt;
