@@ -7,7 +7,11 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://example.com/</loc>
-  <lastmod>2019-06-25T10:23:00Z</lastmod>
+  <lastmod>2019-08-03T14:49:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://example.com/2017/</loc>
+  <lastmod>2019-08-03T14:49:00Z</lastmod>
  </url>
  <url>
   <loc>https://example.com/2018/</loc>
@@ -19,11 +23,11 @@
  </url>
  <url>
   <loc>https://example.com/archive.html</loc>
-  <lastmod>2019-06-25T10:22:00Z</lastmod>
+  <lastmod>2019-08-03T14:49:00Z</lastmod>
  </url>
  <url>
   <loc>https://example.com/categories/</loc>
-  <lastmod>2019-06-25T10:23:00Z</lastmod>
+  <lastmod>2019-08-03T14:49:00Z</lastmod>
  </url>
  <url>
   <loc>https://example.com/categories/accuracy/</loc>
@@ -94,6 +98,10 @@
   <lastmod>2018-11-22T14:04:00Z</lastmod>
  </url>
  <url>
+  <loc>https://example.com/categories/likelihood/</loc>
+  <lastmod>2019-08-03T14:49:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://example.com/categories/mean-squared-error/</loc>
   <lastmod>2018-12-13T11:52:00Z</lastmod>
  </url>
@@ -108,6 +116,10 @@
  <url>
   <loc>https://example.com/categories/precision/</loc>
   <lastmod>2019-01-17T22:12:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://example.com/categories/probability/</loc>
+  <lastmod>2019-08-03T14:49:00Z</lastmod>
  </url>
  <url>
   <loc>https://example.com/categories/r-squared/</loc>
@@ -183,7 +195,7 @@
  </url>
  <url>
   <loc>https://example.com/index-1.html</loc>
-  <lastmod>2019-08-03T14:12:00Z</lastmod>
+  <lastmod>2019-08-03T14:49:00Z</lastmod>
  </url>
  <url>
   <loc>https://example.com/listings/</loc>
@@ -212,6 +224,10 @@
  <url>
   <loc>https://example.com/posts/gps-data-analysis/</loc>
   <lastmod>2018-10-12T20:33:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://example.com/posts/likelihood/</loc>
+  <lastmod>2019-08-03T14:49:00Z</lastmod>
  </url>
  <url>
   <loc>https://example.com/posts/metrics/</loc>

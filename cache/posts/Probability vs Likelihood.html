@@ -1,0 +1,327 @@
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To understand these concepts better, let's walk through one of the simplest random variable example: coin tossing</p>
+<ul>
+<li>If we flip a coin <code>100</code> times and it comes up head <code>53</code> times then we could have a strong feeling that the coin is fair. </li>
+<li>How would we feel about the fairness of the coin if we see <code>30</code> heads <code>70</code> tails after <code>100</code> tosses? </li>
+<li><p>Can we trust the coin?</p>
+</li>
+<li><p>To answer this question, we need to ask another one: <strong>How much our sample support our hypothesis that <code>P(H)=P(T)=1/2</code>?</strong></p>
+</li>
+<li>Note that the direction of the question has reversed.</li>
+</ul>
+<!-- TEASER_END -->
+
+<ul>
+<li>(If our coin is <strong>fair</strong> then the probability that it will come up <code>head</code> is <code>0.5</code>) </li>
+</ul>
+<ul>
+<li><p>We know that it is also possible to see this outcome with a fair coin but the probabilty of this result is very low.</p>
+</li>
+<li><p>We can calculate the probability of <code>30</code> heads <code>70</code> tails after <code>100</code> tosses with a fair coin by the formula below and a binom calculator</p>
+</li>
+</ul>
+<p><img src="/images/binom1.png" alt="binom1"></p>
+<ul>
+<li><code>n</code>: number of trials</li>
+<li><code>p</code>: probability of success</li>
+<li><code>x</code>: number of success out of <code>n</code> trials</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/images/binom2.png" alt="binom2"></p>
+<ul>
+<li>Here we assumed that the coin was fair and <code>P(head)= 0.5</code></li>
+<li>The probability of observing <code>30</code> and less number of heads with a <strong>fair</strong> coin is <code>0.000039</code></li>
+<li>Regarding this probability now have a reasonable basis for the <strong>suspicion</strong> that the coin is not fair. </li>
+</ul>
+<ul>
+<li>In general, we calculate the probability of observing a particular set of outcomes by making suitable assumptions about the underlying process (e.g. probability of a coin landing heads is <code>p</code> and that coin tosses are <code>independent</code>).</li>
+</ul>
+<ul>
+<li>So we look for the probabilities <strong>when the parameters are known</strong>. In our example <code>p(head) = p(tail)= 1/2</code></li>
+<li>We can denote it more generally as:<ul>
+<li>observed <strong>outcomes</strong> by <code>O</code> and </li>
+<li>set of <strong>parameters</strong> that describe the distribution(stochastic process) as <code>θ</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>So, given specific values for <code>θ</code>, <code>P(O|θ)</code> is the probability that we would observe the outcomes represented by <code>O</code>.</li>
+<li>Here, we know that given a value of parameter <code>θ</code> the probability of observing data <code>O</code> is <code>P(O|θ)</code>.</li>
+<li>However, when we model a real life stochastic process, <strong>we often do not know <code>θ</code></strong>.</li>
+</ul>
+<ul>
+<li>Suppose somebody is trying to convince us to play a gambling game</li>
+<li>Before jumping in the gambling game, we can use the <strong>probabilities</strong> to compute properties like the <strong>expected gains</strong> and <strong>loses</strong> (mean, mode, median, variance, information ratio, value at risk etc)</li>
+</ul>
+<ul>
+<li><p>Here, <strong>likelihood</strong> will help us to determine if we trust those <strong>probabilities</strong>.</p>
+</li>
+<li><p>We simply observe data and the goal is to arrive at an <strong>estimate for model parameters</strong> (in our coin toss example the probability of observing head or tail) that would be a plausible choice.</p>
+</li>
+</ul>
+<ul>
+<li>Again, we are given a <strong>fixed data set</strong>(the measurement) and we are postulating the distribution that data set came from.</li>
+<li><p>In other words, we find the <strong>parameter values <code>θ</code></strong> that <strong>maximize the probability</strong> that we would actually observe our data <code>O</code>,  maximize the <code>L(θ|O)</code> function</p>
+</li>
+<li><p><code>L(θ|O)</code> is called the likelihood function.</p>
+</li>
+</ul>
+<ul>
+<li><p>Notice that likelihood is a function of the <strong>unknown parameters <code>θ</code></strong> of the distribution, given a sample from that distribution.</p>
+</li>
+<li><p>Likelihood deals with fitting models given some <strong>known data</strong></p>
+</li>
+<li><p>Likelihood is a measure calculated from a data sample to provide support for particular values of a parameter in a parametric model.</p>
+</li>
+<li><p>To have low values of likelihood means either we observe a <strong>rare data</strong> or an <strong>incorrect model</strong>!</p>
+</li>
+</ul>
+<ul>
+<li>One could say that statistics comprises of two parts: <ul>
+<li>Question of how to formulate and evaluate probabilistic models for the problem</li>
+<li>Question of obtaining answers after a certain model has been assumed</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Statistical questions can be converted to probability questions by the use of <strong>probability models</strong>. </li>
+<li>Once we make certain assumptions about the <strong>mechanism that generates the data</strong>, we can answer statistical questions using probability theory. </li>
+<li>However, the proper <strong>formulation</strong> and <strong>checking of these probability models</strong> is just as important, or even more important, than the subsequent analysis of the problem using these models.</li>
+</ul>
+<ul>
+<li><strong>Probability</strong> quantifies anticipation of outcome from a know distribution, </li>
+<li><strong>Likelihood</strong> quantifies trust in the model from which we assume the observed data is coming </li>
+<li>Likelihood is often used as an <strong>objective function</strong>, but also as a <strong>performance measure</strong> to compare two models </li>
+</ul>
+<h4 id="More-formally">More formally<a class="anchor-link" href="#More-formally">&#182;</a></h4><ul>
+<li>A statistical model has to connect two distinct conceptual entities: <ul>
+<li><strong>data</strong>, which are elements <code>x</code> of some set (such as a vector space), and </li>
+<li><strong>model</strong> of the data behavior. </li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>The data <code>x</code> are connected to the possible models with parameter <code>θ</code> by means of a function <code>Λ(x,θ)</code>.</p>
+<ul>
+<li>For any <code>given θ</code>, <code>Λ(x,θ)</code> is intended to be the <strong>probability</strong> (or <strong>probability density</strong>) of <code>x</code>. </li>
+<li>For any <code>given x</code>, on the other hand, <code>Λ(x,θ)</code> can be viewed as a <strong>function of <code>θ</code> (likelihood)</strong> and is usually assumed to have certain properties, such as being continuous, second differentiable. </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Visual-explanation-of-likelihood">Visual explanation of likelihood<a class="anchor-link" href="#Visual-explanation-of-likelihood">&#182;</a></h3><ul>
+<li><p>As an example, if we have some data from a normal distribution, but we don't know the <strong>mean</strong> and <strong>standard deviation</strong> of that normal distribution, we can use <strong>maximum likelihood</strong> to determine the <strong>optimal estimates</strong> for the mean and standard deviation.</p>
+</li>
+<li><p>The slides below were taken from the great <a href="https://www.youtube.com/watch?v=XepXtl9YKwc&amp;t=11s">Youtube channel StatQuest</a></p>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/images/like1.png" alt="like1"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The goal of <strong>maximum likelihood</strong> is to find the <strong>optimum way to fit a distribution to the data</strong>
+<img src="/images/like2.png" alt="like2"></p>
+<p>The reasons we want to fit a distribution to our data:</p>
+<ul>
+<li>it can be easier to work with </li>
+<li>it is also more general (we can apply to every experiment of the same type)</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/images/like3.png" alt="like3"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Once we decided on the distribution, it is time to figure out the center.</li>
+<li>Is one location is better than others as a center candidate?</li>
+</ul>
+<p><img src="/images/like4.png" alt="like4"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/images/like5.png" alt="like5"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/images/like6.png" alt="like6"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/images/like7.png" alt="like7"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/images/like8.png" alt="like8"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/images/like9.png" alt="like9"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/images/like10.png" alt="like10"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/images/like11.png" alt="like11"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/images/like12.png" alt="like12"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here the likelihood means trying to find the optimal value for the mean or the standard deviation for a distribution given a observed data.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="How-to-calculate-the-likelihood-of-a-normal-distribution?">How to calculate the likelihood of a normal distribution?<a class="anchor-link" href="#How-to-calculate-the-likelihood-of-a-normal-distribution?">&#182;</a></h3><ul>
+<li><p>When we’re working with a discrete distribution, like the binomial distribution, then likelihood and probability are calculated the same way and we get the same value for both.</p>
+</li>
+<li><p>However, with a continuous distribution, like the normal distribution, then they are quite different.</p>
+</li>
+<li><p>If our function is continuous function thus a probability density function (PDF):</p>
+<ul>
+<li><p>The likelihood for a <strong>single data point</strong> is the y-axis value that corresponds to that point.</p>
+</li>
+<li><p>The probability, however, is calculated as the integral between two points. So for a single data point, the probability is always <code>zero</code>.</p>
+</li>
+<li><p>If we have multiple measurements (data), the likelihood is the various y-axis values multiplied together.</p>
+</li>
+<li><p>Likelihood values can be greater than 1.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="What-is-on-the-y-axis-of-a-PDF?">What is on the y-axis of a PDF?<a class="anchor-link" href="#What-is-on-the-y-axis-of-a-PDF?">&#182;</a></h4><ul>
+<li><p>For example, suppose the graph is the distribution of <strong>height</strong> of adult males in <strong>centimeters</strong>.</p>
+</li>
+<li><p>Then the y-axis units are <code>probability / centimeters</code>.</p>
+</li>
+<li><p>Then when you multiply a <strong>y-axis value</strong> (<code>p/cm</code>) times an <strong>x-axis value</strong> (<code>cm</code>) to get an <strong>area</strong> (<code>p</code>), the units are <strong>probability</strong>.</p>
+</li>
+<li><p>That unit doesn’t make a lot of sense at first</p>
+</li>
+<li>We define the <strong>probability density function</strong> as the derivative of the <strong>cumulative distribution function—F(X)</strong>. </li>
+<li>The cumulative distribution function is measured in units of probability, so it’s easy to describe, F(X) is the <strong>probability of a random observation</strong> being <strong>less than or equal to X</strong>.</li>
+</ul>
+<ul>
+<li>Say the value of <code>f(X)</code> is <code>0.01</code> at <code>175</code>. </li>
+<li>What does that mean? </li>
+<li><p>It means that for a small range in centimeters around <code>175</code>, say from <code>174.9</code> to <code>175.1</code>, the probability of a random adult male being found in the range is about <code>0.01</code> times the width of the range in centimeters, so <code>0.01*(175.1 - 174.9) = 0.002</code></p>
+</li>
+<li><p>So we think about <code>0.2%</code> of adult men will have a height in that range.</p>
+</li>
+<li><p>If we measured in inches instead of centimeters, the value of f(X) would be <code>0.0254</code> instead of <code>0.01</code>, because the new height units are <code>2.54</code> larger than the old height units.</p>
+</li>
+<li><p>So the measured values are divided by 2.54, so f(X) which is measured in inverse unit will be 2.54 as large.</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Sources:</p>
+<ul>
+<li><a href="https://stats.stackexchange.com/questions/2641/what-is-the-difference-between-likelihood-and-probability#2647">https://stats.stackexchange.com/questions/2641/what-is-the-difference-between-likelihood-and-probability#2647</a></li>
+<li><a href="https://www.youtube.com/watch?v=XepXtl9YKwc&amp;t=11s">https://www.youtube.com/watch?v=XepXtl9YKwc&amp;t=11s</a> </li>
+<li><a href="https://www.quora.com/Is-there-a-Y-axis-on-a-bell-curve-or-the-normal-distribution-If-yes-what-does-it-denote-If-not-then-why">https://www.quora.com/Is-there-a-Y-axis-on-a-bell-curve-or-the-normal-distribution-If-yes-what-does-it-denote-If-not-then-why</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+ 
+
