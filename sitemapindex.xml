@@ -74,6 +74,10 @@
   <lastmod>2019-08-03T14:12:00Z</lastmod>
  </sitemap>
  <sitemap>
+  <loc>https://example.com/categories/likelihood.xml</loc>
+  <lastmod>2019-08-03T14:49:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>https://example.com/categories/mean-squared-error.xml</loc>
   <lastmod>2019-08-03T14:12:00Z</lastmod>
  </sitemap>
@@ -88,6 +92,10 @@
  <sitemap>
   <loc>https://example.com/categories/precision.xml</loc>
   <lastmod>2019-01-18T14:32:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://example.com/categories/probability.xml</loc>
+  <lastmod>2019-08-03T14:49:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/r-squared.xml</loc>
@@ -163,10 +171,10 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/rss.xml</loc>
-  <lastmod>2019-08-03T14:12:00Z</lastmod>
+  <lastmod>2019-08-03T14:49:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/sitemap.xml</loc>
-  <lastmod>2019-08-03T14:12:00Z</lastmod>
+  <lastmod>2019-08-03T14:49:00Z</lastmod>
  </sitemap>
 </sitemapindex>
