@@ -5,7 +5,7 @@ STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1564853463.241967
+_modified_time = 1565892008.714083
 _enable_loop = True
 _template_filename = 'c:/users/smartforfreedom/anaconda3/envs/blog/lib/site-packages/nikola/data/themes/base/templates/listing.tmpl'
 _template_uri = 'listing.tmpl'
@@ -30,13 +30,13 @@ def render_body(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
-        crumbs = context.get('crumbs', UNDEFINED)
-        source_link = context.get('source_link', UNDEFINED)
-        code = context.get('code', UNDEFINED)
-        title = context.get('title', UNDEFINED)
-        folders = context.get('folders', UNDEFINED)
-        messages = context.get('messages', UNDEFINED)
         files = context.get('files', UNDEFINED)
+        folders = context.get('folders', UNDEFINED)
+        title = context.get('title', UNDEFINED)
+        messages = context.get('messages', UNDEFINED)
+        source_link = context.get('source_link', UNDEFINED)
+        crumbs = context.get('crumbs', UNDEFINED)
+        code = context.get('code', UNDEFINED)
         ui = _mako_get_namespace(context, 'ui')
         def content():
             return render_content(context._locals(__M_locals))
@@ -56,13 +56,13 @@ def render_body(context,**pageargs):
 def render_content(context,**pageargs):
     __M_caller = context.caller_stack._push_frame()
     try:
-        crumbs = context.get('crumbs', UNDEFINED)
-        source_link = context.get('source_link', UNDEFINED)
-        code = context.get('code', UNDEFINED)
-        title = context.get('title', UNDEFINED)
-        folders = context.get('folders', UNDEFINED)
-        messages = context.get('messages', UNDEFINED)
         files = context.get('files', UNDEFINED)
+        folders = context.get('folders', UNDEFINED)
+        title = context.get('title', UNDEFINED)
+        messages = context.get('messages', UNDEFINED)
+        source_link = context.get('source_link', UNDEFINED)
+        crumbs = context.get('crumbs', UNDEFINED)
+        code = context.get('code', UNDEFINED)
         ui = _mako_get_namespace(context, 'ui')
         def content():
             return render_content(context)
