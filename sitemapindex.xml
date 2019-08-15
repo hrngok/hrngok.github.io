@@ -11,7 +11,7 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/adaboost.xml</loc>
-  <lastmod>2019-06-12T23:09:00Z</lastmod>
+  <lastmod>2019-08-15T18:16:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/area-under-the-roc-curve.xml</loc>
@@ -63,7 +63,7 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/gradient-boosting.xml</loc>
-  <lastmod>2019-06-12T23:09:00Z</lastmod>
+  <lastmod>2019-08-15T18:16:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/imputation.xml</loc>
@@ -71,11 +71,11 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/kaggle.xml</loc>
-  <lastmod>2019-08-03T14:12:00Z</lastmod>
+  <lastmod>2019-08-15T18:16:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/likelihood.xml</loc>
-  <lastmod>2019-08-03T14:49:00Z</lastmod>
+  <lastmod>2019-08-15T18:16:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/mean-squared-error.xml</loc>
@@ -95,7 +95,7 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/probability.xml</loc>
-  <lastmod>2019-08-03T14:49:00Z</lastmod>
+  <lastmod>2019-08-15T18:16:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/r-squared.xml</loc>
@@ -107,7 +107,7 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/randomized-forest.xml</loc>
-  <lastmod>2019-06-12T23:09:00Z</lastmod>
+  <lastmod>2019-08-15T18:16:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/recall.xml</loc>
@@ -139,15 +139,15 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/stochastic-gradient-boosting.xml</loc>
-  <lastmod>2019-06-12T23:09:00Z</lastmod>
+  <lastmod>2019-08-15T18:16:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/timeseries-data.xml</loc>
-  <lastmod>2019-06-26T08:28:00Z</lastmod>
+  <lastmod>2019-08-15T18:16:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/timeseriessplit.xml</loc>
-  <lastmod>2019-06-26T08:28:00Z</lastmod>
+  <lastmod>2019-08-15T18:16:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/categories/tree-based-models.xml</loc>
@@ -171,10 +171,10 @@
  </sitemap>
  <sitemap>
   <loc>https://example.com/rss.xml</loc>
-  <lastmod>2019-08-03T14:49:00Z</lastmod>
+  <lastmod>2019-08-15T18:16:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://example.com/sitemap.xml</loc>
-  <lastmod>2019-08-03T14:49:00Z</lastmod>
+  <lastmod>2019-08-15T18:16:00Z</lastmod>
  </sitemap>
 </sitemapindex>
